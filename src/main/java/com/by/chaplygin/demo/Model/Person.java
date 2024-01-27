@@ -1,6 +1,6 @@
 package com.by.chaplygin.demo.Model;
 
-import com.by.chaplygin.demo.Model.Enums.PersonRole;
+import com.by.chaplygin.demo.Enums.PersonRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -39,6 +39,8 @@ public class Person {
     private double score;
     @Column(name = "is_active")
     private boolean isActive;
+    @Column(name = "password")
+    private String password;
 
     @ElementCollection(targetClass = PersonRole.class)
     @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
