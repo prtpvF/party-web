@@ -1,5 +1,10 @@
 package com.by.chaplygin.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +29,7 @@ public class Party {
     @Column(name = "date_of_create")
     private LocalDateTime dateOfCreate;
     @Column(name = "date_of_event")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private LocalDateTime dateOfEvent;
     @Column(name = "address")
     private String address;
