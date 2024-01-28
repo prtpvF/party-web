@@ -2,8 +2,11 @@ package com.by.chaplygin.demo.Scheduler;
 
 import com.by.chaplygin.demo.Model.Party;
 import com.by.chaplygin.demo.Repositories.PartyRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,10 +24,12 @@ import java.util.List;
 @Component
 public class SchedulerHandler {
     private final PartyRepository partyRepository;
+    private final EntityManager entityManager;
 
     @Scheduled(cron = "${event.expiration.date}")
     public void deletePartyWithExpiredDate() {
-        List<Party> partys = partyRepository.findAll(); //todo n+1 error
+        Session session = entityManager.unwrap(Session.class);
+        List<Party> partys = session.createQuery("select p from Party p LEFT JOIN FETCH p.organizer").getResultList();
         List<Party> filteredList = partys.stream()
                         .filter(party -> party.getDateOfEvent()
                         .isBefore(LocalDateTime.now())).toList();
