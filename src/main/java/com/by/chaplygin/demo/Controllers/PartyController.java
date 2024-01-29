@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/party")
@@ -25,5 +27,11 @@ public class PartyController {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
+    }
+
+
+    @GetMapping("/partys")
+    public List<Party> findAllParty(){
+        return partyServices.findAllParty();
     }
 }

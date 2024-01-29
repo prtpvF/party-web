@@ -1,6 +1,8 @@
 package com.by.chaplygin.demo.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -29,7 +31,7 @@ public class Party {
     @Column(name = "date_of_create")
     private LocalDateTime dateOfCreate;
     @Column(name = "date_of_event")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSS")
     private LocalDateTime dateOfEvent;
     @Column(name = "address")
     private String address;
@@ -41,5 +43,6 @@ public class Party {
     private String instagram;
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
+    @JsonManagedReference
     private Person organizer;
 }
