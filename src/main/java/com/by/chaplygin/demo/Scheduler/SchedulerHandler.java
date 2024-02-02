@@ -34,6 +34,6 @@ public class SchedulerHandler {
                         .filter(party -> party.getDateOfEvent()
                         .isBefore(LocalDateTime.now())).toList();
         filteredList.forEach(party -> partyRepository.delete(party));
-
     }
+
 }

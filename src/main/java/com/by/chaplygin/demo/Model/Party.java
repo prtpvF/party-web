@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Party")
@@ -45,4 +49,12 @@ public class Party {
     @JoinColumn(name = "person_id", nullable = false)
     @JsonManagedReference
     private Person organizer;
+
+    @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinTable(
+            name = "person_party",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "party_id")
+    )
+    private Set<Person> guests = new HashSet<>();
 }

@@ -15,7 +15,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Person")
@@ -73,6 +75,10 @@ public class Person {
     @OneToMany(mappedBy = "organizer")
     @JsonBackReference
     private List<Party> allOrgParty = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "guests", fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JsonBackReference
+    private Set<Party> allPersonParty = new HashSet<>();
 
 
 

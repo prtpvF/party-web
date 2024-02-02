@@ -1,8 +1,7 @@
 package com.by.chaplygin.demo.Dto;
 
 import com.by.chaplygin.demo.Enums.PersonRole;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
+import com.by.chaplygin.demo.Model.Person;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +21,15 @@ public class PersonDto {
     private double score;
     private boolean isActive;
     private String password;
-
     private List<PersonRole> roles;
+
+
+    public Person personWithoutAllPartyField(Person person){
+        Person personDto = new Person();
+        personDto.setId(person.getId());
+        personDto.setEmail(person.getEmail());
+        personDto.setPhone(person.getPhone());
+        personDto.setUsername(person.getUsername());
+        return personDto;
+    }
 }
