@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -54,6 +55,21 @@ public class PersonService implements UserDetailsService {
                 throw new PartyNotFoundException("cannot find party");
         party.get().getGuests().add(person.get());
 
+    }
+
+    @Transactional
+    public void deleteAccount(int id){
+        Optional<Person> person = personRepository.findById(id);
+        personRepository.delete(person.get());
+    }
+
+    @Transactional
+    public Person indexPage(String username) throws PersonNotFoundException {
+        Optional<Person> person = personRepository.findByUsername(username);
+        if(person.isEmpty()){
+            throw new PersonNotFoundException("person not found");
+        }
+        return person.get();
     }
 
 
