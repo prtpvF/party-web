@@ -1,5 +1,6 @@
 package com.by.chaplygin.demo.Services;
 
+import com.by.chaplygin.demo.Enums.PersonRole;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
 import com.by.chaplygin.demo.Model.Party;
@@ -23,8 +24,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,6 +71,26 @@ public class PersonService implements UserDetailsService {
             throw new PersonNotFoundException("person not found");
         }
         return person.get();
+    }
+
+
+    public void updatePerson(String username, Person updatedPerson){
+        Optional<Person> personToBeUpdated = personRepository.findByUsername(username);
+        updatedPerson.setActive(personToBeUpdated.get().isActive());
+        updatedPerson.setDateOfCreate(personToBeUpdated.get().getDateOfCreate());
+        updatedPerson.setDateOfUpdate(LocalDateTime.now());
+
+        // Создаем новую коллекцию и добавляем в нее все элементы из старой коллекции
+        Set<Party> newAllPersonParty = new HashSet<>();
+        newAllPersonParty.addAll(personToBeUpdated.get().getAllPersonParty());
+        List<PersonRole> newPersonRoles = new ArrayList<>();
+        newPersonRoles.addAll(personToBeUpdated.get().getRoles());
+        updatedPerson.setRoles(newPersonRoles);
+        // Устанавливаем новую коллекцию в новый объект Person
+        updatedPerson.setAllPersonParty(newAllPersonParty);
+
+        updatedPerson.setPassword(personToBeUpdated.get().getPassword());
+        personRepository.save(updatedPerson);
     }
 
 

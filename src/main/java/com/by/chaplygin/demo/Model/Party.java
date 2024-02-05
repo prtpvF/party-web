@@ -1,5 +1,6 @@
 package com.by.chaplygin.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -46,9 +47,9 @@ public class Party {
     @Column(name = "instagram")
     private String instagram;
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
-    @JsonManagedReference
-    private Person organizer;
+    @JoinColumn(name = "organizer_id", nullable = false)
+    @JsonBackReference(value = "org-party")
+    private Organizer organizer;
 
     @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
@@ -56,5 +57,6 @@ public class Party {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "party_id")
     )
+    @JsonBackReference(value = "person-party")
     private Set<Person> guests = new HashSet<>();
 }

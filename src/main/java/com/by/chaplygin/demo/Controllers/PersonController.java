@@ -30,4 +30,12 @@ public class PersonController {
         personService.deleteAccount(username);
         return HttpStatus.OK;
     }
+
+    @PostMapping("/update")
+    public HttpStatus updatePerson(@RequestHeader("Authorization") String token, @RequestBody Person person){
+        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        personService.updatePerson(username,person);
+        return HttpStatus.OK;
+    }
+
 }

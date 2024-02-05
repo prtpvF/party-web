@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Person")
+@Table(name = "Organizer")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class Organizer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -66,17 +66,12 @@ public class Person {
     @JsonIgnore
     private String password;
 
-    @ElementCollection(targetClass = PersonRole.class)
-    @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
-    @Enumerated(EnumType.STRING)
-    @JsonIgnore
-    private List<PersonRole> roles;
 
 
+    @OneToMany(mappedBy = "organizer")
+    @JsonBackReference(value = "org-party")
+    private List<Party> allOrgParty = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "guests", fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    @JsonBackReference(value = "person-party")
-    private Set<Party> allPersonParty = new HashSet<>();
 
 
 

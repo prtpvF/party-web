@@ -26,17 +26,17 @@ public class PartyServices {
     private final PersonRepository personRepository;
     private final EntityManager entityManager;
 
-    public void createParty(String username, Party party) throws PersonNotFoundException {
-            Optional<Person> person = personRepository.findByUsername(username);
-            if(!person.isPresent()){
-                throw new PersonNotFoundException("Person doesnt exists");
-            }
-
-            party.setDateOfCreate(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime());
-            party.setOrganizer(person.get());
-            person.get().setAllOrgParty(List.of(party));
-        partyRepository.save(party);
-    }
+//    public void createParty(String username, Party party) throws PersonNotFoundException {
+//            Optional<Person> person = personRepository.findByUsername(username);
+//            if(!person.isPresent()){
+//                throw new PersonNotFoundException("Person doesnt exists");
+//            }
+//
+//            party.setDateOfCreate(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime());
+//            party.setOrganizer(person.get());
+//            person.get().setAllOrgParty(List.of(party));
+//        partyRepository.save(party);
+//    }
 
     public void deleteParty(Party party){
         partyRepository.delete(party);

@@ -18,19 +18,19 @@ public class PartyController {
     private final PartyServices partyServices;
     private final JwtUtil jwtUtil;
 
-    @PostMapping("/create")
-    public HttpStatus createParty(@RequestHeader("Authorization") String token, @RequestBody Party party){
-        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
-        try {
-            partyServices.createParty(username, party);
-        } catch (PersonNotFoundException e) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
-    }
+//    @PostMapping("/create")
+//    public HttpStatus createParty(@RequestHeader("Authorization") String token, @RequestBody Party party){
+//        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+//        try {
+//            partyServices.createParty(username, party);
+//        } catch (PersonNotFoundException e) {
+//            return HttpStatus.BAD_REQUEST;
+//        }
+//        return HttpStatus.OK;
+//    }
 
 
-    @GetMapping("/partys")
+    @GetMapping("/all")
     public List<Party> findAllParty(){
         return partyServices.findAllParty();
     }
