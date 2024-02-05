@@ -58,8 +58,8 @@ public class PersonService implements UserDetailsService {
     }
 
     @Transactional
-    public void deleteAccount(int id){
-        Optional<Person> person = personRepository.findById(id);
+    public void deleteAccount(String username){
+        Optional<Person> person = personRepository.findByUsername(username);
         personRepository.delete(person.get());
     }
 

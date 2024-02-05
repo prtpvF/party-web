@@ -7,10 +7,7 @@ import com.by.chaplygin.demo.Services.PersonService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -24,7 +21,13 @@ public class PersonController {
     @GetMapping("/index")
     public Person index(@RequestHeader("Authorization") String token) throws PersonNotFoundException {
         String username = jwtUtil.validateTokenAndRetrieveClaim(token);
-           Person person =  personService.indexPage(username);
-            return person;
+        Person person = personService.indexPage(username);
+        return person;
+    }
+    @DeleteMapping("/delete")
+    public HttpStatus deleteAccount(@RequestHeader("Authorization") String token){
+        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        personService.deleteAccount(username);
+        return HttpStatus.OK;
     }
 }
