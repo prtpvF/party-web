@@ -24,12 +24,5 @@ public class PersonDto {
     private List<PersonRole> roles;
 
 
-    public Person personWithoutAllPartyField(Person person){
-        Person personDto = new Person();
-        personDto.setId(person.getId());
-        personDto.setEmail(person.getEmail());
-        personDto.setPhone(person.getPhone());
-        personDto.setUsername(person.getUsername());
-        return personDto;
-    }
+
 }

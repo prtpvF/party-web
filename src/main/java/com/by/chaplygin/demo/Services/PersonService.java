@@ -3,8 +3,10 @@ package com.by.chaplygin.demo.Services;
 import com.by.chaplygin.demo.Enums.PersonRole;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
+import com.by.chaplygin.demo.Model.Organizer;
 import com.by.chaplygin.demo.Model.Party;
 import com.by.chaplygin.demo.Model.Person;
+import com.by.chaplygin.demo.Repositories.OrganizerRepository;
 import com.by.chaplygin.demo.Repositories.PartyRepository;
 import com.by.chaplygin.demo.Repositories.PersonRepository;
 import com.by.chaplygin.demo.Security.PersonDetails;
@@ -34,6 +36,7 @@ public class PersonService implements UserDetailsService {
     private final PartyRepository partyRepository;
     private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
+    private final OrganizerRepository organizerRepository;
 
 
     @Override
@@ -91,6 +94,29 @@ public class PersonService implements UserDetailsService {
 
         updatedPerson.setPassword(personToBeUpdated.get().getPassword());
         personRepository.save(updatedPerson);
+    }
+
+    public void addPartyToPerson(String username, int id){
+        Optional<Person> person = personRepository.findByUsername(username);
+        Optional<Party> party = partyRepository.findById(id);
+        person.get().getAllPersonParty().add(party.get());
+        party.get().getGuests().add(person.get());
+        personRepository.save(person.get());
+        partyRepository.save(party.get());
+    }
+
+    public void convertPersonToOrganizer(String username){
+        Optional<Person> person = personRepository.findByUsername(username);
+        Organizer organizer = new Organizer();
+        organizer.setActive(person.get().isActive());
+        organizer.setUsername(username);
+        organizer.setScore(person.get().getScore());
+        organizer.setAge(person.get().getAge());
+        organizer.setPassword(person.get().getPassword());
+        organizer.setDateOfCreate(LocalDateTime.now());
+        organizer.setEmail(person.get().getEmail());
+        organizer.setPhone(person.get().getPhone());
+        organizerRepository.save(organizer);
     }
 
 

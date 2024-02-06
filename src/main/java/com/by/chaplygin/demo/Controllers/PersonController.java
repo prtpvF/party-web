@@ -37,5 +37,17 @@ public class PersonController {
         personService.updatePerson(username,person);
         return HttpStatus.OK;
     }
+    @PostMapping("/add/party")
+    public HttpStatus addPartyToPerson(@RequestHeader("Authorization") String token, @RequestBody int id){
+        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        personService.addPartyToPerson(username, id);
+        return HttpStatus.OK;
+    }
+    @PostMapping("/convert/to/organizer")
+    public HttpStatus changeRoleToOrganizer(@RequestHeader("Authorization") String token){
+        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        personService.convertPersonToOrganizer(username);
+        return HttpStatus.OK;
+    }
 
 }

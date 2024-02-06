@@ -1,6 +1,7 @@
 package com.by.chaplygin.demo.Controllers;
 
 import com.by.chaplygin.demo.Dto.PersonDto;
+import com.by.chaplygin.demo.Model.Organizer;
 import com.by.chaplygin.demo.Model.Person;
 import com.by.chaplygin.demo.Security.JwtUtil;
 import com.by.chaplygin.demo.Services.AuthServices;
@@ -35,4 +36,11 @@ public class AuthController {
     public ResponseEntity<?> createToken(@RequestBody PersonDto personDto){
        return authServices.createToken(personDto);
     }
+    @PostMapping("/organizer/token")
+    public ResponseEntity<?> createOrganizerToken(@RequestBody Organizer organizer){
+        return  authServices.createTokenForOrganizer(organizer);
+    }
+
+
+
 }

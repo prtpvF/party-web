@@ -2,7 +2,9 @@ package com.by.chaplygin.demo.Services;
 
 import com.by.chaplygin.demo.Dto.PersonDto;
 import com.by.chaplygin.demo.Enums.PersonRole;
+import com.by.chaplygin.demo.Model.Organizer;
 import com.by.chaplygin.demo.Model.Person;
+import com.by.chaplygin.demo.Repositories.OrganizerRepository;
 import com.by.chaplygin.demo.Repositories.PersonRepository;
 import com.by.chaplygin.demo.Security.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class AuthServices {
     private final PersonRepository personRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final OrganizerRepository organizerRepository;
 
     public void registration(Person person){
         person.setPassword(passwordEncoder.encode(person.getPassword()));
@@ -39,6 +42,16 @@ public class AuthServices {
 
         }
         String token = jwtUtil.generateToken(personDto.getUsername());
+        return ResponseEntity.ok(token);
+    }
+
+    public ResponseEntity<?> createTokenForOrganizer(Organizer organizer){
+        try{
+            organizerRepository.findByUsername(organizer.getUsername());
+        }catch (BadCredentialsException e){
+            System.out.println("gfd");
+        }
+        String token =jwtUtil.generateToken(organizer.getUsername());
         return ResponseEntity.ok(token);
     }
 

@@ -3,8 +3,10 @@ package com.by.chaplygin.demo.Services;
 import com.by.chaplygin.demo.Dto.PersonDto;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
+import com.by.chaplygin.demo.Model.Organizer;
 import com.by.chaplygin.demo.Model.Party;
 import com.by.chaplygin.demo.Model.Person;
+import com.by.chaplygin.demo.Repositories.OrganizerRepository;
 import com.by.chaplygin.demo.Repositories.PartyRepository;
 import com.by.chaplygin.demo.Repositories.PersonRepository;
 import jakarta.persistence.EntityManager;
@@ -25,18 +27,16 @@ public class PartyServices {
     private final PartyRepository partyRepository;
     private final PersonRepository personRepository;
     private final EntityManager entityManager;
+    private final OrganizerRepository organizerRepository;
 
-//    public void createParty(String username, Party party) throws PersonNotFoundException {
-//            Optional<Person> person = personRepository.findByUsername(username);
-//            if(!person.isPresent()){
-//                throw new PersonNotFoundException("Person doesnt exists");
-//            }
-//
-//            party.setDateOfCreate(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime());
-//            party.setOrganizer(person.get());
-//            person.get().setAllOrgParty(List.of(party));
-//        partyRepository.save(party);
-//    }
+    public void createParty(String username, Party party)  {
+            Optional<Organizer> organizer = organizerRepository.findByUsername(username);
+
+            party.setDateOfCreate(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime());
+            party.setOrganizer(organizer.get());
+            organizer.get().getAllOrgParty().add(party);
+        partyRepository.save(party);
+    }
 
     public void deleteParty(Party party){
         partyRepository.delete(party);
