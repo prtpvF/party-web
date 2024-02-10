@@ -4,6 +4,8 @@ import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
 import com.by.chaplygin.demo.Model.Person;
 import com.by.chaplygin.demo.Security.JwtUtil;
 import com.by.chaplygin.demo.Services.PersonService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

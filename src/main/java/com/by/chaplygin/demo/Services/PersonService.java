@@ -10,15 +10,19 @@ import com.by.chaplygin.demo.Repositories.OrganizerRepository;
 import com.by.chaplygin.demo.Repositories.PartyRepository;
 import com.by.chaplygin.demo.Repositories.PersonRepository;
 import com.by.chaplygin.demo.Security.PersonDetails;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -106,6 +110,8 @@ public class PersonService implements UserDetailsService {
     }
 
     public void convertPersonToOrganizer(String username){
+        HttpServletRequest request = null;
+        HttpServletResponse response = null;
         Optional<Person> person = personRepository.findByUsername(username);
         Organizer organizer = new Organizer();
         organizer.setActive(person.get().isActive());
@@ -117,6 +123,9 @@ public class PersonService implements UserDetailsService {
         organizer.setEmail(person.get().getEmail());
         organizer.setPhone(person.get().getPhone());
         organizerRepository.save(organizer);
+        new SecurityContextLogoutHandler().logout(request,
+                response,
+                SecurityContextHolder.getContext().getAuthentication());
     }
 
 

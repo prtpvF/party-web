@@ -32,4 +32,10 @@ public class PartyController {
     public List<Party> findAllParty(){
         return partyServices.findAllParty();
     }
+
+    @GetMapping("/find/by/name")
+    public List<Party> findPartiesByName(@RequestBody String name){
+        List<Party> founded = partyServices.findByName(name);
+        return founded;
+    }
 }

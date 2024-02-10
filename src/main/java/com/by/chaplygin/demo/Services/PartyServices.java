@@ -1,6 +1,7 @@
 package com.by.chaplygin.demo.Services;
 
 import com.by.chaplygin.demo.Dto.PersonDto;
+import com.by.chaplygin.demo.Exceptions.EmptyPartyListException;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
 import com.by.chaplygin.demo.Model.Organizer;
@@ -56,5 +57,15 @@ public class PartyServices {
         else
             return party.get();
     }
+
+
+    public List<Party> findByName(String name){
+        List<Party> foundedParty = partyRepository.findByAddress(name);
+        if(foundedParty.isEmpty()){
+            throw new EmptyPartyListException("cannot find parties");
+        }
+        return foundedParty;
+    }
+
 
 }
