@@ -2,6 +2,7 @@ package com.auth.authmicroservice.Controller;
 
 import com.auth.authmicroservice.DTO.OrganizerDto;
 import com.auth.authmicroservice.DTO.PersonDto;
+import com.auth.authmicroservice.Exceptions.IllegalAgeException;
 import com.auth.authmicroservice.Exceptions.PersonNotFoundException;
 import com.auth.authmicroservice.Model.Person;
 import com.auth.authmicroservice.Security.JwtUtil;
@@ -26,7 +27,11 @@ public class AuthController {
     @PostMapping("/registration")
     public Map<String, String> registration(@RequestBody PersonDto personDto){
         Person person = converToPerson(personDto);
-        authServices.registration(person);
+        try {
+            authServices.registration(person);
+        } catch (IllegalAgeException e) {
+            return Map.of("error", "you are to young");
+        }
         String token = jwtUtil.generateToken(person.getUsername());
         return Map.of("jwt-tokens", token);
     }

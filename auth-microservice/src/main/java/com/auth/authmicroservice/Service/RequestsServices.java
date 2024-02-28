@@ -1,6 +1,6 @@
 package com.auth.authmicroservice.Service;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -14,9 +14,15 @@ import java.io.File;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+
 public class RequestsServices {
+
     private final RestTemplate restTemplate;
+
+    @Autowired
+    public RequestsServices() {
+        restTemplate = new RestTemplate();
+    }
 
 
     public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String message){
@@ -32,4 +38,6 @@ public class RequestsServices {
         ResponseEntity<Void> response = restTemplate.postForEntity(mailServ, params, Void.class);
         return response.getStatusCode();
     }
+
+
 }

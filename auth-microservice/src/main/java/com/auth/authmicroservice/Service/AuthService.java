@@ -2,6 +2,7 @@ package com.auth.authmicroservice.Service;
 
 import com.auth.authmicroservice.DTO.OrganizerDto;
 import com.auth.authmicroservice.DTO.PersonDto;
+import com.auth.authmicroservice.Exceptions.IllegalAgeException;
 import com.auth.authmicroservice.Exceptions.PersonNotFoundException;
 import com.auth.authmicroservice.Model.Person;
 import com.auth.authmicroservice.PersonRole;
@@ -9,6 +10,7 @@ import com.auth.authmicroservice.Repository.OrganizerRepository;
 import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,7 +18,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.ResourceAccessException;
 
+import java.net.ConnectException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
@@ -30,14 +34,23 @@ public class AuthService {
     private  final AuthenticationManager authenticationManager;
     private  final RequestsServices requestsServices;
 
-    public void registration(Person person){
+    public void registration(Person person) throws IllegalAgeException {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setActive(true);
         person.setDateOfCreate(LocalDateTime.now());
         person.setRoles(Collections.singletonList(PersonRole.valueOf("USER")));
         person.setScore(0.0);
-        personRepository.save(person);
-        requestsServices.sendRequestToMailService(person.getEmail(), "fds",null,"fsd");
+        if(person.getAge()<16) {
+                throw new IllegalAgeException("you are to young");
+        }
+        else {
+            personRepository.save(person);
+            try{
+                HttpStatusCode status = requestsServices.sendRequestToMailService(person.getEmail(), "fds", null, "fsd");
+            }catch (ResourceAccessException e){
+                //todo добавить логирование
+            }
+        }
     }
 
     public ResponseEntity<?> createToken(@RequestBody PersonDto personDto) throws PersonNotFoundException {

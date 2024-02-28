@@ -21,14 +21,11 @@ public class EmailSenderController {
     @PostMapping("/send")
     public HttpStatus sendEmail(@RequestParam("email") String email,
                                 @RequestParam("subject") String subject,
-                                @RequestParam("message") String message,
-                                @RequestParam(value = "attachments", required = false) List<File> attachments){
+                                @RequestParam("message") String message){
 
-        if (attachments.size()!=0) {
-            emailSenderService.sendEmail(email.toString(), subject.toString(), message.toString(), attachments);
-        } else {
+
             emailSenderService.sendEmail(email, subject, message);
-        }
+
         return HttpStatus.OK;
     }
 }

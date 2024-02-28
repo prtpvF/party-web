@@ -10,6 +10,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import java.util.Locale;
+
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class EmailMicroserviceApplication {
