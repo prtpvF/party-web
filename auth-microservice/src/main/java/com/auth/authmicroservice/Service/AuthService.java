@@ -46,7 +46,7 @@ public class AuthService {
         else {
             personRepository.save(person);
             try{
-                HttpStatusCode status = requestsServices.sendRequestToMailService(person.getEmail(), "fds", null, "fsd");
+                HttpStatusCode status = requestsServices.sendRequestToMailService(person.getEmail(), "fds", null, "REGISTRATION");
             }catch (ResourceAccessException e){
                 //todo добавить логирование
             }

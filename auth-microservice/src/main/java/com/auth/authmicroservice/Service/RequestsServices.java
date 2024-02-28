@@ -25,7 +25,7 @@ public class RequestsServices {
     }
 
 
-    public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String message){
+    public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String type){
         String mailServ = "http://localhost:8082/email/send";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -33,7 +33,7 @@ public class RequestsServices {
 
         params.add("email", email);
         params.add("subject", subject);
-        params.add("message", message);
+        params.add("type", type);
 
         ResponseEntity<Void> response = restTemplate.postForEntity(mailServ, params, Void.class);
         return response.getStatusCode();

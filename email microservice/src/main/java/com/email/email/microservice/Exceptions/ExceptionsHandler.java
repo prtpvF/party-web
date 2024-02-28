@@ -8,6 +8,7 @@ import org.springframework.mail.MailSendException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -35,6 +36,15 @@ public class ExceptionsHandler {
     @ExceptionHandler(value = {MailParseException.class})
     public ResponseEntity<Object> handleMailParseException(MailParseException e) {
         HttpStatus status = HttpStatus.CONFLICT;
+        ApiException exception = new ApiException(
+                e.getMessage(), e, status, ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(exception, status);
+    }
+
+    @ExceptionHandler(value = IOException.class)
+    public ResponseEntity<?> handleIOException(IOException e){
+        HttpStatus status = HttpStatus.FORBIDDEN;
         ApiException exception = new ApiException(
                 e.getMessage(), e, status, ZonedDateTime.now(ZoneId.of("Z"))
         );

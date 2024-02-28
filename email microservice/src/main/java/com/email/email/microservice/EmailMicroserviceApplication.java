@@ -1,7 +1,9 @@
 package com.email.email.microservice;
 
 import com.email.email.microservice.Services.EmailSenderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -14,7 +16,9 @@ import java.util.Locale;
 
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+
 public class EmailMicroserviceApplication {
+
 	@Autowired
 	private EmailSenderService emailSenderServices;
 	public static void main(String[] args) {
