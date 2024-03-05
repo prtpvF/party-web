@@ -34,6 +34,7 @@ public class AuthService {
     private  final AuthenticationManager authenticationManager;
     private  final RequestsServices requestsServices;
 
+
     public void registration(Person person) throws IllegalAgeException {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setActive(true);
@@ -52,6 +53,8 @@ public class AuthService {
             }
         }
     }
+
+
 
     public ResponseEntity<?> createToken(@RequestBody PersonDto personDto) throws PersonNotFoundException {
 

@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  licensingservice:
+    image: auth/auth-microservice:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8081"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
