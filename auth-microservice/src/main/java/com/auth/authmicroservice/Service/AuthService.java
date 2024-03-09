@@ -10,6 +10,7 @@ import com.auth.authmicroservice.Repository.OrganizerRepository;
 import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,7 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
+
 public class AuthService {
     private final PersonRepository personRepository;
     private final PasswordEncoder passwordEncoder;

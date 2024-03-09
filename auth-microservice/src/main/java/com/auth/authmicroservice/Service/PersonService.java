@@ -4,6 +4,7 @@ import com.auth.authmicroservice.Model.Person;
 import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.PersonDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+
 public class PersonService implements UserDetailsService {
     private final PersonRepository personRepository;
     @Override
