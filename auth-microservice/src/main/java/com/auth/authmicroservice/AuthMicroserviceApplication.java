@@ -26,6 +26,7 @@ public class AuthMicroserviceApplication {
 	}
 
 	@Bean
+	@LoadBalanced
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
