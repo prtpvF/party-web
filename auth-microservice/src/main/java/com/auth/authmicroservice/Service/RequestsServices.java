@@ -1,7 +1,7 @@
 package com.auth.authmicroservice.Service;
 
+import com.auth.authmicroservice.Clients.EmailServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -11,23 +11,28 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+
 import java.io.File;
 import java.util.List;
 
 @Service
-
 public class RequestsServices {
 
-    private final RestTemplate restTemplate;
+    private final EmailServiceClient emailServiceClient;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
-    public RequestsServices() {
-        restTemplate = new RestTemplate();
+    public RequestsServices(EmailServiceClient emailServiceClient) {
+        this.emailServiceClient = emailServiceClient;
+
+
     }
 
 
     public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String type){
-        String mailServ = "http://localhost:8082/email/send";
+        String url = emailServiceClient.getServiceUrl("email-microservice");
+        String mailServ = url+"/email/send";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();

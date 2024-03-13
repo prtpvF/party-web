@@ -1,9 +1,12 @@
 package com.auth.authmicroservice.Configuration;
 
 import com.auth.authmicroservice.Service.PersonService;
+import com.netflix.discovery.DiscoveryClient;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +24,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @Configuration
 public class SpringSecurity {
+
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,4 +59,6 @@ public class SpringSecurity {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
+
 }
