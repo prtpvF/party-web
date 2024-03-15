@@ -6,10 +6,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,13 +34,17 @@ public class Person {
     private int id;
 
     @Column(name = "username")
+    @NotEmpty(message = "username cannot be empty")
+    @Length(min=3, max=24, message = "min length of username = 3, and max=24")
     private String username;
 
     @Column(name = "age")
+    @Min(value = 16, message = "min age is 16")
+    @Max(value = 100, message = "max age is 100")
     private int age;
 
     @Column(name = "email")
-    @Email
+    @Email(message = "email is not correct")
     private String email;
 
     @Column(name="phone")
