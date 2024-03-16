@@ -33,13 +33,36 @@ public class SamplesPars {
         return message;
     }
 
+    public String getSampleTextWithParams(Type type, int partyId, int requestId){
+        String message ="";
+        switch (type) {
+            case REQUEST_ANSWER:
+                message = getRequestText("src/main/java/com/email/email/microservice/EmailSamples/ParticipationRequestAns", partyId, requestId);
+                break;
+        }
+        return message;
+    }
+
     private String getText(String filePath) {
         String content = null;
         try {
             content = new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
+
         } catch (IOException e) {
 
         }
         return content;
     }
+
+    private String getRequestText(String filePath, int partyId, int requestId) {
+        String content = null;
+        try {
+            content = new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
+            content += String.format(" идентификатор вечеринки: %d, идентификатор запроса: %d", partyId, requestId);
+        } catch (IOException e) {
+
+        }
+        return content;
+    }
+
 }

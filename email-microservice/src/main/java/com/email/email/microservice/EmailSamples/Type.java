@@ -4,5 +4,6 @@ public enum Type {
     DELETE_PARTY,
     DELETE_ACCOUNT,
     CREATE_PARTY,
-    REGISTRATION
+    REGISTRATION,
+    REQUEST_ANSWER
 }

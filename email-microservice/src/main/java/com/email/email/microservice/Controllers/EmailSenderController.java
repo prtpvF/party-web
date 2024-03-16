@@ -24,10 +24,17 @@ public class EmailSenderController {
     @PostMapping("/send")
     public HttpStatus sendEmail(@RequestParam("email") String email,
                                 @RequestParam("subject") String subject,
-                                @RequestParam("type") String type) {
+                                @RequestParam("type") String type,
+                                @RequestParam(value = "partyId", required = false) Integer partyId,
+                                @RequestParam(value = "requestId", required = false) Integer requestId) {
         String message = samplesPars.getSampleText(Type.valueOf(type));
+        if (partyId != null && requestId != null) {
+            message = samplesPars.getSampleTextWithParams(Type.valueOf(type), partyId, requestId);
+        }
         emailSenderService.sendEmail(email, subject, message);
 
         return HttpStatus.OK;
     }
+
+
 }

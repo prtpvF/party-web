@@ -128,7 +128,6 @@ public class PersonService implements UserDetailsService {
         organizer.setEmail(person.get().getEmail());
         organizer.setPhone(person.get().getPhone());
         organizerRepository.save(organizer);
-
     }
 
 
