@@ -1,10 +1,11 @@
 package com.auth.authmicroservice.Service;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -23,7 +24,10 @@ public class RequestsServices {
 
 
 
-
+    @CircuitBreaker(name = "email-microservice" )
+    @Bulkhead(name="bulkheadAuthMicroservice", type = Bulkhead.Type.THREADPOOL) //ограничение одновременных вызовов
+    @Retry(name = "retryAuth-microservice")
+    @RateLimiter(name = "auth-microservice") // Ограничение кол-во вызова в заданный момент времени
     public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String type){
         String serviceName = "email-microservice";
         String endpoint = "/email/send";
@@ -38,5 +42,6 @@ public class RequestsServices {
         ResponseEntity<Void> response = restTemplate.postForEntity("http://" + serviceName + endpoint, params, Void.class);
         return response.getStatusCode();
     }
+
 
 }
