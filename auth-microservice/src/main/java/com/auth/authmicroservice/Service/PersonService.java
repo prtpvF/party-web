@@ -3,6 +3,7 @@ package com.auth.authmicroservice.Service;
 import com.auth.authmicroservice.Model.Person;
 import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.PersonDetails;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +18,9 @@ import java.util.Optional;
 
 public class PersonService implements UserDetailsService {
     private final PersonRepository personRepository;
+
     @Override
+    @CircuitBreaker(name = "authService")
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<Person> person = personRepository.findByUsername(s);
 

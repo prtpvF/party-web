@@ -9,6 +9,7 @@ import com.auth.authmicroservice.PersonRole;
 import com.auth.authmicroservice.Repository.OrganizerRepository;
 import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.JwtUtil;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatusCode;
@@ -24,6 +25,7 @@ import org.springframework.web.client.ResourceAccessException;
 import java.net.ConnectException;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,7 @@ public class AuthService {
     private  final RequestsServices requestsServices;
 
 
+    @CircuitBreaker(name = "auth-microservice")
     public void registration(Person person) throws IllegalAgeException {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setActive(true);
@@ -57,7 +60,7 @@ public class AuthService {
     }
 
 
-
+    @CircuitBreaker(name = "auth-microservice")
     public ResponseEntity<?> createToken(@RequestBody PersonDto personDto) throws PersonNotFoundException {
 
         try {
@@ -68,7 +71,7 @@ public class AuthService {
         String token = jwtUtil.generateToken(personDto.getUsername());
         return ResponseEntity.ok(token);
     }
-
+    @CircuitBreaker(name = "auth-microservice")
     public ResponseEntity<?> createTokenForOrganizer(@RequestBody OrganizerDto organizerDto) throws PersonNotFoundException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(organizerDto.getUsername(), organizerDto.getPassword()));
@@ -78,5 +81,6 @@ public class AuthService {
         String token =jwtUtil.generateToken(organizerDto.getUsername());
         return ResponseEntity.ok(token);
     }
+
 
 }
