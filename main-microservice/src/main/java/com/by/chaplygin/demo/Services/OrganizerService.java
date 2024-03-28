@@ -66,7 +66,7 @@ public class OrganizerService {
         Optional<Person> person = personRepository.findByUsername(username);
         String email = person.get().getEmail();
 
-        String serviceName = "email-microservice";
+        String serviceName = "http://gateway";
         String endpoint = "/email/send";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -78,7 +78,7 @@ public class OrganizerService {
         params.add("partyId", partyId);
         params.add("requestId", requestId);
 
-        ResponseEntity<Void> response = restTemplate.postForEntity("http://" + serviceName + endpoint, params, Void.class);
+        ResponseEntity<Void> response = restTemplate.postForEntity(serviceName + endpoint, params, Void.class);
         return response.getStatusCode();
     }
 

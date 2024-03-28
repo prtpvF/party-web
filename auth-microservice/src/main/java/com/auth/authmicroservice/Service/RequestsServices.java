@@ -25,7 +25,7 @@ public class RequestsServices {
 
 
     @CircuitBreaker(name = "email-microservice" )
-    @Bulkhead(name="bulkheadAuthMicroservice", type = Bulkhead.Type.THREADPOOL) //ограничение одновременных вызовов
+    //@Bulkhead(name="bulkheadAuthMicroservice", type = Bulkhead.Type.THREADPOOL) //ограничение одновременных вызовов
     @Retry(name = "retryAuth-microservice")
     @RateLimiter(name = "auth-microservice") // Ограничение кол-во вызова в заданный момент времени
     public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String type){
