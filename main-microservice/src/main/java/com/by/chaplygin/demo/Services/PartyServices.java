@@ -28,6 +28,7 @@ public class PartyServices {
     private final PersonRepository personRepository;
     private final EntityManager entityManager;
     private final OrganizerRepository organizerRepository;
+    private final RequestsService requestsService;
 
 
     public void createParty(String username, Party party)  {
@@ -40,7 +41,11 @@ public class PartyServices {
     }
 
     public void deleteParty(int id){
-
+        Optional<Party> party = partyRepository.findById(id);
+        Set<Person> guests = party.get().getGuests();
+        for (Person person:guests) {
+            requestsService.sendRequestToEmailService(person.getEmail(), id, "изменение", "DELETE_PARTY");
+        }
         partyRepository.deleteById(id);
     }
 
@@ -81,7 +86,13 @@ public class PartyServices {
     }
 
 
-
-
+    public void editParty(int id, Party updatedParty){
+        Optional<Party> partyToBeUpdated = partyRepository.findById(id);
+        updatedParty.setGuests(partyToBeUpdated.get().getGuests());
+        updatedParty.setId(partyToBeUpdated.get().getId());
+        updatedParty.setRequests(partyToBeUpdated.get().getRequests());
+        updatedParty.setOrganizer(partyToBeUpdated.get().getOrganizer());
+        partyRepository.save(updatedParty);
+    }
 
 }
