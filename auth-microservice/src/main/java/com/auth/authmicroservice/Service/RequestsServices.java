@@ -29,8 +29,8 @@ public class RequestsServices {
     @Retry(name = "retryAuth-microservice")
     @RateLimiter(name = "auth-microservice") // Ограничение кол-во вызова в заданный момент времени
     public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String type){
-        String serviceName = "email-microservice";
-        String endpoint = "/email/send";
+        String serviceName = "gateway-server/";
+        String endpoint = "email-microservice/email/send";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
@@ -39,7 +39,7 @@ public class RequestsServices {
         params.add("subject", subject);
         params.add("type", type);
 
-        ResponseEntity<Void> response = restTemplate.postForEntity("http://" + serviceName + endpoint, params, Void.class);
+        ResponseEntity<Void> response = restTemplate.postForEntity("http://"+ serviceName + endpoint, params, Void.class);
         return response.getStatusCode();
     }
 
