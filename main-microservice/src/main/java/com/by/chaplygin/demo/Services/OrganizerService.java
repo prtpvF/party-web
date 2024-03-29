@@ -1,14 +1,8 @@
 package com.by.chaplygin.demo.Services;
 
 import com.by.chaplygin.demo.Exceptions.NotFoundException;
-import com.by.chaplygin.demo.Model.Organizer;
-import com.by.chaplygin.demo.Model.ParticipationRequests;
-import com.by.chaplygin.demo.Model.Party;
-import com.by.chaplygin.demo.Model.Person;
-import com.by.chaplygin.demo.Repositories.OrganizerRepository;
-import com.by.chaplygin.demo.Repositories.PartyRepository;
-import com.by.chaplygin.demo.Repositories.PersonRepository;
-import com.by.chaplygin.demo.Repositories.RequestRepository;
+import com.by.chaplygin.demo.Model.*;
+import com.by.chaplygin.demo.Repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -20,6 +14,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.swing.text.html.Option;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,6 +29,7 @@ public class OrganizerService {
     private final RequestRepository requestRepository;
     private final PersonRepository personRepository;
     private final RestTemplate restTemplate;
+    private final BansRepository bansRepository;
 
 
 
@@ -114,6 +113,22 @@ public class OrganizerService {
         }
         return  participationRequests;
     }
+
+    public void banGuest(String username, int personId, String endOfBan){
+        Optional<Person> guest = personRepository.findById(personId);
+        Optional<Organizer> organizer = organizerRepository.findByUsername(username);
+        SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
+        String formattedDate = date.format(getCurrentDate());
+        Bans ban = new Bans(guest.get(), organizer.get(), formattedDate, endOfBan);
+        bansRepository.save(ban);
+    }
+
+    private Date getCurrentDate(){
+        Date date = new Date();
+        return date;
+    }
+
+
 
 
 }

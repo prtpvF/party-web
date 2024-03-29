@@ -73,7 +73,9 @@ public class Organizer  {
     @JsonBackReference(value = "org-party")
     private List<Party> allOrgParty = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "organizer")
+    @JsonIgnore
+    private List<Bans> bans = new ArrayList<>();
 
 
 

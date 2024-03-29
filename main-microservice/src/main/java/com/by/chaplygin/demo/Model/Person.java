@@ -81,6 +81,8 @@ public class Person {
     @OneToMany(mappedBy = "guestId")
     private List<ParticipationRequests> requests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "person")
+    private List<Bans> bans = new ArrayList<>();
 
 
 

@@ -19,8 +19,8 @@ public class RequestsService {
 
     public void sendRequestToEmailService(String email, int partyId,  String subject, String type){
 
-        String serviceName = "email-microservice";
-        String endpoint = "/email/send";
+        String serviceName = "gateway-server/";
+        String endpoint = "email-microservice/email/send";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
