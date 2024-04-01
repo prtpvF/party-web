@@ -2,15 +2,10 @@ package com.by.chaplygin.demo.Services;
 
 import com.by.chaplygin.demo.Enums.PersonRole;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
+import com.by.chaplygin.demo.Exceptions.PersonIsBannedException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
-import com.by.chaplygin.demo.Model.Organizer;
-import com.by.chaplygin.demo.Model.ParticipationRequests;
-import com.by.chaplygin.demo.Model.Party;
-import com.by.chaplygin.demo.Model.Person;
-import com.by.chaplygin.demo.Repositories.OrganizerRepository;
-import com.by.chaplygin.demo.Repositories.PartyRepository;
-import com.by.chaplygin.demo.Repositories.PersonRepository;
-import com.by.chaplygin.demo.Repositories.RequestRepository;
+import com.by.chaplygin.demo.Model.*;
+import com.by.chaplygin.demo.Repositories.*;
 import com.by.chaplygin.demo.Security.PersonDetails;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,6 +39,7 @@ public class PersonService implements UserDetailsService {
     private final PersonRepository personRepository;
     private final OrganizerRepository organizerRepository;
     private final RequestRepository requestRepository;
+    private final BansRepository bansRepository;
 
 
     @Override
@@ -106,12 +102,20 @@ public class PersonService implements UserDetailsService {
     public void addPartyToPerson(String username, int id){   //todo test
         Optional<Person> person = personRepository.findByUsername(username);
         Optional<Party> party = partyRepository.findById(id);
-        ParticipationRequests participationRequests = new ParticipationRequests();
-        participationRequests.setPartyId(party.get());
-        participationRequests.setGuestId(person.get());
-      person.get().getRequests().add(participationRequests);
-        party.get().getRequests().add(participationRequests);
-       requestRepository.save(participationRequests);
+
+        if(isPersonBanned(person.get().getId(), party.get().getOrganizer().getId())){
+            ParticipationRequests participationRequests = new ParticipationRequests();
+            participationRequests.setPartyId(party.get());
+            participationRequests.setGuestId(person.get());
+            person.get().getRequests().add(participationRequests);
+            party.get().getRequests().add(participationRequests);
+            requestRepository.save(participationRequests);
+        }else
+            try {
+                throw new PersonIsBannedException("you are banned");
+            } catch (PersonIsBannedException e) {
+
+            }
     }
 
     public void convertPersonToOrganizer(String username){
@@ -128,6 +132,27 @@ public class PersonService implements UserDetailsService {
         organizer.setEmail(person.get().getEmail());
         organizer.setPhone(person.get().getPhone());
         organizerRepository.save(organizer);
+    }
+
+    private boolean isPersonBanned(int personId, int organizerId){
+        Optional<Person> person = getPersonById(personId);
+        Optional<Organizer> organizer = getOrganizerById(organizerId);
+        if (person.isPresent() && organizer.isPresent()) {
+            Optional<Bans> ban = bansRepository.findBansByPersonAndOrganizer(person.get(), organizer.get());
+            return ban.isPresent();
+        } else {
+            return false;
+        }
+    }
+
+    private Optional<Person> getPersonById(int personId){
+        Optional<Person> person = personRepository.findById(personId);
+        return person;
+    }
+
+    private Optional<Organizer> getOrganizerById(int organizerId){
+        Optional<Organizer> organizer = organizerRepository.findById(organizerId);
+        return organizer;
     }
 
 

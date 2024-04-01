@@ -49,6 +49,15 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(exception, status);
     }
 
+    @ExceptionHandler(value = PersonIsBannedException.class)
+    public ResponseEntity<Object> handlePersonIsBannedException(PersonIsBannedException e){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ApiException exception = new ApiException(
+                e.getMessage(),e, status, ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(exception, status);
+    }
+
 
 }
 
