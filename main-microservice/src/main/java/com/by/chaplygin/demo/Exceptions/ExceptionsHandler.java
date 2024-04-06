@@ -57,6 +57,14 @@ public class ExceptionsHandler {
         );
         return new ResponseEntity<>(exception, status);
     }
+    @ExceptionHandler(value = ReportAlreadyExistException.class)
+    public ResponseEntity<Object> handleReportAlreadyExistsException(ReportAlreadyExistException e){
+        HttpStatus status = HttpStatus.FOUND;
+        ApiException exception = new ApiException(
+                e.getMessage(),e,status,ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(exception,status);
+    }
 
 
 }

@@ -54,4 +54,12 @@ public class PersonController {
         return HttpStatus.OK;
     }
 
+    @PostMapping("/create/report")
+    public HttpStatus createReport(@RequestBody Map<String, String> data){
+        int personId = Integer.parseInt(data.get("personId"));
+        int partyId = Integer.parseInt(data.get("partyId"));
+        String text = data.get("text");
+        HttpStatus status = personService.createReport(personId,partyId,text);
+        return status;
+    }
 }

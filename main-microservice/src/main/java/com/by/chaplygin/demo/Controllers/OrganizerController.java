@@ -17,7 +17,7 @@ public class OrganizerController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/accept/request")
-    public HttpStatus acceptRequest(@RequestHeader("Authorization") String token,
+    private HttpStatus acceptRequest(@RequestHeader("Authorization") String token,
                                     @RequestBody Map<String, Integer> request1){
         int partyId = request1.get("partyId");
         int requestId = request1.get("requestId");
@@ -29,4 +29,15 @@ public class OrganizerController {
         }
         return HttpStatus.OK;
     }
+
+    @PostMapping("/ban")
+    private HttpStatus banGuest(@RequestHeader("Authorization") String token,
+                                @RequestBody Map<String, String> data){
+        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        int personId = Integer.parseInt(data.get("personId"));
+        String endOfBan = data.get("endOfBan");
+        organizerService.banGuest(personId,endOfBan,username);
+        return HttpStatus.OK;
+    }
+
 }

@@ -62,4 +62,6 @@ public class Party {
 
     @OneToMany(mappedBy = "partyId")
     private List<ParticipationRequests> requests = new ArrayList<>();
+    @OneToMany(mappedBy = "party")
+    private List<Report> reports = new ArrayList<>();
 }

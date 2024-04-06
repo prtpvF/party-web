@@ -4,32 +4,24 @@ import com.by.chaplygin.demo.Enums.PersonRole;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
 import com.by.chaplygin.demo.Exceptions.PersonIsBannedException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
+import com.by.chaplygin.demo.Exceptions.ReportAlreadyExistException;
 import com.by.chaplygin.demo.Model.*;
 import com.by.chaplygin.demo.Repositories.*;
 import com.by.chaplygin.demo.Security.PersonDetails;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +32,7 @@ public class PersonService implements UserDetailsService {
     private final OrganizerRepository organizerRepository;
     private final RequestRepository requestRepository;
     private final BansRepository bansRepository;
+    private final ReportRepository reportRepository;
 
 
     @Override
@@ -118,20 +111,16 @@ public class PersonService implements UserDetailsService {
             }
     }
 
-    public void convertPersonToOrganizer(String username){
-        HttpServletRequest request = null;
-        HttpServletResponse response = null;
-        Optional<Person> person = personRepository.findByUsername(username);
-        Organizer organizer = new Organizer();
-        organizer.setActive(person.get().isActive());
-        organizer.setUsername(username);
-        organizer.setScore(person.get().getScore());
-        organizer.setAge(person.get().getAge());
-        organizer.setPassword(person.get().getPassword());
-        organizer.setDateOfCreate(LocalDateTime.now());
-        organizer.setEmail(person.get().getEmail());
-        organizer.setPhone(person.get().getPhone());
-        organizerRepository.save(organizer);
+    public void convertPersonToOrganizer(String username) {
+        Optional<Person> personOpt = personRepository.findByUsername(username);
+        if (personOpt.isPresent()) {
+            Person person = personOpt.get();
+            Organizer organizer = new Organizer();
+                BeanUtils.copyProperties(organizer, person);
+                organizer.setDateOfCreate(LocalDateTime.now());
+                organizerRepository.save(organizer);
+
+        }
     }
 
     private boolean isPersonBanned(int personId, int organizerId){
@@ -153,6 +142,43 @@ public class PersonService implements UserDetailsService {
     private Optional<Organizer> getOrganizerById(int organizerId){
         Optional<Organizer> organizer = organizerRepository.findById(organizerId);
         return organizer;
+    }
+
+    public HttpStatus createReport(int personId, int partyId, String text){
+        Optional<Person> person = personRepository.findById(personId);
+        Optional<Party> party = partyRepository.findById(partyId);
+        if(!isReportExist(personId,partyId)){
+            Report report = new Report();
+            report.setPerson(person.get());
+            report.setParty(party.get());
+            report.setText(text);
+            SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
+            String formattedDate = date.format(getCurrentDate());
+            report.setDate(formattedDate);
+            reportRepository.save(report);
+        }
+        else {
+            try {
+                throw new ReportAlreadyExistException("report already exists");
+            } catch (ReportAlreadyExistException e) {
+                return HttpStatus.FOUND;
+            }
+        }
+        return HttpStatus.OK;
+    }
+
+    private Date getCurrentDate(){
+        Date date = new Date();
+        return date;
+    }
+
+    private boolean isReportExist(int personId, int partyId){
+        Optional<Person> person = personRepository.findById(personId);
+        Optional<Party> party= partyRepository.findById(partyId);
+        if(reportRepository.findReportByPersonAndParty(person.get(),party.get()).isPresent()){
+            return true;
+        }
+        return false;
     }
 
 

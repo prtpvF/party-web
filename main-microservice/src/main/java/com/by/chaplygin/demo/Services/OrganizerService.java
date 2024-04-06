@@ -114,13 +114,12 @@ public class OrganizerService {
         return  participationRequests;
     }
 
-    public void banGuest(int partyId, int personId, String endOfBan){
+    public void banGuest( int personId, String endOfBan, String username){
         Optional<Person> guest = personRepository.findById(personId);
-        Optional<Party> party = partyRepository.findById(partyId);
-        Organizer organizer = party.get().getOrganizer();
+       Optional<Organizer> organizer = organizerRepository.findByUsername(username);
         SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
         String formattedDate = date.format(getCurrentDate());
-        Bans ban = new Bans(guest.get(), organizer, formattedDate, endOfBan);
+        Bans ban = new Bans(guest.get(), organizer.get(), formattedDate, endOfBan);
         bansRepository.save(ban);
     }
 

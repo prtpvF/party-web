@@ -84,6 +84,9 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Bans> bans = new ArrayList<>();
 
+    @OneToMany(mappedBy = "person")
+    private List<Report> reports = new ArrayList<>();
+
 
 
 }
