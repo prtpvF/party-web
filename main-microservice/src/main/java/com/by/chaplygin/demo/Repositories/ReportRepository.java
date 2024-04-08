@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface ReportRepository extends JpaRepository<Report, Integer> {
     Optional<Report> findReportByPersonAndParty(Person person, Party party);
     List<Report> findReportsByPerson(Person person);
-    List<Report> finReportsByParty(Party party);
+    List<Report> findReportsByParty(Party party);
 }

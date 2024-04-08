@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class PartyController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/create")
-    public HttpStatus createParty(@RequestHeader("Authorization") String token, @RequestBody Party party){
+    private HttpStatus createParty(@RequestHeader("Authorization") String token, @RequestBody Party party){
         String username = jwtUtil.validateTokenAndRetrieveClaim(token);
 
             partyServices.createParty(username, party);
@@ -29,30 +30,36 @@ public class PartyController {
         return HttpStatus.OK;
     }
     @GetMapping("/all")
-    public List<Party> findAllParty(){
+    private List<Party> findAllParty(){
         return partyServices.findAllParty();
     }
 
     @GetMapping("/find/by/property")
-    public List<Party> findPartiesByProperty(@RequestBody Map<String, String> requestMap){
+    private List<Party> findPartiesByProperty(@RequestBody Map<String, String> requestMap){
         String property = requestMap.get("property");
         String value = requestMap.get("value");
         List<Party> founded = partyServices.findByProperty(property,value);
         return founded;
     }
     @GetMapping("/page")
-    public Party getParty(@RequestBody Map<String, Integer> request) throws PartyNotFoundException {
+    private Party getParty(@RequestBody Map<String, Integer> request) throws PartyNotFoundException {
         int id = request.get("id");
         return partyServices.getParty(id);
 
     }
 
     @DeleteMapping("/delete/party")
-    public HttpStatus deleteParty(@RequestBody Map<String, Integer> request){
+    private HttpStatus deleteParty(@RequestBody Map<String, Integer> request){
         int id = request.get("id");
         partyServices.deleteParty(id);
         return HttpStatus.OK;
     }
+
+    @GetMapping("/get/by/city")
+    private Set<Party> getPartiesNearMe(@RequestBody String city){
+        return  partyServices.getPartiesInMyCity(city);
+    }
+
 
 
 }

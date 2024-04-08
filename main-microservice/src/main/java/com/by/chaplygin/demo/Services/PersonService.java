@@ -27,7 +27,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PersonService implements UserDetailsService {
     private final PartyRepository partyRepository;
-    private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
     private final OrganizerRepository organizerRepository;
     private final RequestRepository requestRepository;

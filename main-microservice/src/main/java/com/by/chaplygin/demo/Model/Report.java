@@ -1,9 +1,6 @@
 package com.by.chaplygin.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +15,15 @@ import java.lang.annotation.Target;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Report {
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
     @JoinColumn(name = "person")
     private Person person;
     @JoinColumn(name = "party")
+    @ManyToOne
     private Party party;
     private String date;
     private String text;

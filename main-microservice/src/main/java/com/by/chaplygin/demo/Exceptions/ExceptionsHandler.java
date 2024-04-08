@@ -66,6 +66,15 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(exception,status);
     }
 
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e){
+     HttpStatus status = HttpStatus.CONFLICT;
+     ApiException exception = new ApiException(
+             e.getMessage(), e, status, ZonedDateTime.now(ZoneId.of("Z"))
+     );
+     return new ResponseEntity<>(exception,status);
+    }
+
 
 }
 

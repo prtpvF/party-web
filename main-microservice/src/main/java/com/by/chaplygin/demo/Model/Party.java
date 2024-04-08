@@ -46,6 +46,8 @@ public class Party {
     private String description;
     @Column(name = "instagram")
     private String instagram;
+    @Column
+    private String city;
     @ManyToOne
     @JoinColumn(name = "organizer_id", nullable = false)
     @JsonBackReference(value = "org-party")

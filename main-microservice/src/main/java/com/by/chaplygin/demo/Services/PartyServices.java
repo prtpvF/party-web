@@ -95,4 +95,27 @@ public class PartyServices {
         partyRepository.save(updatedParty);
     }
 
+    public Set<Party> getPartiesInMyCity(String city){
+        Set<Party> parties= partyRepository.findAllByCity(city);
+        if(parties.isEmpty())
+            throw new EmptyPartyListException("no parties found in this city");
+        if (!validateCityString(city))
+            throw new IllegalArgumentException("the city was entered incorrectly");
+        return parties;
+    }
+
+    private boolean validateCityString(String city) {
+        // Проверяем, что строка не пустая и содержит хотя бы 2 символа
+        if (city == null || city.length() < 2) {
+            return false;
+        }
+
+        // Проверяем, что строка состоит только из букв (без цифр, пробелов и других символов)
+        if (!city.matches("^[a-zA-Z]+$")) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
