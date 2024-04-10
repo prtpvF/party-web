@@ -95,19 +95,14 @@ public class PersonService implements UserDetailsService {
         Optional<Person> person = personRepository.findByUsername(username);
         Optional<Party> party = partyRepository.findById(id);
 
-        if(isPersonBanned(person.get().getId(), party.get().getOrganizer().getId())){
+
             ParticipationRequests participationRequests = new ParticipationRequests();
             participationRequests.setPartyId(party.get());
             participationRequests.setGuestId(person.get());
             person.get().getRequests().add(participationRequests);
             party.get().getRequests().add(participationRequests);
             requestRepository.save(participationRequests);
-        }else
-            try {
-                throw new PersonIsBannedException("you are banned");
-            } catch (PersonIsBannedException e) {
 
-            }
     }
 
     public void convertPersonToOrganizer(String username) {

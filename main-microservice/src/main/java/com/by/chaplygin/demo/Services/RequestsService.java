@@ -31,6 +31,24 @@ public class RequestsService {
         params.add("partyId", partyId);
 
 
+
+    }
+
+    public void sendRequestToEmailService(String email, String city,  String subject, String body){
+
+        String serviceName = "gateway-server/";
+        String endpoint = "email-microservice/email/send";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
+
+        params.add("email", email);
+        params.add("subject", subject);
+        params.add("body", body);
+
+        params.add("city", city);
+
+
         ResponseEntity<Void> response = restTemplate.postForEntity("http://"+serviceName + endpoint, params, Void.class);
     }
 }

@@ -87,6 +87,9 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Report> reports = new ArrayList<>();
 
+    @Column(name = "city")
+    private String city;
+
 
 
 }

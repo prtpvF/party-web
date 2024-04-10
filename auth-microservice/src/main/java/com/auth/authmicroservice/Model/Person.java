@@ -78,11 +78,8 @@ public class Person {
     @JsonIgnore
     private List<PersonRole> roles;
 
-
-
-
-
-
+    @Column(name = "city")
+    private String city;
 
 
 }

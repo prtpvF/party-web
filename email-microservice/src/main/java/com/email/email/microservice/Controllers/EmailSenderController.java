@@ -36,5 +36,16 @@ public class EmailSenderController {
         return HttpStatus.OK;
     }
 
+    @GetMapping("/send")
+    public HttpStatus sendEmail(@RequestParam("email") String email,
+                                @RequestParam("partyId") Integer partyId,
+                                @RequestParam("subject") String subject,
+                                @RequestParam("body") String body) {
+
+        emailSenderService.sendEmail(email, subject, body);
+
+        return HttpStatus.OK;
+    }
+
 
 }

@@ -41,9 +41,9 @@ public class PartyController {
         List<Party> founded = partyServices.findByProperty(property,value);
         return founded;
     }
-    @GetMapping("/page")
-    private Party getParty(@RequestBody Map<String, Integer> request) throws PartyNotFoundException {
-        int id = request.get("id");
+    @GetMapping("/page/{id}")
+    private Party getParty(@RequestParam("id") int id) throws PartyNotFoundException {
+
         return partyServices.getParty(id);
 
     }
