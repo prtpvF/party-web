@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/email")
 @RequiredArgsConstructor
 public class EmailSenderController {
     private final EmailSenderService emailSenderService;
@@ -36,9 +35,8 @@ public class EmailSenderController {
         return HttpStatus.OK;
     }
 
-    @GetMapping("/send")
+    @PostMapping("/send/create")
     public HttpStatus sendEmail(@RequestParam("email") String email,
-                                @RequestParam("partyId") Integer partyId,
                                 @RequestParam("subject") String subject,
                                 @RequestParam("body") String body) {
 

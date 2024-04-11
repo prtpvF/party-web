@@ -37,11 +37,9 @@ public class PartyServices {
             party.setDateOfCreate(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime());
             party.setOrganizer(organizer.get());
             organizer.get().getAllOrgParty().add(party);
-        System.out.println("отправляется");
-        sendEmailAboutPartyCreateInMyCity(party);
-        System.out.println("было отправлено");
-        partyRepository.save(party);
 
+        Party savedParty = partyRepository.save(party);
+        sendEmailAboutPartyCreateInMyCity(savedParty);
     }
 
     public void deleteParty(int id){
@@ -124,7 +122,7 @@ public class PartyServices {
     }
 
     private void sendEmailAboutPartyCreateInMyCity(Party party){
-        Set<Person> personsInThisCity = personRepository.findAllByCity("Lida");
+        Set<Person> personsInThisCity = personRepository.findAllByCity(party.getCity());
         System.out.println("начали");
         System.out.println(personsInThisCity.size());
         if(!personsInThisCity.isEmpty()){
@@ -136,7 +134,11 @@ public class PartyServices {
     }
     private String generateUrl(int partyId){
         String url = "192.168.100.5:8080/party/page/" + partyId;
+
         return url;
     }
+
+
+
 
 }
