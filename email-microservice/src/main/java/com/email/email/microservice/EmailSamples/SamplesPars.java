@@ -29,6 +29,9 @@ public class SamplesPars {
             case REGISTRATION:
                 message = getText("src/main/java/com/email/email/microservice/EmailSamples/RegistrationSample");
                 break;
+            case NEAR:
+                message = getText("src/main/java/com/email/email/microservice/EmailSamples/CreatePartyNearYou");
+                break;
         }
         return message;
     }

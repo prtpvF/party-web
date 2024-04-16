@@ -1,5 +1,8 @@
 package com.email.email.microservice.Services;
 
+import com.email.email.microservice.EmailSamples.SamplesPars;
+import com.email.email.microservice.EmailSamples.Type;
+import com.email.email.microservice.Model.EmailParams;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -20,39 +23,31 @@ public class EmailSenderService {
     private final JavaMailSender javaMailSender;
     @Value("spring.mail.username")
     private  String from;
+    private final SamplesPars samplesPars;
 
-    public void sendEmail(String toEmail, String subject, String body) {
+    public void sendEmail(EmailParams emailParams) {
        SimpleMailMessage message = new SimpleMailMessage();
        message.setFrom(from);
-       message.setSubject(subject);
-       message.setTo(toEmail);
-       message.setText(body);
+       message.setSubject(emailParams.getSubject());
+       message.setTo(emailParams.getEmail());
+        message.setText(getNecessaryText(emailParams));
        javaMailSender.send(message);
     }
 
-//    public void sendEmail(String toEmail, String subject, String body, List<File> attachments) {
-//        try {
-//            MimeMessage message = javaMailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-//
-//            helper.setFrom("caplyginmihail48@gmail.com");
-//            helper.setTo(toEmail);
-//            helper.setSubject(subject);
-//            helper.setText(body);
-//
-//            if (attachments != null) {
-//                for (File file : attachments) {
-//                    helper.addAttachment(file.getName(), file);
-//                }
-//            }
-//
-//            javaMailSender.send(message);
-//            System.out.println("mail send successfully...");
-//        } catch (MessagingException e) {
-//            System.out.println("Error while sending mail ..");
-//            e.printStackTrace();
-//        }
-  //  }
+    private String getNecessaryText(EmailParams emailParams){
+        String text="";
+        if(emailParams.getType()==Type.REQUEST_ANSWER && emailParams.getMessage()==null) {
+             text = samplesPars.getSampleTextWithParams(emailParams.getType(), emailParams.getPartyId(), emailParams.getRequestId());
+        }
+        if(emailParams.getMessage()!=null){
+            text = emailParams.getMessage();
+        }
+        if(emailParams.getType()!=null){
+             text = samplesPars.getSampleText(emailParams.getType());
+        }
+        return text;
+    }
+
 
 
 }

@@ -1,4 +1,4 @@
-package com.email.email.microservice.EmailSamples;
+package com.by.chaplygin.demo.Model;
 
 public enum Type {
     DELETE_PARTY,

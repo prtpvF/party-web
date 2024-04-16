@@ -1,5 +1,6 @@
 package com.auth.authmicroservice.Service;
 
+import com.auth.authmicroservice.Model.EmailParams;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
@@ -28,18 +29,16 @@ public class RequestsServices {
     //@Bulkhead(name="bulkheadAuthMicroservice", type = Bulkhead.Type.THREADPOOL) //ограничение одновременных вызовов
     @Retry(name = "retryAuth-microservice")
     @RateLimiter(name = "auth-microservice") // Ограничение кол-во вызова в заданный момент времени
-    public HttpStatusCode sendRequestToMailService(String email, String subject, List<File> attachments, String type){
+    public HttpStatusCode sendRequestToMailService(EmailParams emailParams){
         String serviceName = "gateway-server/";
         String endpoint = "email/send";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
 
-        params.add("email", email);
-        params.add("subject", subject);
-        params.add("type", type);
 
-        ResponseEntity<Void> response = restTemplate.postForEntity("http://"+ serviceName + endpoint, params, Void.class);
+
+        ResponseEntity<Void> response = restTemplate.postForEntity("http://"+ serviceName + endpoint, emailParams, Void.class);
         return response.getStatusCode();
     }
 

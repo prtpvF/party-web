@@ -1,4 +1,4 @@
-package com.email.email.microservice.EmailSamples;
+package com.auth.authmicroservice.Model;
 
 public enum Type {
     DELETE_PARTY,

@@ -4,7 +4,9 @@ import com.auth.authmicroservice.DTO.OrganizerDto;
 import com.auth.authmicroservice.DTO.PersonDto;
 import com.auth.authmicroservice.Exceptions.IllegalAgeException;
 import com.auth.authmicroservice.Exceptions.PersonNotFoundException;
+import com.auth.authmicroservice.Model.EmailParams;
 import com.auth.authmicroservice.Model.Person;
+import com.auth.authmicroservice.Model.Type;
 import com.auth.authmicroservice.PersonRole;
 import com.auth.authmicroservice.Repository.OrganizerRepository;
 import com.auth.authmicroservice.Repository.PersonRepository;
@@ -52,7 +54,11 @@ public class AuthService {
         else {
             personRepository.save(person);
             try{
-                HttpStatusCode status = requestsServices.sendRequestToMailService(person.getEmail(), "fds", null, "REGISTRATION");
+                EmailParams emailParams = new EmailParams();
+                emailParams.setEmail(person.getEmail());
+                emailParams.setSubject("fsd");
+                emailParams.setType(Type.REGISTRATION);
+                HttpStatusCode status = requestsServices.sendRequestToMailService(emailParams);
             }catch (ResourceAccessException e){
                 //todo добавить логирование
             }

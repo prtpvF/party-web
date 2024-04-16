@@ -4,9 +4,7 @@ import com.by.chaplygin.demo.Dto.PersonDto;
 import com.by.chaplygin.demo.Exceptions.EmptyPartyListException;
 import com.by.chaplygin.demo.Exceptions.PartyNotFoundException;
 import com.by.chaplygin.demo.Exceptions.PersonNotFoundException;
-import com.by.chaplygin.demo.Model.Organizer;
-import com.by.chaplygin.demo.Model.Party;
-import com.by.chaplygin.demo.Model.Person;
+import com.by.chaplygin.demo.Model.*;
 import com.by.chaplygin.demo.Repositories.OrganizerRepository;
 import com.by.chaplygin.demo.Repositories.PartyRepository;
 import com.by.chaplygin.demo.Repositories.PersonRepository;
@@ -46,7 +44,11 @@ public class PartyServices {
         Optional<Party> party = partyRepository.findById(id);
         Set<Person> guests = party.get().getGuests();
         for (Person person:guests) {
-            requestsService.sendRequestToEmailService(person.getEmail(), id, "изменение", "DELETE_PARTY");
+            EmailParams emailParams = new EmailParams();
+            emailParams.setEmail(person.getEmail());
+            emailParams.setSubject("create");
+            emailParams.setType(Type.DELETE_PARTY);
+            requestsService.sendRequestToMailService(emailParams);
         }
         partyRepository.deleteById(id);
     }
@@ -123,12 +125,15 @@ public class PartyServices {
 
     private void sendEmailAboutPartyCreateInMyCity(Party party){
         Set<Person> personsInThisCity = personRepository.findAllByCity(party.getCity());
-        System.out.println("начали");
-        System.out.println(personsInThisCity.size());
         if(!personsInThisCity.isEmpty()){
+
+
             for (Person person:personsInThisCity){
-                requestsService.sendRequestToEmailService(person.getEmail(),  person.getCity(),"new party",generateUrl(party.getId()) );
-                System.out.println(person.getEmail());
+                EmailParams emailParams = new EmailParams();
+                emailParams.setEmail(person.getEmail());
+                emailParams.setSubject("create");
+                emailParams.setMessage(generateUrl(party.getId()));
+                requestsService.sendRequestToMailService(emailParams );
             }
         }
     }

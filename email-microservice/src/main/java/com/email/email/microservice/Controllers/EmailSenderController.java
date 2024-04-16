@@ -2,6 +2,7 @@ package com.email.email.microservice.Controllers;
 
 import com.email.email.microservice.EmailSamples.SamplesPars;
 import com.email.email.microservice.EmailSamples.Type;
+import com.email.email.microservice.Model.EmailParams;
 import com.email.email.microservice.Services.EmailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,33 +18,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class EmailSenderController {
     private final EmailSenderService emailSenderService;
-    private final SamplesPars samplesPars;
+
 
     //todo - конвертирование файлов
     @PostMapping("/send")
-    public HttpStatus sendEmail(@RequestParam("email") String email,
-                                @RequestParam("subject") String subject,
-                                @RequestParam("type") String type,
-                                @RequestParam(value = "partyId", required = false) Integer partyId,
-                                @RequestParam(value = "requestId", required = false) Integer requestId) {
-        String message = samplesPars.getSampleText(Type.valueOf(type));
-        if (partyId != null && requestId != null) {
-            message = samplesPars.getSampleTextWithParams(Type.valueOf(type), partyId, requestId);
-        }
-        emailSenderService.sendEmail(email, subject, message);
+    private HttpStatus sendEmail(@RequestBody EmailParams emailParams) {
+
+        emailSenderService.sendEmail(emailParams);
 
         return HttpStatus.OK;
     }
 
-    @PostMapping("/send/create")
-    public HttpStatus sendEmail(@RequestParam("email") String email,
-                                @RequestParam("subject") String subject,
-                                @RequestParam("body") String body) {
-
-        emailSenderService.sendEmail(email, subject, body);
-
-        return HttpStatus.OK;
-    }
 
 
 }
