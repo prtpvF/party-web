@@ -11,6 +11,7 @@ import com.by.chaplygin.demo.Repositories.PersonRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class PartyServices {
     private final EntityManager entityManager;
     private final OrganizerRepository organizerRepository;
     private final RequestsService requestsService;
-
+    private final RabbitTemplate rabbitTemplate;
 
     public void createParty(String username, Party party)  {
             Optional<Organizer> organizer = organizerRepository.findByUsername(username);
@@ -134,6 +135,7 @@ public class PartyServices {
                 emailParams.setSubject("create");
                 emailParams.setMessage(generateUrl(party.getId()));
                 requestsService.sendRequestToMailService(emailParams );
+                rabbitTemplate.convertAndSend("emailExchange", "emailRoutingKey", emailParams );
             }
         }
     }

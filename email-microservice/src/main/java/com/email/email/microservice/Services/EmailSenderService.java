@@ -6,6 +6,10 @@ import com.email.email.microservice.Model.EmailParams;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,13 +28,16 @@ public class EmailSenderService {
     @Value("spring.mail.username")
     private  String from;
     private final SamplesPars samplesPars;
+    Logger logger = LoggerFactory.getLogger(EmailSenderService.class);
 
+    @RabbitListener(queues = "emailQueue")
     public void sendEmail(EmailParams emailParams) {
        SimpleMailMessage message = new SimpleMailMessage();
        message.setFrom(from);
        message.setSubject(emailParams.getSubject());
        message.setTo(emailParams.getEmail());
         message.setText(getNecessaryText(emailParams));
+        logger.info(emailParams.toString());
        javaMailSender.send(message);
     }
 

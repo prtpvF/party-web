@@ -13,6 +13,7 @@ import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.JwtUtil;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,7 @@ public class AuthService {
     private final OrganizerRepository organizerRepository;
     private  final AuthenticationManager authenticationManager;
     private  final RequestsServices requestsServices;
+    private final RabbitTemplate rabbitTemplate;
 
 
     @CircuitBreaker(name = "auth-microservice")
@@ -58,7 +60,8 @@ public class AuthService {
                 emailParams.setEmail(person.getEmail());
                 emailParams.setSubject("fsd");
                 emailParams.setType(Type.REGISTRATION);
-                HttpStatusCode status = requestsServices.sendRequestToMailService(emailParams);
+                //HttpStatusCode status = requestsServices.sendRequestToMailService(emailParams);
+                rabbitTemplate.convertAndSend("emailExchange", "emailQueue", emailParams);
             }catch (ResourceAccessException e){
                 //todo добавить логирование
             }
