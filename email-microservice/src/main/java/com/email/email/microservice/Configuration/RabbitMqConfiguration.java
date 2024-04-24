@@ -33,10 +33,7 @@ public class RabbitMqConfiguration {
 
 
 
-    @Bean
-    public MessageListenerAdapter listenerAdapter(EmailSenderService receiver) {
-        return new MessageListenerAdapter(receiver, "sendEmail" );
-    }
+
 
     @Bean
     public MessageConverter jsonMessageConverter() {
@@ -45,10 +42,10 @@ public class RabbitMqConfiguration {
         Map<String, Class<?>> idClassMapping = new HashMap<>();
         idClassMapping.put("com.auth.authmicroservice.Model.EmailParams", EmailParams.class);
         classMapper.setIdClassMapping(idClassMapping);
+
         converter.setClassMapper(classMapper);
         return converter;
     }
-
 
 
     @Bean
@@ -57,12 +54,13 @@ public class RabbitMqConfiguration {
     }
 
     @Bean
-    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames("emailQueue");
-        container.setMessageListener(listenerAdapter);
+
         return container;
     }
+
 
 }
