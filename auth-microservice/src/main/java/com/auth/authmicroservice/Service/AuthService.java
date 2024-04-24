@@ -13,7 +13,10 @@ import com.auth.authmicroservice.Repository.PersonRepository;
 import com.auth.authmicroservice.Security.JwtUtil;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +44,8 @@ public class AuthService {
     private  final AuthenticationManager authenticationManager;
     private  final RequestsServices requestsServices;
     private final RabbitTemplate rabbitTemplate;
+    private final MessageConverter messageConverter;
+    Logger logger = LoggerFactory.getLogger(AuthService.class);
 
 
     @CircuitBreaker(name = "auth-microservice")
@@ -61,7 +66,12 @@ public class AuthService {
                 emailParams.setSubject("fsd");
                 emailParams.setType(Type.REGISTRATION);
                 //HttpStatusCode status = requestsServices.sendRequestToMailService(emailParams);
-                rabbitTemplate.convertAndSend("emailExchange", "emailQueue", emailParams);
+                rabbitTemplate.setMessageConverter(messageConverter);
+                logger.info(String.format("json message sent -> %s", emailParams.toString()));
+                System.out.println(rabbitTemplate.getMessageConverter().getClass().getName());
+
+
+                rabbitTemplate.convertAndSend( "emailQueue", emailParams);
             }catch (ResourceAccessException e){
                 //todo добавить логирование
             }
