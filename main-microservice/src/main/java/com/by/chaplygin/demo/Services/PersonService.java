@@ -10,6 +10,7 @@ import com.by.chaplygin.demo.Repositories.*;
 import com.by.chaplygin.demo.Security.PersonDetails;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +33,7 @@ public class PersonService implements UserDetailsService {
     private final RequestRepository requestRepository;
     private final BansRepository bansRepository;
     private final ReportRepository reportRepository;
+    private final RabbitTemplate rabbitTemplate;
 
 
     @Override
@@ -106,7 +108,9 @@ public class PersonService implements UserDetailsService {
                 BeanUtils.copyProperties(organizer, person);
                 organizer.setDateOfCreate(LocalDateTime.now());
                 organizerRepository.save(organizer);
-
+                rabbitTemplate.convertAndSend("converterQueue", createBasicEmailParams("ваша роль была успешно измененна",
+                        person.getEmail(),
+                        "организатор") );
         }
     }
 
@@ -143,6 +147,9 @@ public class PersonService implements UserDetailsService {
             String formattedDate = date.format(getCurrentDate());
             report.setDate(formattedDate);
             reportRepository.save(report);
+            rabbitTemplate.convertAndSend("reportQueue", createBasicEmailParams("ваша жалоба будет рассмотренна в скором времени",
+                    person.get().getEmail(),
+                    "обращение"));
         }
         else {
             try {
@@ -166,6 +173,14 @@ public class PersonService implements UserDetailsService {
             return true;
         }
         return false;
+    }
+
+    private EmailParams createBasicEmailParams(String message, String email, String subject){
+        EmailParams params = new EmailParams();
+        params.setEmail(email);
+        params.setSubject(subject);
+        params.setMessage(message);
+        return params;
     }
 
 
