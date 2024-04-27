@@ -72,29 +72,22 @@ public class PersonService implements UserDetailsService {
     }
 
 
-    public void updatePerson(String username, Person updatedPerson){
+    public void updatePerson(String username, Person updatedPerson) {
         Optional<Person> personToBeUpdated = personRepository.findByUsername(username);
-        updatedPerson.setActive(personToBeUpdated.get().isActive());
-        updatedPerson.setDateOfCreate(personToBeUpdated.get().getDateOfCreate());
-        updatedPerson.setDateOfUpdate(LocalDateTime.now());
-
-        // Создаем новую коллекцию и добавляем в нее все элементы из старой коллекции
-        Set<Party> newAllPersonParty = new HashSet<>();
-        newAllPersonParty.addAll(personToBeUpdated.get().getAllPersonParty());
-        List<PersonRole> newPersonRoles = new ArrayList<>();
-        newPersonRoles.addAll(personToBeUpdated.get().getRoles());
-        updatedPerson.setRoles(newPersonRoles);
-        // Устанавливаем новую коллекцию в новый объект Person
-        updatedPerson.setAllPersonParty(newAllPersonParty);
-
-        updatedPerson.setPassword(personToBeUpdated.get().getPassword());
-        personRepository.save(updatedPerson);
+        if (personToBeUpdated.isPresent()) {
+            Person existingPerson = personToBeUpdated.get();
+            updatedPerson.setActive(existingPerson.isActive());
+            updatedPerson.setDateOfCreate(existingPerson.getDateOfCreate());
+            updatedPerson.setDateOfUpdate(LocalDateTime.now());
+            updatedPerson.setRoles(existingPerson.getRoles());
+            updatedPerson.setAllPersonParty(existingPerson.getAllPersonParty());
+            updatedPerson.setPassword(existingPerson.getPassword());
+            personRepository.save(updatedPerson);
+        }
     }
-
     public void addPartyToPerson(String username, int id){   //todo test
         Optional<Person> person = personRepository.findByUsername(username);
         Optional<Party> party = partyRepository.findById(id);
-
 
             ParticipationRequests participationRequests = new ParticipationRequests();
             participationRequests.setPartyId(party.get());
