@@ -61,16 +61,10 @@ public class AuthService {
         else {
             personRepository.save(person);
             try{
-                EmailParams emailParams = new EmailParams();
-                emailParams.setEmail(person.getEmail());
-                emailParams.setSubject("fsd");
-                emailParams.setType(Type.REGISTRATION);
-                //HttpStatusCode status = requestsServices.sendRequestToMailService(emailParams);
+                EmailParams emailParams = createEmailParams(person, Type.REGISTRATION,"registration");
                 rabbitTemplate.setMessageConverter(messageConverter);
                 logger.info(String.format("json message sent -> %s", emailParams.toString()));
                 System.out.println(rabbitTemplate.getMessageConverter().getClass().getName());
-
-
                 rabbitTemplate.convertAndSend( "emailQueue", emailParams);
             }catch (ResourceAccessException e){
                 //todo добавить логирование
@@ -99,6 +93,14 @@ public class AuthService {
         }
         String token =jwtUtil.generateToken(organizerDto.getUsername());
         return ResponseEntity.ok(token);
+    }
+
+    private EmailParams createEmailParams(Person person, Type type, String subject){
+        EmailParams emailParams = new EmailParams();
+        emailParams.setEmail(person.getEmail());
+        emailParams.setSubject(subject);
+        emailParams.setType(type);
+        return emailParams;
     }
 
 

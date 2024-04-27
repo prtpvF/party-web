@@ -32,13 +32,11 @@ public class PartyServices {
 
     public void createParty(String username, Party party)  {
             Optional<Organizer> organizer = organizerRepository.findByUsername(username);
-
             party.setDateOfCreate(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime());
             party.setOrganizer(organizer.get());
             organizer.get().getAllOrgParty().add(party);
+            Party savedParty = partyRepository.save(party);
 
-        Party savedParty = partyRepository.save(party);
-        sendEmailAboutPartyCreateInMyCity(savedParty);
     }
 
     public void deleteParty(int id){
@@ -124,21 +122,7 @@ public class PartyServices {
         return true;
     }
 
-    private void sendEmailAboutPartyCreateInMyCity(Party party){
-        Set<Person> personsInThisCity = personRepository.findAllByCity(party.getCity());
-        if(!personsInThisCity.isEmpty()){
 
-
-            for (Person person:personsInThisCity){
-                EmailParams emailParams = new EmailParams();
-                emailParams.setEmail(person.getEmail());
-                emailParams.setSubject("create");
-                emailParams.setMessage(generateUrl(party.getId()));
-                requestsService.sendRequestToMailService(emailParams );
-                rabbitTemplate.convertAndSend("emailExchange", "emailRoutingKey", emailParams );
-            }
-        }
-    }
     private String generateUrl(int partyId){
         String url = "192.168.100.5:8080/party/page/" + partyId;
 
