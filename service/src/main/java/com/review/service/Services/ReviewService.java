@@ -13,6 +13,8 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private ReviewConsumer consumer;
 
+    //todo add elastichSearch
+
     public void createReview(){
         if(isPartyExists(consumer)){
             Review review = new Review();
