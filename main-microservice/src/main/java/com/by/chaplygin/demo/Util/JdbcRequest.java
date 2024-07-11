@@ -2,16 +2,19 @@ package com.by.chaplygin.demo.Util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
+
 public class JdbcRequest {
     @Value("spring.datasource.username")
-    private final String DB_USERNAME;
+    private  String DB_USERNAME;
     @Value("spring.datasource.password")
-    private final String DB_PASSWORD;
+    private  String DB_PASSWORD;
 
     private Connection getConn(){
         Connection connection;

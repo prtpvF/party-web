@@ -1,5 +1,6 @@
 package com.party.service.party_service.dto;
 
+import com.common.module.common_module.models.Person;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -32,7 +33,7 @@ public class PartyDTO {
     @Size(min = 3, max = 15, message = "City cannot be shorter then 3 and longer then 15")
     private String city;
     @NotNull
-    private Integer organizer;
+    private Person organizer;
 
 
 }
