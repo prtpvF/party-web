@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.common_module.dto;
+package by.intexsoft.diplom.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +13,6 @@ public class RegistrationDto {
     private String password;
     private int age;
     private String email;
-    private boolean isAdmin;
+    private String city;
+    private boolean isOrganizer;
 }
