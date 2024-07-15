@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan(basePackages = "by.intexsoft.diplom.common_module")
 @Configuration
-@EntityScan(basePackages = "by.intexsoft.diplom.common_module.models")
+@EntityScan(basePackages = "by.intexsoft.diplom.common_module.model")
 @EnableJpaRepositories(basePackages = "by.intexsoft.diplom.common_module.repository")
 public class CommonConfig {
 
