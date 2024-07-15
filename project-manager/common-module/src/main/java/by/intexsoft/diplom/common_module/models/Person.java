@@ -8,6 +8,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,25 +23,34 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @NotBlank(message = "field can't be blank")
+    @Column(name = "username",unique = true)
     private String username;
     @NotBlank(message = "field can't be blank")
     private String password;
     @NotBlank(message = "field can't be blank")
     @Email(message = " field must be email type") //todo add to DTO
+    @Column(name = "email", unique = true)
     private String email;
     private boolean isActive;
     @Min(value = 14, message = "you must be older than 14")
     @Max(value = 100, message = "entered age isn't correct")
     private int age;
     private double rating;
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role")
     private PersonRole role;
+    @NotBlank
+    @Length(min = 3, max = 15)
+    private String city;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(

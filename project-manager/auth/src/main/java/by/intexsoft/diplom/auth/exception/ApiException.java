@@ -2,36 +2,28 @@ package by.intexsoft.diplom.auth.exception;
 
 import org.springframework.http.HttpStatus;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class ApiException {
-    private final String message;
-    private final String exceptionType;
-    private final HttpStatus httpStatus;
-    private final ZonedDateTime timestamp;
+    private  RuntimeException exception;
+    private final HttpStatus status;
 
-    public ApiException(String message, Throwable throwable, HttpStatus httpStatus, ZonedDateTime timestamp) {
-        this.message = message;
-        this.exceptionType = throwable.getClass().getName();
-        this.httpStatus = httpStatus;
-        this.timestamp = timestamp;
+    public ApiException(RuntimeException exception, HttpStatus status) {
+        this.exception = exception;
+        this.status = status;
     }
-
 
 
     public String getMessage() {
-        return message;
-    }
-
-    public String getExceptionType() {
-        return exceptionType;
+        return exception.getMessage();
     }
 
     public HttpStatus getHttpStatus() {
-        return httpStatus;
+        return status;
     }
 
     public ZonedDateTime getTimestamp() {
-        return timestamp;
+        return ZonedDateTime.now(ZoneId.of("Z"));
     }
 }

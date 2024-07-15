@@ -1,12 +1,14 @@
 package by.intexsoft.diplom.auth.service;
 
+import by.intexsoft.diplom.auth.dto.PasswordResetDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
+import by.intexsoft.diplom.auth.exception.PersonNotFoundException;
+import by.intexsoft.diplom.common_module.jwt.JwtToken;
 import by.intexsoft.diplom.common_module.models.Person;
 import by.intexsoft.diplom.common_module.models.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common_module.models.roles.PersonRole;
 import by.intexsoft.diplom.common_module.repository.PersonRepository;
-import by.intexsoft.diplom.common_module.repository.RoleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -22,7 +26,7 @@ public class AuthService {
     private final ModelMapper modelMapper;
     private final Logger logger = LoggerFactory.getLogger(AuthService.class);
     private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
+    private final JwtToken jwtToken;
 
     @Transactional
     public void register(RegistrationDto registrationDto) {
@@ -34,8 +38,11 @@ public class AuthService {
     }
 
     private void checkPersonExists(String username, String email) {
-        personRepository.findByUsernameAndEmail(username, email).ifPresent(p -> {
-            throw new PersonAlreadyExists("Person already exists");
+        personRepository.findByUsername(username).ifPresent(p -> {
+            throw new PersonAlreadyExists("Person with this username already exists");
+        });
+        personRepository.findByEmail(email).ifPresent(p -> {
+            throw new PersonAlreadyExists("Person with this email already exists");
         });
     }
 
@@ -50,10 +57,6 @@ public class AuthService {
         person.setRole(definePersonRole(isOrganizer));
     }
 
-    private void createRole(String role) {
-        PersonRole personRole = new PersonRole(role);
-        roleRepository.save(personRole);
-    }
 
     private PersonRole definePersonRole(boolean isOrg) {
         if (isOrg) {
@@ -61,5 +64,25 @@ public class AuthService {
         }
         return new PersonRole(PersonRolesEnum.USER.name());
     }
+
+    private void isPersonExists(String username) {
+        personRepository.findByUsername(username).ifPresent(p -> {
+            new PersonNotFoundException("person with this username not found");
+        });
+    }
+
+
+    public String createJwtToken(String username) {
+        isPersonExists(username);
+        String token = jwtToken.generateToken(username);
+        return token;
+    }
+
+
+
+
+
+
+
 
 }

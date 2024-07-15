@@ -1,2 +1,9 @@
-package by.intexsoft.diplom.common_module.repository;public interface RoleRepository {
+package by.intexsoft.diplom.common_module.repository;
+
+import by.intexsoft.diplom.common_module.models.roles.PersonRole;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RoleRepository extends JpaRepository<PersonRole, Integer> {
 }

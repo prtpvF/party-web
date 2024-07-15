@@ -5,10 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ComponentScan(basePackages = "com.common.module.common_module")
+@ComponentScan(basePackages = "by.intexsoft.diplom.common_module")
 @Configuration
-@EntityScan(basePackages = "com.common.module.common_module.models")
-@EnableJpaRepositories(basePackages = "com.common.module.common_module.repository")
+@EntityScan(basePackages = "by.intexsoft.diplom.common_module.models")
+@EnableJpaRepositories(basePackages = "by.intexsoft.diplom.common_module.repository")
 public class CommonConfig {
 
 }

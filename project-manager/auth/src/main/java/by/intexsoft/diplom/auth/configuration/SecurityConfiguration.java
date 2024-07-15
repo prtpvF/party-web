@@ -15,16 +15,18 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request)->request.requestMatchers("/auth/registration")
+        http.authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration", "/auth/token")
                 .permitAll().anyRequest().authenticated());
-        http.csrf(csrf->csrf.disable());
+        http.formLogin(login -> login.loginProcessingUrl("/token"));
+        http.logout(logout -> logout.logoutUrl("/logout"));
+        http.csrf(csrf -> csrf.disable());
 
         return http.build();
 
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
