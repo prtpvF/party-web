@@ -14,14 +14,12 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration", "/auth/login")
-                .permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration", "/auth/login").permitAll().anyRequest().authenticated());
         http.logout(logout -> logout.logoutUrl("/logout"));
 
         http.csrf(csrf -> csrf.disable());
 
         return http.build();
-
     }
 
     @Bean

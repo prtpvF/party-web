@@ -34,9 +34,5 @@ public class ExceptionsHandler {
 
 
 
-//    @ExceptionHandler(IncorrectPasswordException.class)
-//    public ResponseEntity<Object> incorrectPasswordExceptionHandler(IncorrectPasswordException e){
-//
-//    }
 
 }

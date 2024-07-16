@@ -26,5 +26,5 @@ public class RegistrationDto {
     @NotBlank
     @Length(min = 3, max = 15)
     private String city;
-    private boolean isOrganizer;
+    private boolean organizer;
 }
