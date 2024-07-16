@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,25 +19,21 @@ public class PartyService {
     private final ObjectMapper objectMapper;
 
     @Transactional
-    public List<PartyDto> getPartyInPersonCity(String city){
+    public List<PartyDto> getPartyInPersonCity(String city) {
         List<Party> foundedParties = partyRepository.findAllByCity(city);
         isPartyListEmpty(foundedParties, city);
         return  objectMapper.convertPartyListToDto(foundedParties);
     }
 
     public PartyDto getParty(int id) {
-        isPartyExists(id);
-        Optional<Party> party = partyRepository.findById(id);
-        return objectMapper.convertPartyToDto(party.get());
+        Party party = partyRepository.findById(id).orElseThrow(()
+                -> new PartyNotFoundException("party with this id not found"));
+        return objectMapper.convertPartyToDto(party);
     }
 
-    public void isPartyListEmpty(List<Party> parties, String city){
+    public void isPartyListEmpty(List<Party> parties, String city) {
         if (parties.isEmpty()){
             throw new NoPartiesInCityException("no party in " + city);
         }
-    }
-    private void isPartyExists(int id){
-        partyRepository.findById(id)
-                .orElseThrow( () -> new PartyNotFoundException("party with this id not found"));
     }
 }

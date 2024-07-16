@@ -27,28 +27,38 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @NotBlank(message = "field can't be blank")
     @Column(name = "username",unique = true)
     private String username;
+
     @NotBlank(message = "field can't be blank")
+    @Length(min = 5, message = "password must be longer than 5 characters")
     private String password;
+
     @NotBlank(message = "field can't be blank")
     @Email(message = " field must be email type")
     @Column(name = "email", unique = true)
     private String email;
+
     private boolean isActive;
+
     @Min(value = 14, message = "you must be older than 14")
     @Max(value = 100, message = "entered age isn't correct")
     private int age;
+
     private double rating;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role")
     private PersonRole role;
+
     @NotBlank
     @Length(min = 3, max = 15)
     private String city;

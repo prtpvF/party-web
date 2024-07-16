@@ -10,29 +10,23 @@ import by.intexsoft.diplom.common_module.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common_module.model.role.PersonRole;
 import by.intexsoft.diplom.common_module.repository.PersonRepository;
 import by.intexsoft.diplom.common_module.repository.RoleRepository;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.engine.spi.SessionImplementor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
     private final PersonRepository personRepository;
-    private final ModelMapper modelMapper;
-    private final Logger logger = LoggerFactory.getLogger(AuthService.class);
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtToken;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
+    private final JwtUtil jwtUtil;
+
 
     @Transactional
     public void register(RegistrationDto registrationDto) {
@@ -40,7 +34,7 @@ public class AuthService {
         Person person = convertDtoToPerson(registrationDto);
         preparePersonForRegistration(person, registrationDto.isOrganizer());
         personRepository.save(person);
-        logger.info("New person has registered: {}", person);
+        log.info("New person has registered: {}", person);
     }
 
     public String login(LogInDto logInDto) {
@@ -77,7 +71,7 @@ public class AuthService {
 
 
     private String createJwtToken(String username) {
-        String token = jwtToken.generateToken(username);
+        String token = jwtUtil.generateToken(username);
         return token;
     }
 
