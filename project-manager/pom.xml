@@ -23,6 +23,8 @@
     <modules>
         <module>auth</module>
         <module>common-module</module>
+        <module>public-api</module>
+        <module>admin</module>
     </modules>
 
     <dependencyManagement>
