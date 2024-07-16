@@ -13,6 +13,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     Optional<Person> findByEmail(String email);
     Optional<Person> findByUsernameOrEmail(String username, String email);
     Optional<Person> findByUsernameAndPassword(String username, String email);
+    void deleteByUsername(String username);
 
 
 }

@@ -46,7 +46,7 @@ public class Person {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role")
     private PersonRole role;
     @NotBlank

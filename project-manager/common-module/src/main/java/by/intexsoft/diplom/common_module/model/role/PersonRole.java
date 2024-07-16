@@ -28,7 +28,11 @@ public class PersonRole {
         this.role=role;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "PersonRole{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

@@ -1,9 +1,8 @@
 package by.intexsoft.diplom.publicapi.exception.handler;
 
-import by.intexsoft.diplom.publicapi.exception.ApiException;
-import by.intexsoft.diplom.publicapi.exception.NoPartiesInCityException;
-import by.intexsoft.diplom.publicapi.exception.PartyNotFoundException;
-import by.intexsoft.diplom.publicapi.exception.PersonNotFoundException;
+import by.intexsoft.diplom.publicapi.exception.*;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,20 @@ public class ExceptionsHandler {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ApiException exception = new ApiException(e, status);
         logger.error(e.getMessage());
+        return new ResponseEntity<>(exception, status);
+    }
+
+    @ExceptionHandler(PasswordsDontMatchException.class)
+    public ResponseEntity<Object> passwordsDontMatchExceptionHandler(PasswordsDontMatchException ex){
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiException exception = new ApiException(ex, status);
+        return new ResponseEntity<>(exception, status);
+    }
+
+    @ExceptionHandler(value = {TokenExpiredException.class, JWTDecodeException.class})
+    public ResponseEntity<Object> TokenExpiredExceptionHandler(RuntimeException ex){
+        HttpStatus status = HttpStatus.CONFLICT;
+        ApiException exception = new ApiException(ex, status);
         return new ResponseEntity<>(exception, status);
     }
 
