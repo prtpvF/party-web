@@ -82,7 +82,17 @@
 			<version>4.3.0</version>
 			<scope>compile</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>by.intexsoft.diplom</groupId>
+            <artifactId>by.intexsoft.diplom</artifactId>
+            <version>0.0.1-SHAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
@@ -23,7 +26,7 @@ public class JwtUtil {
     private final RedisTemplate<String, String> redisTemplate;
 
     public String generateToken( String username){
-        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(1).toInstant());
+        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(10).toInstant());
         String token = JWT.create().withSubject("User details").withClaim("username", username)
                 .withIssuedAt(new Date()).withIssuer("free-party").withExpiresAt(expirationDate).sign(Algorithm.HMAC256(secret));
         saveTokenToRedis(username, token);
@@ -39,8 +42,11 @@ public class JwtUtil {
         return jwt.getClaim("username").asString();
     }
 
-    public void isTokenActive(String token){
-         redisTemplate.opsForValue().get(token);
+    public void isTokenActive(String username){
+        String token = redisTemplate.opsForValue().get(username);
+        if(token.equals(null)){
+            throw new TokenExpiredException("token has expired", null);
+        }
          log.info("token is still active");
     }
 
@@ -58,7 +64,7 @@ public class JwtUtil {
     }
 
     private void saveTokenToRedis(String username, String token){
-        redisTemplate.opsForValue().set(username, token);
+        redisTemplate.opsForValue().set(username, token, Duration.ofMinutes(1));
         log.info("token has successfully added into redis");
     }
 
