@@ -4,11 +4,8 @@ import by.intexsoft.diplom.publicapi.dto.PasswordResetDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import by.intexsoft.diplom.publicapi.dto.PersonUpdateDto;
 import by.intexsoft.diplom.publicapi.service.PersonService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,15 +20,18 @@ public class PersonController {
     }
 
     @PutMapping("/password")
-    public ResponseEntity resetPassword(@RequestHeader(value = "token", required = false) String token,
-                                        @Valid @RequestBody PasswordResetDto passwordResetDto,
-                                        BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
-        }
+    public HttpStatus resetPassword(@RequestHeader(value = "token", required = false) String token,
+                                         @RequestBody PasswordResetDto passwordResetDto) {
         personService.resetPassword(passwordResetDto, token);
-        return new ResponseEntity("success", HttpStatus.OK);
+        return  HttpStatus.OK;
     }
+
+    @GetMapping("/")
+    public String helo(){
+        return "gello";
+    }
+
+
 
     @DeleteMapping("/account")
     public HttpStatus deleteAccount(@RequestHeader(value = "token") String token) {

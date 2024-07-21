@@ -1,6 +1,5 @@
 package by.intexsoft.diplom.publicapi.controller;
 
-import by.intexsoft.diplom.common_module.repository.PartyRepository;
 import by.intexsoft.diplom.publicapi.dto.PartyDto;
 import by.intexsoft.diplom.publicapi.service.PartyService;
 import lombok.RequiredArgsConstructor;

@@ -11,8 +11,9 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import java.util.Set;
 @Entity
 @Table(name = "party")
 @Data
-@RedisHash("Party")
 public class Party {
 
     @Id
@@ -39,10 +39,7 @@ public class Party {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person organizer;
-    @Min(value = 14, message = "your guests must be older than 14")
     private int ageRestriction;
-
-    @Min(value = 0, message = "count of places must be minimum 0")
     private int countOfPlaces;
     @Length(max = 255, message = "length must be shorter than 256")
     private String description;
@@ -54,16 +51,14 @@ public class Party {
     @NotBlank(message = "field can't be empty")
     private String address;
     @Nullable
-    @Min(value = 0, message = "value must be minimum 0")
     @Max(value = 5, message = "value must be maximum 5")
     private double minimalRating;
     @Nullable
-    @Min(value = 0, message = "the minimal ticket cost is 0")
-    @Max(value = 3000, message = "the maximal ticket cost is 3000")
     private double ticketCost;
-    @NotNull(message = "filed can't be null")
     private LocalDateTime dateOfEvent;
+    @CreatedDate
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "parties")

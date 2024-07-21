@@ -1,13 +1,17 @@
 package by.intexsoft.diplom.publicapi.service;
 
-import by.intexsoft.diplom.common_module.jwt.JwtUtil;
 import by.intexsoft.diplom.common_module.model.Person;
 import by.intexsoft.diplom.common_module.repository.PersonRepository;
 import by.intexsoft.diplom.publicapi.dto.PasswordResetDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import by.intexsoft.diplom.publicapi.dto.PersonUpdateDto;
-import by.intexsoft.diplom.publicapi.exception.*;
+import by.intexsoft.diplom.publicapi.exception.EmailIsTakenException;
+import by.intexsoft.diplom.publicapi.exception.PasswordsDontMatchException;
+import by.intexsoft.diplom.publicapi.exception.PersonNotFoundException;
+import by.intexsoft.diplom.publicapi.exception.UsernameIsTakenException;
 import by.intexsoft.diplom.publicapi.util.ObjectMapper;
+import by.intexsoft.diplom.security.jwt.JwtUtil;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -32,28 +36,34 @@ public class PersonService {
     }
 
     public void resetPassword(PasswordResetDto passwordResetDto, String token) {
-        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        String username =getToken(token);
+        jwtUtil.isTokenActive(username);
         Person person = getPersonByUsername(username);
         doPasswordsMatch(passwordResetDto.getOldPassword(), username);
         person.setPassword(passwordEncoder.encode(passwordResetDto.getNewPassword()));
         personRepository.save(person);
+        jwtUtil.removeToken(token);
         log.info(username + " has just reset password");
     }
 
     public void deleteAccount(String token) {
-        String username = jwtUtil.validateTokenAndRetrieveClaim(token);
+        String username = getToken(token);
+        jwtUtil.isTokenActive(username);
         Person person = getPersonByUsername(username);
         isPersonIdValid(person.getId());
         personRepository.deleteById(person.getId());
-        log.info(username+ " has just deleted his profile");
+        jwtUtil.removeToken(token);
+        log.info(username + " has just deleted his profile");
     }
 
     public void updateProfile(String token, PersonUpdateDto personUpdateDto) {
-           String username = jwtUtil.validateTokenAndRetrieveClaim(token);
-           Person person = getPersonByUsername(username);
-           isUpdatedInfoValid(personUpdateDto);
-           modelMapper.map(personUpdateDto, person);
-           personRepository.save(person);
+        String username = getToken(token);
+        jwtUtil.isTokenActive(username);
+        Person person = getPersonByUsername(username);
+        isUpdatedInfoValid(personUpdateDto);
+        modelMapper.map(personUpdateDto, person);
+        personRepository.save(person);
+        jwtUtil.removeToken(username);
     }
 
     private void isUpdatedInfoValid(PersonUpdateDto personUpdateDto) {
@@ -89,6 +99,15 @@ public class PersonService {
         Optional<Person> person = personRepository.findByUsername(username);
         if (!passwordEncoder.matches(oldPassword, person.get().getPassword())) {
             throw new PasswordsDontMatchException("passwords don't match");
+        }
+    }
+
+    private String getToken(String token){
+        try{
+            return jwtUtil.validateTokenAndRetrieveClaim(token);
+        } catch (SignatureVerificationException exception){
+            log.warn("something wrong with token");
+            return "something wrong with token";
         }
     }
 }

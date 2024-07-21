@@ -5,8 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+
 @Entity
-@Table(name="images")
+@Table(name = "images")
 @Data
 public class Image {
 
@@ -14,8 +15,8 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
-    private String imagePath;
+
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "party_id", nullable = false)

@@ -1,8 +1,7 @@
 package by.intexsoft.diplom.publicapi.exception.handler;
 
 import by.intexsoft.diplom.publicapi.exception.*;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
+import by.intexsoft.diplom.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RequiredArgsConstructor
 @Slf4j
 public class ExceptionsHandler {
+    private final JwtUtil jwtUtil;
 
 
     @ExceptionHandler(value = {PartyNotFoundException.class, PersonNotFoundException.class, NoPartiesInCityException.class})
@@ -32,12 +32,12 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(exception, status);
     }
 
-    @ExceptionHandler(value = {TokenExpiredException.class, JWTDecodeException.class})
-    public ResponseEntity<Object> tokenExceptionHandler(RuntimeException ex) {
-        HttpStatus status = HttpStatus.CONFLICT;
-        ApiException exception = new ApiException(ex, status);
-        return new ResponseEntity<>(exception, status);
-    }
+//    @ExceptionHandler(value = {TokenExpiredException.class, JWTDecodeException.class})
+//    public ResponseEntity<Object> tokenExceptionHandler(RuntimeException ex) {
+//        HttpStatus status = HttpStatus.CONFLICT;
+//        ApiException exception = new ApiException(ex, status);
+//        return new ResponseEntity<>(exception, status);
+//    }
 
     @ExceptionHandler(value = UsernameIsTakenException.class)
     public ResponseEntity<Object> usernameIsTakenExceptionHandler(UsernameIsTakenException ex) {
@@ -52,4 +52,12 @@ public class ExceptionsHandler {
         ApiException exception = new ApiException(ex, status);
         return new ResponseEntity<>(exception, status);
     }
+
+//    @ExceptionHandler(value = SignatureException.class)
+//    public ResponseEntity signatureVerificationExceptionHandler(SignatureVerificationException ex) {
+//        HttpStatus status = HttpStatus.CONFLICT;
+//        String message = "something wrong with token";
+//        log.warn("something happened with token");
+//        return new ResponseEntity(message, status);
+//    }
 }

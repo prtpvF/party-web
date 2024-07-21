@@ -1,222 +1,30 @@
-2024-07-16T16:20:12.503+03:00  INFO 11232 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 11232 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
-2024-07-16T16:20:12.512+03:00  INFO 11232 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-07-16T16:20:14.067+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:20:14.067+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-16T16:20:14.427+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 330 ms. Found 10 JPA repository interfaces.
-2024-07-16T16:20:14.431+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:20:14.431+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:20:14.452+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:20:15.030+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:20:15.031+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:20:15.063+03:00  INFO 11232 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:20:16.771+03:00  INFO 11232 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-16T16:20:16.805+03:00  INFO 11232 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-16T16:20:16.806+03:00  INFO 11232 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-16T16:20:16.966+03:00  INFO 11232 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-07-16T16:20:16.967+03:00  INFO 11232 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4339 ms
-2024-07-16T16:20:17.358+03:00  INFO 11232 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-16T16:20:17.539+03:00  INFO 11232 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-16T16:20:17.651+03:00  INFO 11232 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-16T16:20:18.594+03:00  INFO 11232 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-16T16:20:18.646+03:00  INFO 11232 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-16T16:20:18.996+03:00  INFO 11232 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1c7843c3
-2024-07-16T16:20:19.001+03:00  INFO 11232 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-16T16:20:21.514+03:00  INFO 11232 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-16T16:20:21.846+03:00  INFO 11232 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:20:23.685+03:00  INFO 11232 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-16T16:20:23.723+03:00  WARN 11232 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-16T16:20:24.760+03:00  INFO 11232 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 13.74 seconds (process running for 15.014)
-2024-07-16T16:20:29.576+03:00  INFO 11232 --- [public-api] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-07-16T16:20:29.577+03:00  INFO 11232 --- [public-api] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-07-16T16:20:29.911+03:00  INFO 11232 --- [public-api] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 334 ms
-2024-07-16T16:21:01.913+03:00  INFO 11232 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:21:01.921+03:00  INFO 11232 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-16T16:21:01.972+03:00  INFO 11232 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-16T16:21:10.381+03:00  INFO 1420 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 1420 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
-2024-07-16T16:21:10.393+03:00  INFO 1420 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-07-16T16:21:12.106+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:21:12.107+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-16T16:21:12.445+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 316 ms. Found 10 JPA repository interfaces.
-2024-07-16T16:21:12.449+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:21:12.449+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:21:12.468+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:21:13.052+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:21:13.053+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:21:13.077+03:00  INFO 1420 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:21:14.917+03:00  INFO 1420 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-16T16:21:14.943+03:00  INFO 1420 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-16T16:21:14.943+03:00  INFO 1420 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-16T16:21:15.101+03:00  INFO 1420 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-07-16T16:21:15.102+03:00  INFO 1420 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4542 ms
-2024-07-16T16:21:15.605+03:00  INFO 1420 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-16T16:21:15.808+03:00  INFO 1420 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-16T16:21:15.911+03:00  INFO 1420 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-16T16:21:16.760+03:00  INFO 1420 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-16T16:21:16.836+03:00  INFO 1420 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-16T16:21:17.450+03:00  INFO 1420 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5273143e
-2024-07-16T16:21:17.455+03:00  INFO 1420 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-16T16:21:20.734+03:00  INFO 1420 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-16T16:21:21.077+03:00  INFO 1420 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:21:23.010+03:00  INFO 1420 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-16T16:21:23.051+03:00  WARN 1420 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-16T16:21:24.202+03:00  INFO 1420 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 15.372 seconds (process running for 16.459)
-2024-07-16T16:21:28.407+03:00  INFO 1420 --- [public-api] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-07-16T16:21:28.408+03:00  INFO 1420 --- [public-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-07-16T16:21:29.059+03:00  INFO 1420 --- [public-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 650 ms
-2024-07-16T16:24:40.342+03:00  INFO 1420 --- [public-api] [http-nio-8080-exec-4] b.i.d.publicapi.service.PersonService    : abracadabra has just reset password
-2024-07-16T16:24:52.256+03:00  INFO 1420 --- [public-api] [http-nio-8080-exec-6] b.i.d.publicapi.service.PersonService    : abracadabra has just reset password
-2024-07-16T16:25:14.870+03:00 ERROR 1420 --- [public-api] [http-nio-8080-exec-9] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: rawPassword cannot be null] with root cause
+2024-07-19T10:08:14.586+03:00  INFO 496 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 496 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T10:08:14.635+03:00  INFO 496 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T10:08:16.201+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:08:16.202+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:08:16.254+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:08:16.263+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:08:16.264+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T10:08:16.570+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 299 ms. Found 10 JPA repository interfaces.
+2024-07-19T10:08:17.104+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:08:17.104+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:08:17.130+03:00  INFO 496 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:08:18.539+03:00  INFO 496 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-19T10:08:18.593+03:00  INFO 496 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T10:08:18.594+03:00  INFO 496 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T10:08:18.754+03:00  INFO 496 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T10:08:18.755+03:00  INFO 496 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3977 ms
+2024-07-19T10:08:18.807+03:00 ERROR 496 --- [public-api] [main] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtFilter' defined in file [E:\party-spring\party-web\project-manager\security\target\classes\by\intexsoft\diplom\security\filter\JwtFilter.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jwtUtil' defined in file [E:\party-spring\party-web\project-manager\security\target\classes\by\intexsoft\diplom\security\jwt\JwtUtil.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'stringRedisTemplate' defined in class path resource [org/springframework/boot/autoconfigure/data/redis/RedisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'stringRedisTemplate' parameter 0: Error creating bean with name 'redisConfiguration': Injection of autowired dependencies failed
+2024-07-19T10:08:18.859+03:00  INFO 496 --- [public-api] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-07-19T10:08:18.875+03:00  WARN 496 --- [public-api] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2024-07-19T10:08:18.889+03:00  INFO 496 --- [public-api] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
-java.lang.IllegalArgumentException: rawPassword cannot be null
-	at org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.matches(BCryptPasswordEncoder.java:123) ~[spring-security-crypto-6.3.1.jar:6.3.1]
-	at by.intexsoft.diplom.publicapi.service.PersonService.doPasswordsMatch(PersonService.java:99) ~[classes/:na]
-	at by.intexsoft.diplom.publicapi.service.PersonService.resetPassword(PersonService.java:38) ~[classes/:na]
-	at by.intexsoft.diplom.publicapi.controller.PersonController.resetPassword(PersonController.java:24) ~[classes/:na]
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:925) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:593) ~[tomcat-embed-core-10.1.25.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.10.jar:6.1.10]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.25.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.10.jar:6.1.10]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
-	at java.base/java.lang.Thread.run(Thread.java:1589) ~[na:na]
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-07-19T10:08:18.919+03:00 ERROR 496 --- [public-api] [main] o.s.boot.SpringApplication               : Application run failed
 
-2024-07-16T16:28:10.100+03:00  INFO 1420 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:28:10.104+03:00  INFO 1420 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-16T16:28:10.109+03:00  INFO 1420 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-16T16:28:22.276+03:00  INFO 15296 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 15296 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
-2024-07-16T16:28:22.296+03:00  INFO 15296 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-07-16T16:28:24.897+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:28:24.898+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-16T16:28:25.250+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 329 ms. Found 10 JPA repository interfaces.
-2024-07-16T16:28:25.255+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:28:25.256+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:28:25.289+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:28:25.997+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:28:25.998+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:28:26.032+03:00  INFO 15296 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:28:28.125+03:00  INFO 15296 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-16T16:28:28.150+03:00  INFO 15296 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-16T16:28:28.150+03:00  INFO 15296 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-16T16:28:28.310+03:00  INFO 15296 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-07-16T16:28:28.311+03:00  INFO 15296 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5752 ms
-2024-07-16T16:28:28.816+03:00  INFO 15296 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-16T16:28:29.157+03:00  INFO 15296 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-16T16:28:29.280+03:00  INFO 15296 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-16T16:28:30.417+03:00  INFO 15296 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-16T16:28:30.484+03:00  INFO 15296 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-16T16:28:30.894+03:00  INFO 15296 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e3b2dd3
-2024-07-16T16:28:30.899+03:00  INFO 15296 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-16T16:28:34.965+03:00  INFO 15296 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-16T16:28:35.341+03:00  INFO 15296 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:28:37.295+03:00  INFO 15296 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-16T16:28:37.337+03:00  WARN 15296 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-16T16:28:38.670+03:00  INFO 15296 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 18.57 seconds (process running for 20.278)
-2024-07-16T16:28:48.887+03:00  INFO 15296 --- [public-api] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-07-16T16:28:48.891+03:00  INFO 15296 --- [public-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-07-16T16:28:49.633+03:00  INFO 15296 --- [public-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 740 ms
-2024-07-16T16:28:50.322+03:00  WARN 15296 --- [public-api] [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity by.intexsoft.diplom.publicapi.controller.PersonController.resetPassword(by.intexsoft.diplom.publicapi.dto.PasswordResetDto,java.lang.String,org.springframework.validation.BindingResult): [Field error in object 'passwordResetDto' on field 'oldPassword': rejected value [null]; codes [NotBlank.passwordResetDto.oldPassword,NotBlank.oldPassword,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [passwordResetDto.oldPassword,oldPassword]; arguments []; default message [oldPassword]]; default message [Field cannot be blank]] ]
-2024-07-16T16:32:07.960+03:00  INFO 15296 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:32:07.964+03:00  INFO 15296 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-16T16:32:07.974+03:00  INFO 15296 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-16T16:32:20.009+03:00  INFO 16040 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 16040 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
-2024-07-16T16:32:20.017+03:00  INFO 16040 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-07-16T16:32:21.692+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:32:21.693+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-16T16:32:22.022+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 314 ms. Found 10 JPA repository interfaces.
-2024-07-16T16:32:22.026+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:32:22.026+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:32:22.041+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:32:22.557+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:32:22.558+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:32:22.583+03:00  INFO 16040 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:32:24.207+03:00  INFO 16040 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-16T16:32:24.228+03:00  INFO 16040 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-16T16:32:24.229+03:00  INFO 16040 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-16T16:32:24.377+03:00  INFO 16040 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-07-16T16:32:24.378+03:00  INFO 16040 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4205 ms
-2024-07-16T16:32:24.799+03:00  INFO 16040 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-16T16:32:25.061+03:00  INFO 16040 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-16T16:32:25.185+03:00  INFO 16040 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-16T16:32:26.058+03:00  INFO 16040 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-16T16:32:26.131+03:00  INFO 16040 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-16T16:32:26.566+03:00  INFO 16040 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5273143e
-2024-07-16T16:32:26.571+03:00  INFO 16040 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-16T16:32:29.371+03:00  INFO 16040 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-16T16:32:29.469+03:00  WARN 16040 --- [public-api] [main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table if exists person alter column password set data type varchar(30)" via JDBC [ОШИБКА: значение не умещается в тип character varying(30)]
-
-org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table if exists person alter column password set data type varchar(30)" via JDBC [ОШИБКА: значение не умещается в тип character varying(30)]
-	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:575) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:515) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.10.jar:6.1.10]
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.10.jar:6.1.10]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.10.jar:6.1.10]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.10.jar:6.1.10]
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1835) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1784) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.10.jar:6.1.10]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952) ~[spring-context-6.1.10.jar:6.1.10]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.10.jar:6.1.10]
+org.springframework.context.ApplicationContextException: Unable to start web server
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618) ~[spring-context-6.1.10.jar:6.1.10]
 	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.1.jar:3.3.1]
@@ -224,99 +32,688 @@ org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "a
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
 	at by.intexsoft.diplom.publicapi.PublicApiApplication.main(PublicApiApplication.java:15) ~[classes/:na]
-Caused by: org.postgresql.util.PSQLException: ОШИБКА: значение не умещается в тип character varying(30)
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2725) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2412) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:341) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:326) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:302) ~[postgresql-42.7.3.jar:42.7.3]
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:297) ~[postgresql-42.7.3.jar:42.7.3]
-	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.1.0.jar:na]
-	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.1.0.jar:na]
-	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.5.2.Final.jar:6.5.2.Final]
-	... 37 common frames omitted
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:147) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:516) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:222) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162) ~[spring-boot-3.3.1.jar:3.3.1]
+	... 8 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtFilter' defined in file [E:\party-spring\party-web\project-manager\security\target\classes\by\intexsoft\diplom\security\filter\JwtFilter.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jwtUtil' defined in file [E:\party-spring\party-web\project-manager\security\target\classes\by\intexsoft\diplom\security\jwt\JwtUtil.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'stringRedisTemplate' defined in class path resource [org/springframework/boot/autoconfigure/data/redis/RedisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'stringRedisTemplate' parameter 0: Error creating bean with name 'redisConfiguration': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1357) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:87) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4414) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:772) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:203) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:415) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:874) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437) ~[tomcat-embed-core-10.1.25.jar:10.1.25]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128) ~[spring-boot-3.3.1.jar:3.3.1]
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtUtil' defined in file [E:\party-spring\party-web\project-manager\security\target\classes\by\intexsoft\diplom\security\jwt\JwtUtil.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'stringRedisTemplate' defined in class path resource [org/springframework/boot/autoconfigure/data/redis/RedisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'stringRedisTemplate' parameter 0: Error creating bean with name 'redisConfiguration': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1357) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.10.jar:6.1.10]
+	... 54 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'stringRedisTemplate' defined in class path resource [org/springframework/boot/autoconfigure/data/redis/RedisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'stringRedisTemplate' parameter 0: Error creating bean with name 'redisConfiguration': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1167) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.10.jar:6.1.10]
+	... 68 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redisConfiguration': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:514) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1421) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1167) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.10.jar:6.1.10]
+	... 82 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'HOSTNAME' in value "${HOSTNAME}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveNestedPlaceholders(AbstractPropertyResolver.java:230) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertyResolver.getProperty(ConfigurationPropertySourcesPropertyResolver.java:80) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertyResolver.getProperty(ConfigurationPropertySourcesPropertyResolver.java:61) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.core.env.AbstractEnvironment.getProperty(AbstractEnvironment.java:552) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer$1.getProperty(PropertySourcesPlaceholderConfigurer.java:153) ~[spring-context-6.1.10.jar:6.1.10]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer$1.getProperty(PropertySourcesPlaceholderConfigurer.java:149) ~[spring-context-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.PropertySourcesPropertyResolver.getProperty(PropertySourcesPropertyResolver.java:85) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.PropertySourcesPropertyResolver.getPropertyAsRawString(PropertySourcesPropertyResolver.java:74) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:153) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:200) ~[spring-context-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:964) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1374) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:784) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:767) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:508) ~[spring-beans-6.1.10.jar:6.1.10]
+	... 103 common frames omitted
 
-2024-07-16T16:32:29.814+03:00  INFO 16040 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:32:31.582+03:00  INFO 16040 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-16T16:32:31.628+03:00  WARN 16040 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-16T16:32:32.685+03:00  INFO 16040 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 14.212 seconds (process running for 15.367)
-2024-07-16T16:32:49.171+03:00  INFO 16040 --- [public-api] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-07-16T16:32:49.171+03:00  INFO 16040 --- [public-api] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-07-16T16:32:49.411+03:00  INFO 16040 --- [public-api] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 239 ms
-2024-07-16T16:32:49.722+03:00  WARN 16040 --- [public-api] [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity by.intexsoft.diplom.publicapi.controller.PersonController.resetPassword(by.intexsoft.diplom.publicapi.dto.PasswordResetDto,java.lang.String,org.springframework.validation.BindingResult): [Field error in object 'passwordResetDto' on field 'oldPassword': rejected value [null]; codes [NotBlank.passwordResetDto.oldPassword,NotBlank.oldPassword,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [passwordResetDto.oldPassword,oldPassword]; arguments []; default message [oldPassword]]; default message [Field cannot be blank]] ]
-2024-07-16T16:32:55.286+03:00  INFO 16040 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:32:55.290+03:00  INFO 16040 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-16T16:32:55.303+03:00  INFO 16040 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-16T16:33:55.955+03:00  INFO 14736 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 14736 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
-2024-07-16T16:33:55.963+03:00  INFO 14736 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-07-16T16:33:57.484+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:33:57.484+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-16T16:33:57.708+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 209 ms. Found 10 JPA repository interfaces.
-2024-07-16T16:33:57.723+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:33:57.724+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:33:57.744+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:33:58.214+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:33:58.214+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:33:58.239+03:00  INFO 14736 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:33:59.590+03:00  INFO 14736 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-16T16:33:59.615+03:00  INFO 14736 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-16T16:33:59.616+03:00  INFO 14736 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-16T16:33:59.786+03:00  INFO 14736 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-07-16T16:33:59.787+03:00  INFO 14736 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3672 ms
-2024-07-16T16:34:00.137+03:00  INFO 14736 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-16T16:34:00.269+03:00  INFO 14736 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-16T16:34:00.345+03:00  INFO 14736 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-16T16:34:00.982+03:00  INFO 14736 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-16T16:34:01.021+03:00  INFO 14736 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-16T16:34:01.442+03:00  INFO 14736 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5273143e
-2024-07-16T16:34:01.446+03:00  INFO 14736 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-16T16:34:03.637+03:00  INFO 14736 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-16T16:34:03.947+03:00  INFO 14736 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:34:05.157+03:00  INFO 14736 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-16T16:34:05.196+03:00  WARN 14736 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-16T16:34:05.976+03:00  INFO 14736 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 11.314 seconds (process running for 12.338)
-2024-07-16T16:34:26.707+03:00  INFO 14736 --- [public-api] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-07-16T16:34:26.708+03:00  INFO 14736 --- [public-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-07-16T16:34:26.919+03:00  INFO 14736 --- [public-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 210 ms
-2024-07-16T16:34:27.177+03:00  WARN 14736 --- [public-api] [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity by.intexsoft.diplom.publicapi.controller.PersonController.resetPassword(by.intexsoft.diplom.publicapi.dto.PasswordResetDto,java.lang.String,org.springframework.validation.BindingResult): [Field error in object 'passwordResetDto' on field 'oldPassword': rejected value [null]; codes [NotBlank.passwordResetDto.oldPassword,NotBlank.oldPassword,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [passwordResetDto.oldPassword,oldPassword]; arguments []; default message [oldPassword]]; default message [Field cannot be blank]] ]
-2024-07-16T16:37:02.233+03:00  WARN 14736 --- [public-api] [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity by.intexsoft.diplom.publicapi.controller.PersonController.resetPassword(by.intexsoft.diplom.publicapi.dto.PasswordResetDto,java.lang.String,org.springframework.validation.BindingResult): [Field error in object 'passwordResetDto' on field 'oldPassword': rejected value []; codes [NotBlank.passwordResetDto.oldPassword,NotBlank.oldPassword,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [passwordResetDto.oldPassword,oldPassword]; arguments []; default message [oldPassword]]; default message [Field cannot be blank]] ]
-2024-07-16T16:41:33.719+03:00  INFO 14736 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:41:33.722+03:00  INFO 14736 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-16T16:41:33.726+03:00  INFO 14736 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-16T16:41:39.410+03:00  INFO 8172 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 8172 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
-2024-07-16T16:41:39.415+03:00  INFO 8172 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-07-16T16:41:40.490+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:41:40.490+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-16T16:41:40.787+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 279 ms. Found 10 JPA repository interfaces.
-2024-07-16T16:41:40.790+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:41:40.790+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:41:40.803+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:41:41.227+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-16T16:41:41.227+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-07-16T16:41:41.250+03:00  INFO 8172 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 0 Redis repository interfaces.
-2024-07-16T16:41:42.331+03:00  INFO 8172 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-16T16:41:42.363+03:00  INFO 8172 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-16T16:41:42.364+03:00  INFO 8172 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-16T16:41:42.498+03:00  INFO 8172 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-07-16T16:41:42.499+03:00  INFO 8172 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2978 ms
-2024-07-16T16:41:42.869+03:00  INFO 8172 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-16T16:41:43.028+03:00  INFO 8172 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-16T16:41:43.101+03:00  INFO 8172 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-16T16:41:43.864+03:00  INFO 8172 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-16T16:41:43.913+03:00  INFO 8172 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-16T16:41:44.281+03:00  INFO 8172 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@37d3aa8c
-2024-07-16T16:41:44.285+03:00  INFO 8172 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-16T16:41:46.061+03:00  INFO 8172 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-16T16:41:46.296+03:00  INFO 8172 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:41:47.496+03:00  INFO 8172 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-16T16:41:47.528+03:00  WARN 8172 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-16T16:41:48.274+03:00  INFO 8172 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 9.843 seconds (process running for 10.551)
-2024-07-16T16:41:58.016+03:00  INFO 8172 --- [public-api] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-07-16T16:41:58.016+03:00  INFO 8172 --- [public-api] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-07-16T16:41:58.286+03:00  INFO 8172 --- [public-api] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 269 ms
-2024-07-16T16:42:14.810+03:00  INFO 8172 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-16T16:42:14.813+03:00  INFO 8172 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-16T16:42:14.821+03:00  INFO 8172 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T10:16:03.745+03:00  INFO 8324 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Starting PublicApiApplication using Java 19.0.2 with PID 8324 (E:\party-spring\party-web\project-manager\public-api\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T10:16:03.752+03:00  INFO 8324 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T10:16:05.112+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:16:05.113+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:16:05.155+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:16:05.166+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:16:05.166+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T10:16:05.484+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 302 ms. Found 10 JPA repository interfaces.
+2024-07-19T10:16:05.865+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:16:05.866+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:16:05.886+03:00  INFO 8324 --- [public-api] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:16:07.111+03:00  INFO 8324 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-19T10:16:07.147+03:00  INFO 8324 --- [public-api] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T10:16:07.147+03:00  INFO 8324 --- [public-api] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T10:16:07.260+03:00  INFO 8324 --- [public-api] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T10:16:07.261+03:00  INFO 8324 --- [public-api] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3376 ms
+2024-07-19T10:16:07.952+03:00  INFO 8324 --- [public-api] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T10:16:08.111+03:00  INFO 8324 --- [public-api] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T10:16:08.225+03:00  INFO 8324 --- [public-api] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T10:16:08.703+03:00  INFO 8324 --- [public-api] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T10:16:08.742+03:00  INFO 8324 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T10:16:08.994+03:00  INFO 8324 --- [public-api] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@41d877bb
+2024-07-19T10:16:08.997+03:00  INFO 8324 --- [public-api] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T10:16:10.897+03:00  INFO 8324 --- [public-api] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T10:16:11.192+03:00  INFO 8324 --- [public-api] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T10:16:12.384+03:00  INFO 8324 --- [public-api] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-07-19T10:16:12.417+03:00  WARN 8324 --- [public-api] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T10:16:13.093+03:00  INFO 8324 --- [public-api] [main] b.i.d.publicapi.PublicApiApplication     : Started PublicApiApplication in 10.494 seconds (process running for 11.459)
+2024-07-19T10:16:15.522+03:00  INFO 8324 --- [public-api] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T10:16:15.532+03:00  INFO 8324 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T10:16:15.537+03:00  INFO 8324 --- [public-api] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T10:49:41.626+03:00  INFO 16936 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 16936 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T10:49:41.632+03:00  INFO 16936 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T10:49:43.223+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:49:43.223+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T10:49:43.435+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 200 ms. Found 10 JPA repository interfaces.
+2024-07-19T10:49:43.445+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:49:43.446+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:49:43.461+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:49:43.927+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:49:43.928+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:49:43.967+03:00  INFO 16936 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:49:45.218+03:00  INFO 16936 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T10:49:45.254+03:00  INFO 16936 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T10:49:45.255+03:00  INFO 16936 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T10:49:45.402+03:00  INFO 16936 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T10:49:45.403+03:00  INFO 16936 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3640 ms
+2024-07-19T10:49:46.126+03:00  INFO 16936 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T10:49:46.241+03:00  INFO 16936 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T10:49:46.315+03:00  INFO 16936 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T10:49:46.744+03:00  INFO 16936 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T10:49:46.778+03:00  INFO 16936 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T10:49:47.068+03:00  INFO 16936 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@45f241df
+2024-07-19T10:49:47.072+03:00  INFO 16936 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T10:49:49.071+03:00  INFO 16936 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T10:49:49.732+03:00  INFO 16936 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T10:49:51.210+03:00  INFO 16936 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T10:49:51.256+03:00  WARN 16936 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T10:49:52.009+03:00  INFO 16936 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 11.448 seconds (process running for 12.231)
+2024-07-19T10:52:15.696+03:00  INFO 16936 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T10:52:15.696+03:00  INFO 16936 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T10:52:15.951+03:00  INFO 16936 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 254 ms
+2024-07-19T10:52:16.052+03:00  WARN 16936 --- [person] [http-nio-8081-exec-2] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c545a104-8060-461f-a7ca-78ee75c6e3db
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-07-19T10:52:16.068+03:00  INFO 16936 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-19T10:53:38.691+03:00  INFO 16936 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T10:53:38.697+03:00  INFO 16936 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T10:53:38.722+03:00  INFO 16936 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T10:53:49.274+03:00  INFO 7772 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 7772 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T10:53:49.283+03:00  INFO 7772 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T10:53:50.985+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:53:50.986+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T10:53:51.368+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 363 ms. Found 10 JPA repository interfaces.
+2024-07-19T10:53:51.379+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:53:51.379+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:53:51.397+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:53:51.962+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T10:53:51.962+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T10:53:51.998+03:00  INFO 7772 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
+2024-07-19T10:53:53.678+03:00  INFO 7772 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T10:53:53.737+03:00  INFO 7772 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T10:53:53.738+03:00  INFO 7772 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T10:53:53.963+03:00  INFO 7772 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T10:53:53.965+03:00  INFO 7772 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4521 ms
+2024-07-19T10:53:54.826+03:00  INFO 7772 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T10:53:55.001+03:00  INFO 7772 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T10:53:55.109+03:00  INFO 7772 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T10:53:55.668+03:00  INFO 7772 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T10:53:55.729+03:00  INFO 7772 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T10:53:56.099+03:00  INFO 7772 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3815a7d1
+2024-07-19T10:53:56.102+03:00  INFO 7772 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T10:53:58.951+03:00  INFO 7772 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T10:53:59.320+03:00  INFO 7772 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T10:54:00.600+03:00  INFO 7772 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T10:54:00.634+03:00  WARN 7772 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T10:54:01.337+03:00  INFO 7772 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 13.603 seconds (process running for 14.93)
+2024-07-19T10:54:09.261+03:00  INFO 7772 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T10:54:09.261+03:00  INFO 7772 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T10:54:09.599+03:00  INFO 7772 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 338 ms
+2024-07-19T10:54:09.742+03:00  WARN 7772 --- [person] [http-nio-8081-exec-2] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: eaf4b396-8e5a-4a7d-b3eb-7f4a20c5eba8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-07-19T10:54:09.761+03:00  INFO 7772 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-19T10:54:10.538+03:00 ERROR 7772 --- [person] [http-nio-8081-exec-2] b.i.diplom.security.filter.JwtFilter     : An error occurred during token processing: Request processing failed: java.lang.IllegalStateException: No primary or single unique constructor found for interface java.util.Set
+2024-07-19T10:54:40.021+03:00 ERROR 7772 --- [person] [http-nio-8081-exec-4] b.i.diplom.security.filter.JwtFilter     : An error occurred during token processing: Request processing failed: java.lang.IllegalStateException: No primary or single unique constructor found for interface java.util.Set
+2024-07-19T10:54:59.030+03:00  INFO 7772 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T10:54:59.035+03:00  INFO 7772 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T10:54:59.045+03:00  INFO 7772 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T11:05:18.751+03:00  INFO 7288 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 7288 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T11:05:18.756+03:00  INFO 7288 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T11:05:20.267+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:05:20.268+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T11:05:20.589+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 306 ms. Found 10 JPA repository interfaces.
+2024-07-19T11:05:20.593+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:05:20.594+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:05:20.610+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:05:21.103+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:05:21.104+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:05:21.131+03:00  INFO 7288 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:05:22.545+03:00  INFO 7288 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T11:05:22.586+03:00  INFO 7288 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T11:05:22.587+03:00  INFO 7288 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T11:05:22.758+03:00  INFO 7288 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T11:05:22.759+03:00  INFO 7288 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3875 ms
+2024-07-19T11:05:23.505+03:00  INFO 7288 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T11:05:23.621+03:00  INFO 7288 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T11:05:23.693+03:00  INFO 7288 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T11:05:24.182+03:00  INFO 7288 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T11:05:24.235+03:00  INFO 7288 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T11:05:24.532+03:00  INFO 7288 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6a552721
+2024-07-19T11:05:24.535+03:00  INFO 7288 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T11:05:26.711+03:00  INFO 7288 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T11:05:26.988+03:00  INFO 7288 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:05:28.458+03:00  INFO 7288 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T11:05:28.495+03:00  WARN 7288 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T11:05:29.359+03:00  INFO 7288 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 11.895 seconds (process running for 12.916)
+2024-07-19T11:07:28.313+03:00  INFO 7288 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T11:07:28.314+03:00  INFO 7288 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T11:07:28.607+03:00  INFO 7288 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 292 ms
+2024-07-19T11:07:28.811+03:00  INFO 7288 --- [person] [http-nio-8081-exec-2] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T11:07:28.815+03:00  WARN 7288 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T11:07:29.567+03:00 ERROR 7288 --- [person] [http-nio-8081-exec-2] b.i.diplom.security.filter.JwtFilter     : An error occurred during token processing: Request processing failed: java.lang.IllegalStateException: No primary or single unique constructor found for interface java.util.Set
+2024-07-19T11:08:36.245+03:00  INFO 7288 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:08:36.248+03:00  INFO 7288 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T11:08:36.253+03:00  INFO 7288 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T11:08:47.714+03:00  INFO 8252 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 8252 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T11:08:47.724+03:00  INFO 8252 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T11:08:49.892+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:08:49.893+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T11:08:50.279+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 371 ms. Found 10 JPA repository interfaces.
+2024-07-19T11:08:50.283+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:08:50.284+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:08:50.313+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:08:51.013+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:08:51.014+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:08:51.056+03:00  INFO 8252 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:08:52.984+03:00  INFO 8252 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T11:08:53.025+03:00  INFO 8252 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T11:08:53.026+03:00  INFO 8252 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T11:08:53.263+03:00  INFO 8252 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T11:08:53.265+03:00  INFO 8252 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5322 ms
+2024-07-19T11:08:54.425+03:00  INFO 8252 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T11:08:54.633+03:00  INFO 8252 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T11:08:54.753+03:00  INFO 8252 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T11:08:55.404+03:00  INFO 8252 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T11:08:55.475+03:00  INFO 8252 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T11:08:55.931+03:00  INFO 8252 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6487f7f8
+2024-07-19T11:08:55.936+03:00  INFO 8252 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T11:08:59.477+03:00  INFO 8252 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T11:08:59.924+03:00  INFO 8252 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:09:01.897+03:00  INFO 8252 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T11:09:01.954+03:00  WARN 8252 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T11:09:03.361+03:00  INFO 8252 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 17.704 seconds (process running for 19.291)
+2024-07-19T11:09:07.961+03:00  INFO 8252 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T11:09:07.962+03:00  INFO 8252 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T11:09:08.390+03:00  INFO 8252 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 426 ms
+2024-07-19T11:09:08.640+03:00  INFO 8252 --- [person] [http-nio-8081-exec-2] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T11:09:08.643+03:00  WARN 8252 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T11:09:11.187+03:00 ERROR 8252 --- [person] [http-nio-8081-exec-2] b.i.diplom.security.filter.JwtFilter     : An error occurred during token processing: Request processing failed: java.lang.RuntimeException: General Dropbox API error
+2024-07-19T11:11:06.911+03:00  INFO 8252 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:11:06.931+03:00  INFO 8252 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T11:11:06.969+03:00  INFO 8252 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T11:11:26.396+03:00  INFO 2128 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 2128 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T11:11:26.423+03:00  INFO 2128 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T11:11:31.489+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:11:31.491+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T11:11:32.662+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1124 ms. Found 10 JPA repository interfaces.
+2024-07-19T11:11:32.676+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:11:32.677+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:11:32.772+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:11:34.699+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:11:34.701+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:11:34.775+03:00  INFO 2128 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:11:38.903+03:00  INFO 2128 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T11:11:38.999+03:00  INFO 2128 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T11:11:38.999+03:00  INFO 2128 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T11:11:39.430+03:00  INFO 2128 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T11:11:39.432+03:00  INFO 2128 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12514 ms
+2024-07-19T11:11:41.502+03:00  INFO 2128 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T11:11:41.836+03:00  INFO 2128 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T11:11:42.026+03:00  INFO 2128 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T11:11:43.220+03:00  INFO 2128 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T11:11:43.337+03:00  INFO 2128 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T11:11:44.012+03:00  INFO 2128 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@a0e33db
+2024-07-19T11:11:44.019+03:00  INFO 2128 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T11:11:49.733+03:00  INFO 2128 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T11:11:50.583+03:00  INFO 2128 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:11:53.444+03:00  INFO 2128 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T11:11:53.524+03:00  WARN 2128 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T11:11:55.627+03:00  INFO 2128 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 33.712 seconds (process running for 37.485)
+2024-07-19T11:12:37.712+03:00  INFO 2128 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T11:12:37.714+03:00  INFO 2128 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T11:12:38.137+03:00  INFO 2128 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 421 ms
+2024-07-19T11:12:38.367+03:00  INFO 2128 --- [person] [http-nio-8081-exec-2] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T11:12:38.370+03:00  WARN 2128 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T11:13:54.234+03:00  INFO 2128 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:13:54.242+03:00  INFO 2128 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T11:13:54.259+03:00  INFO 2128 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T11:14:18.730+03:00  INFO 13492 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 13492 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T11:14:18.753+03:00  INFO 13492 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T11:14:25.028+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:14:25.030+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T11:14:26.601+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1519 ms. Found 10 JPA repository interfaces.
+2024-07-19T11:14:26.616+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:14:26.618+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:14:26.688+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:14:28.654+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:14:28.656+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:14:28.744+03:00  INFO 13492 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:14:36.347+03:00  INFO 13492 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T11:14:36.441+03:00  INFO 13492 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T11:14:36.443+03:00  INFO 13492 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T11:14:37.157+03:00  INFO 13492 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T11:14:37.160+03:00  INFO 13492 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 17905 ms
+2024-07-19T11:14:41.301+03:00  INFO 13492 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T11:14:42.094+03:00  INFO 13492 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T11:14:42.472+03:00  INFO 13492 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T11:14:45.079+03:00  INFO 13492 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T11:14:45.310+03:00  INFO 13492 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T11:14:46.795+03:00  INFO 13492 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1a4cbcc6
+2024-07-19T11:14:46.810+03:00  INFO 13492 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T11:14:56.601+03:00  INFO 13492 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T11:14:57.574+03:00  INFO 13492 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:15:02.561+03:00  INFO 13492 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T11:15:02.714+03:00  WARN 13492 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T11:15:05.918+03:00  INFO 13492 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 52.734 seconds (process running for 60.066)
+2024-07-19T11:15:17.116+03:00  INFO 13492 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T11:15:17.118+03:00  INFO 13492 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T11:15:18.086+03:00  INFO 13492 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 965 ms
+2024-07-19T11:15:18.936+03:00  INFO 13492 --- [person] [http-nio-8081-exec-1] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T11:15:18.945+03:00  WARN 13492 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T11:19:49.368+03:00  WARN 13492 --- [person] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m53s421ms139µs500ns).
+2024-07-19T11:19:58.337+03:00  INFO 13492 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:19:58.358+03:00  INFO 13492 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T11:19:58.406+03:00  INFO 13492 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T11:21:40.084+03:00  INFO 864 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 864 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T11:21:40.093+03:00  INFO 864 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T11:21:42.450+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:21:42.450+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T11:21:42.951+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 482 ms. Found 10 JPA repository interfaces.
+2024-07-19T11:21:42.957+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:21:42.958+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:21:42.993+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:21:43.773+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:21:43.774+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:21:43.827+03:00  INFO 864 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:21:46.180+03:00  INFO 864 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T11:21:46.262+03:00  INFO 864 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T11:21:46.264+03:00  INFO 864 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T11:21:46.614+03:00  INFO 864 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T11:21:46.615+03:00  INFO 864 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6322 ms
+2024-07-19T11:21:47.950+03:00  INFO 864 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T11:21:48.192+03:00  INFO 864 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T11:21:48.316+03:00  INFO 864 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T11:21:49.273+03:00  INFO 864 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T11:21:49.355+03:00  INFO 864 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T11:21:49.849+03:00  INFO 864 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3815a7d1
+2024-07-19T11:21:49.855+03:00  INFO 864 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T11:21:53.680+03:00  INFO 864 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T11:21:54.185+03:00  INFO 864 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:21:56.507+03:00  INFO 864 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T11:21:56.576+03:00  WARN 864 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T11:21:58.092+03:00  INFO 864 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 20.019 seconds (process running for 21.628)
+2024-07-19T11:22:04.230+03:00  INFO 864 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T11:22:04.231+03:00  INFO 864 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T11:22:04.696+03:00  INFO 864 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 465 ms
+2024-07-19T11:22:04.948+03:00  INFO 864 --- [person] [http-nio-8081-exec-1] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T11:22:04.952+03:00  WARN 864 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T11:22:19.443+03:00  INFO 864 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:22:19.449+03:00  INFO 864 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T11:22:19.463+03:00  INFO 864 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T11:33:19.112+03:00  INFO 15788 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 15788 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T11:33:19.122+03:00  INFO 15788 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T11:33:20.982+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:33:20.983+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T11:33:21.293+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 291 ms. Found 10 JPA repository interfaces.
+2024-07-19T11:33:21.297+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:33:21.298+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:33:21.319+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:33:21.912+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T11:33:21.913+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T11:33:21.943+03:00  INFO 15788 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+2024-07-19T11:33:23.645+03:00  INFO 15788 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T11:33:23.708+03:00  INFO 15788 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T11:33:23.709+03:00  INFO 15788 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T11:33:23.926+03:00  INFO 15788 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T11:33:23.927+03:00  INFO 15788 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4652 ms
+2024-07-19T11:33:25.020+03:00  INFO 15788 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T11:33:25.165+03:00  INFO 15788 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T11:33:25.247+03:00  INFO 15788 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T11:33:25.857+03:00  INFO 15788 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T11:33:25.930+03:00  INFO 15788 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T11:33:26.271+03:00  INFO 15788 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@722b3ba2
+2024-07-19T11:33:26.275+03:00  INFO 15788 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T11:33:29.106+03:00  INFO 15788 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T11:33:29.516+03:00  INFO 15788 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:33:30.910+03:00  INFO 15788 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T11:33:30.960+03:00  WARN 15788 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T11:33:31.895+03:00  INFO 15788 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 14.21 seconds (process running for 15.315)
+2024-07-19T11:34:52.573+03:00  INFO 15788 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T11:34:52.574+03:00  INFO 15788 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T11:34:52.968+03:00  INFO 15788 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 392 ms
+2024-07-19T11:34:53.222+03:00  INFO 15788 --- [person] [http-nio-8081-exec-1] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T11:34:53.226+03:00  WARN 15788 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T11:49:04.837+03:00  INFO 15788 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T11:49:04.940+03:00  INFO 15788 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T11:49:05.050+03:00  INFO 15788 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T12:43:33.396+03:00  INFO 13084 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 13084 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T12:43:33.416+03:00  INFO 13084 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T12:43:38.534+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T12:43:38.536+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T12:43:39.885+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1296 ms. Found 10 JPA repository interfaces.
+2024-07-19T12:43:39.898+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T12:43:39.900+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T12:43:39.970+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2024-07-19T12:43:41.578+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T12:43:41.579+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T12:43:41.635+03:00  INFO 13084 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 0 Redis repository interfaces.
+2024-07-19T12:43:45.916+03:00  INFO 13084 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T12:43:46.096+03:00  INFO 13084 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T12:43:46.098+03:00  INFO 13084 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T12:43:46.640+03:00  INFO 13084 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T12:43:46.650+03:00  INFO 13084 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12857 ms
+2024-07-19T12:43:48.834+03:00  INFO 13084 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T12:43:49.214+03:00  INFO 13084 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T12:43:49.839+03:00  INFO 13084 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T12:43:51.746+03:00  INFO 13084 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T12:43:51.905+03:00  INFO 13084 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T12:43:53.151+03:00  INFO 13084 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@a0e33db
+2024-07-19T12:43:53.162+03:00  INFO 13084 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T12:44:05.752+03:00  INFO 13084 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T12:44:06.936+03:00  INFO 13084 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T12:44:12.473+03:00  INFO 13084 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T12:44:12.607+03:00  WARN 13084 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T12:44:15.811+03:00  INFO 13084 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 46.074 seconds (process running for 49.635)
+2024-07-19T12:45:12.389+03:00  INFO 13084 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T12:45:12.391+03:00  INFO 13084 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T12:45:13.647+03:00  INFO 13084 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1255 ms
+2024-07-19T12:45:14.493+03:00  INFO 13084 --- [person] [http-nio-8081-exec-2] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2024-07-19T12:45:14.503+03:00  WARN 13084 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-07-19T13:04:22.732+03:00  INFO 13084 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T13:04:22.771+03:00  INFO 13084 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T13:04:22.843+03:00  INFO 13084 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T13:05:47.785+03:00  INFO 2380 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 2380 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T13:05:47.845+03:00  INFO 2380 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T13:06:02.785+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T13:06:02.789+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T13:06:08.053+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5169 ms. Found 10 JPA repository interfaces.
+2024-07-19T13:06:08.099+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T13:06:08.105+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T13:06:08.429+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 0 Redis repository interfaces.
+2024-07-19T13:06:14.927+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T13:06:14.931+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T13:06:15.221+03:00  INFO 2380 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 281 ms. Found 0 Redis repository interfaces.
+2024-07-19T13:06:32.027+03:00  INFO 2380 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T13:06:32.524+03:00  INFO 2380 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T13:06:32.529+03:00  INFO 2380 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T13:06:34.255+03:00  INFO 2380 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T13:06:34.264+03:00  INFO 2380 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 44819 ms
+2024-07-19T13:06:46.386+03:00  INFO 2380 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T13:06:47.290+03:00  INFO 2380 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T13:06:48.048+03:00  INFO 2380 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T13:06:53.250+03:00  INFO 2380 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T13:06:53.727+03:00  INFO 2380 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T13:06:57.540+03:00  INFO 2380 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4bab78ce
+2024-07-19T13:06:57.577+03:00  INFO 2380 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T13:08:04.840+03:00  INFO 2380 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T13:08:08.705+03:00  INFO 2380 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T13:08:21.238+03:00  INFO 2380 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T13:08:22.780+03:00  WARN 2380 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T13:08:32.695+03:00  INFO 2380 --- [person] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T13:08:32.699+03:00  INFO 2380 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T13:08:40.824+03:00  INFO 2380 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 187.417 seconds (process running for 202.988)
+2024-07-19T13:08:46.568+03:00  INFO 2380 --- [person] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13864 ms
+2024-07-19T13:08:48.666+03:00  INFO 2380 --- [person] [http-nio-8081-exec-2] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name personDetailsService
+2024-07-19T20:47:48.140+03:00  WARN 2380 --- [person] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7h36m20s165ms841µs500ns).
+2024-07-19T20:49:28.708+03:00  INFO 2380 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T20:49:28.716+03:00  INFO 2380 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T20:49:28.740+03:00  INFO 2380 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T20:49:35.102+03:00  INFO 15432 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 15432 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T20:49:35.113+03:00  INFO 15432 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T20:49:37.578+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T20:49:37.578+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T20:49:38.149+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 547 ms. Found 10 JPA repository interfaces.
+2024-07-19T20:49:38.154+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T20:49:38.155+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T20:49:38.183+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2024-07-19T20:49:38.980+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T20:49:38.981+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T20:49:39.012+03:00  INFO 15432 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+2024-07-19T20:49:41.137+03:00  INFO 15432 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T20:49:41.189+03:00  INFO 15432 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T20:49:41.190+03:00  INFO 15432 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T20:49:41.404+03:00  INFO 15432 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T20:49:41.406+03:00  INFO 15432 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6138 ms
+2024-07-19T20:49:42.370+03:00  INFO 15432 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T20:49:42.533+03:00  INFO 15432 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T20:49:42.625+03:00  INFO 15432 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T20:49:43.335+03:00  INFO 15432 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T20:49:43.395+03:00  INFO 15432 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T20:49:43.765+03:00  INFO 15432 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3ef46749
+2024-07-19T20:49:43.769+03:00  INFO 15432 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T20:49:46.715+03:00  INFO 15432 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T20:49:47.150+03:00  INFO 15432 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T20:49:48.751+03:00  INFO 15432 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T20:49:48.799+03:00  WARN 15432 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T20:49:49.819+03:00  INFO 15432 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 16.223 seconds (process running for 17.547)
+2024-07-19T20:51:17.855+03:00  INFO 15432 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T20:51:17.856+03:00  INFO 15432 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T20:51:18.568+03:00  INFO 15432 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 712 ms
+2024-07-19T20:51:18.836+03:00  INFO 15432 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name personDetailsService
+2024-07-19T20:51:34.031+03:00  INFO 15432 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T20:51:34.036+03:00  INFO 15432 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T20:51:34.060+03:00  INFO 15432 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T21:26:52.218+03:00  INFO 17192 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 17192 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T21:26:52.232+03:00  INFO 17192 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T21:26:56.192+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:26:56.194+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T21:26:57.058+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 827 ms. Found 10 JPA repository interfaces.
+2024-07-19T21:26:57.067+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:26:57.069+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T21:26:57.114+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-07-19T21:26:58.379+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:26:58.381+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T21:26:58.452+03:00  INFO 17192 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 69 ms. Found 0 Redis repository interfaces.
+2024-07-19T21:27:02.299+03:00  INFO 17192 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T21:27:02.395+03:00  INFO 17192 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T21:27:02.396+03:00  INFO 17192 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T21:27:02.785+03:00  INFO 17192 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T21:27:02.787+03:00  INFO 17192 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 10256 ms
+2024-07-19T21:27:04.369+03:00  INFO 17192 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T21:27:04.652+03:00  INFO 17192 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T21:27:04.824+03:00  INFO 17192 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T21:27:05.918+03:00  INFO 17192 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T21:27:06.008+03:00  INFO 17192 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T21:27:06.578+03:00  INFO 17192 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@c30f26d
+2024-07-19T21:27:06.583+03:00  INFO 17192 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T21:27:11.110+03:00  INFO 17192 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T21:27:11.677+03:00  INFO 17192 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T21:27:14.040+03:00  INFO 17192 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T21:27:14.106+03:00  WARN 17192 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T21:27:15.599+03:00  INFO 17192 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 25.776 seconds (process running for 27.934)
+2024-07-19T21:27:58.574+03:00  INFO 17192 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T21:27:58.576+03:00  INFO 17192 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T21:27:59.107+03:00  INFO 17192 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 531 ms
+2024-07-19T21:27:59.380+03:00  INFO 17192 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name personDetailsService
+2024-07-19T21:31:14.653+03:00  INFO 17192 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T21:31:14.671+03:00  INFO 17192 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T21:31:14.739+03:00  INFO 17192 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T21:31:35.543+03:00  INFO 8376 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 8376 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T21:31:35.556+03:00  INFO 8376 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T21:31:39.252+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:31:39.254+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T21:31:40.127+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 835 ms. Found 10 JPA repository interfaces.
+2024-07-19T21:31:40.137+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:31:40.139+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T21:31:40.179+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-07-19T21:31:41.824+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:31:41.833+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T21:31:41.971+03:00  INFO 8376 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 135 ms. Found 0 Redis repository interfaces.
+2024-07-19T21:31:45.062+03:00  INFO 8376 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T21:31:45.129+03:00  INFO 8376 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T21:31:45.130+03:00  INFO 8376 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T21:31:45.497+03:00  INFO 8376 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T21:31:45.498+03:00  INFO 8376 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9670 ms
+2024-07-19T21:31:47.104+03:00  INFO 8376 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T21:31:47.415+03:00  INFO 8376 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T21:31:47.586+03:00  INFO 8376 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T21:31:48.707+03:00  INFO 8376 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T21:31:48.826+03:00  INFO 8376 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T21:31:49.533+03:00  INFO 8376 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4d174189
+2024-07-19T21:31:49.540+03:00  INFO 8376 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T21:31:54.929+03:00  INFO 8376 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T21:31:55.667+03:00  INFO 8376 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T21:31:58.475+03:00  INFO 8376 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T21:31:58.550+03:00  WARN 8376 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T21:32:00.428+03:00  INFO 8376 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 27.314 seconds (process running for 29.481)
+2024-07-19T21:32:16.078+03:00  INFO 8376 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T21:32:16.079+03:00  INFO 8376 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T21:32:16.795+03:00  INFO 8376 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 714 ms
+2024-07-19T21:32:17.127+03:00  INFO 8376 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name personDetailsService
+2024-07-19T21:32:18.540+03:00  WARN 8376 --- [person] [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [135] milliseconds.
+2024-07-19T21:33:26.541+03:00  INFO 8376 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T21:33:26.561+03:00  INFO 8376 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T21:33:26.658+03:00  INFO 8376 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-19T21:33:51.843+03:00  INFO 13780 --- [person] [main] b.i.diplom.person.PersonApplication      : Starting PersonApplication using Java 19.0.2 with PID 13780 (E:\party-spring\party-web\project-manager\person\target\classes started by tende in E:\party-spring\party-web\project-manager)
+2024-07-19T21:33:51.857+03:00  INFO 13780 --- [person] [main] b.i.diplom.person.PersonApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-07-19T21:33:56.603+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:33:56.605+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-19T21:33:57.765+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1109 ms. Found 10 JPA repository interfaces.
+2024-07-19T21:33:57.774+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:33:57.775+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T21:33:57.816+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-07-19T21:33:59.135+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-19T21:33:59.136+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-07-19T21:33:59.223+03:00  INFO 13780 --- [person] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85 ms. Found 0 Redis repository interfaces.
+2024-07-19T21:34:03.775+03:00  INFO 13780 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-19T21:34:03.862+03:00  INFO 13780 --- [person] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-19T21:34:03.863+03:00  INFO 13780 --- [person] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-19T21:34:04.325+03:00  INFO 13780 --- [person] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-19T21:34:04.328+03:00  INFO 13780 --- [person] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12083 ms
+2024-07-19T21:34:06.923+03:00  INFO 13780 --- [person] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-19T21:34:07.325+03:00  INFO 13780 --- [person] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-19T21:34:07.531+03:00  INFO 13780 --- [person] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-19T21:34:08.896+03:00  INFO 13780 --- [person] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-19T21:34:09.016+03:00  INFO 13780 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-19T21:34:09.763+03:00  INFO 13780 --- [person] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@c30f26d
+2024-07-19T21:34:09.771+03:00  INFO 13780 --- [person] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-19T21:34:15.901+03:00  INFO 13780 --- [person] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-19T21:34:16.802+03:00  INFO 13780 --- [person] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T21:34:20.265+03:00  INFO 13780 --- [person] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-19T21:34:20.369+03:00  WARN 13780 --- [person] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-19T21:34:22.608+03:00  INFO 13780 --- [person] [main] b.i.diplom.person.PersonApplication      : Started PersonApplication in 33.914 seconds (process running for 36.392)
+2024-07-19T21:34:45.393+03:00  INFO 13780 --- [person] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-19T21:34:45.394+03:00  INFO 13780 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-19T21:34:46.214+03:00  INFO 13780 --- [person] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 819 ms
+2024-07-19T21:34:46.685+03:00  INFO 13780 --- [person] [http-nio-8081-exec-1] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name personDetailsService
+2024-07-19T21:34:48.736+03:00  WARN 13780 --- [person] [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [163] milliseconds.
+2024-07-19T21:36:54.706+03:00  INFO 13780 --- [person] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-19T21:36:54.714+03:00  INFO 13780 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-19T21:36:54.741+03:00  INFO 13780 --- [person] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

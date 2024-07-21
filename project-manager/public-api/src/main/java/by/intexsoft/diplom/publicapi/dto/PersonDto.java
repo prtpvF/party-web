@@ -1,7 +1,6 @@
 package by.intexsoft.diplom.publicapi.dto;
 
 import by.intexsoft.diplom.common_module.model.Person;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.ArrayList;

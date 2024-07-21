@@ -64,12 +64,7 @@ public class JwtUtil {
     }
 
     private void saveTokenToRedis(String username, String token){
-        redisTemplate.opsForValue().set(username, token, Duration.ofMinutes(1));
+        redisTemplate.opsForValue().set(username, token, Duration.ofMinutes(10));
         log.info("token has successfully added into redis");
     }
-
-
-
-
-
 }

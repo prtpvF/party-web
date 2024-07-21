@@ -1,7 +1,7 @@
 package by.intexsoft.diplom.common_module.model.role;
 
-import by.intexsoft.diplom.common_module.model.enums.PartyTypeEnum;
 import by.intexsoft.diplom.common_module.model.Party.Party;
+import by.intexsoft.diplom.common_module.model.enums.PartyTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 

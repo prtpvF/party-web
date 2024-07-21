@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class ApiException {
-    private  RuntimeException exception;
+    private RuntimeException exception;
     private final HttpStatus status;
 
     public ApiException(RuntimeException exception, HttpStatus status) {

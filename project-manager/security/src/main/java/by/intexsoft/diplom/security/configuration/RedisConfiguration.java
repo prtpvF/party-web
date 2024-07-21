@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.security.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -12,12 +13,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableRedisRepositories
 public class RedisConfiguration {
+    private static final String HOSTNAME = "localhost";
+    private static final int REDIS_PORT = 6379;
 
     @Bean
     public JedisConnectionFactory connectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setHostName("localhost");
-        configuration.setPort(6379);
+        configuration.setHostName(HOSTNAME);
+        configuration.setPort(REDIS_PORT);
         return new JedisConnectionFactory(configuration);
     }
 

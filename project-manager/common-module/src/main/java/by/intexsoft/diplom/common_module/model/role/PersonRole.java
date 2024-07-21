@@ -19,20 +19,20 @@ public class PersonRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String role;
+    private String roleName;
 
     @OneToMany(mappedBy = "role")
     private List<Person> person = new ArrayList<>();
 
-    public PersonRole(String role){
-        this.role=role;
+    public PersonRole(String roleName){
+        this.roleName=roleName;
     }
 
     @Override
     public String toString() {
         return "PersonRole{" +
                 "id=" + id +
-                ", role='" + role + '\'' +
+                ", role='" + roleName + '\'' +
                 '}';
     }
 }
