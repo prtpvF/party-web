@@ -78,8 +78,6 @@ public class AuthService {
 
     private PersonRole getPersonRole(boolean organizer) {
         String roleName = organizer ? PersonRolesEnum.ORGANIZER.name() : PersonRolesEnum.USER.name();
-        System.out.println(organizer);
-        System.out.println(roleName);
         return roleRepository.findByRoleName(roleName)
                 .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleName));
     }

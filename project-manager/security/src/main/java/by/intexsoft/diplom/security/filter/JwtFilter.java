@@ -26,7 +26,6 @@ import java.io.IOException;
 public class JwtFilter extends GenericFilterBean {
 
     private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -40,19 +39,12 @@ public class JwtFilter extends GenericFilterBean {
                 String username = jwtUtil.validateTokenAndRetrieveClaim(token);
                 jwtUtil.isTokenActive(username);
                 log.info("Token is valid for user: {}", username);
-
-                Authentication authentication = new UsernamePasswordAuthenticationToken(username, null);
-                Authentication authenticated = authenticationManager.authenticate(authentication);
-                SecurityContextHolder.getContext().setAuthentication(authenticated);
             }
 
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (JWTVerificationException e) {
             log.error("JWT verification failed: {}", e.getMessage());
             sendErrorResponse(response, HttpStatus.UNAUTHORIZED, "Invalid JWT token.");
-        } catch (Exception e) {
-            log.error("An error occurred during token processing: {}", e.getMessage());
-            sendErrorResponse(response, HttpStatus.BAD_REQUEST, "Something went wrong during token processing.");
         }
     }
 

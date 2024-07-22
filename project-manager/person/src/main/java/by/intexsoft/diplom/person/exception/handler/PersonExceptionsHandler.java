@@ -12,7 +12,7 @@ import java.io.InvalidClassException;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionsHandler {
+public class PersonExceptionsHandler {
 
     @ExceptionHandler(value = PersonNotFoundException.class)
     public ResponseEntity personNotFoundExceptionHandler(PersonNotFoundException ex) {
