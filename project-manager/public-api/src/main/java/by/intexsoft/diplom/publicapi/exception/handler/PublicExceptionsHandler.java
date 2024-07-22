@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @RequiredArgsConstructor
 @Slf4j
-public class ExceptionsHandler {
+public class PublicExceptionsHandler {
     private final JwtUtil jwtUtil;
 
 

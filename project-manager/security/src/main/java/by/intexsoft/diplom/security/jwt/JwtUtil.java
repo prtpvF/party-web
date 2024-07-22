@@ -44,10 +44,8 @@ public class JwtUtil {
 
     public void isTokenActive(String username){
         String token = redisTemplate.opsForValue().get(username);
-        if(token.equals(null)){
-            throw new TokenExpiredException("token has expired", null);
-        }
-         log.info("token is still active");
+        assert token != null;
+        log.info("token is still active");
     }
 
     public void removeToken(String username){

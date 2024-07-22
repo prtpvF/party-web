@@ -1,28 +1,20 @@
 package by.intexsoft.diplom.security.configuration;
 
-import by.intexsoft.diplom.security.jwt.JwtUtil;
+import by.intexsoft.diplom.security.filter.JwtFilter;
 import by.intexsoft.diplom.security.logout.LogoutHandlerImpl;
-import by.intexsoft.diplom.security.security.PersonDetails;
-import by.intexsoft.diplom.security.service.PersonDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +22,7 @@ import java.util.Collections;
 public class SecurityConfiguration {
 
         private final LogoutHandlerImpl logoutHandler;
-        private final JwtUtil jwtUtil;
+        private final JwtFilter filter;
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

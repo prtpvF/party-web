@@ -11,18 +11,14 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Collections;
 
+
 @Getter
 public class PersonDetails implements UserDetails {
 
-        private Person person;
-        private String username;
-        private String password;
-        private Collection<? extends GrantedAuthority> authorities;
+        private final Person person;
 
-        public PersonDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-            this.username = username;
-            this.password = password;
-            this.authorities = authorities;
+        public PersonDetails(Person person) {
+            this.person = person;
         }
 
         @Override
