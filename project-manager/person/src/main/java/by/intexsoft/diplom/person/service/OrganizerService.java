@@ -2,12 +2,11 @@ package by.intexsoft.diplom.person.service;
 
 import by.intexsoft.diplom.common_module.model.Party;
 import by.intexsoft.diplom.common_module.model.DeletingPartyRequest;
+import by.intexsoft.diplom.common_module.model.PartyStatus;
 import by.intexsoft.diplom.common_module.model.Person;
+import by.intexsoft.diplom.common_module.model.enums.PartyStatusEnum;
 import by.intexsoft.diplom.common_module.model.role.PartyType;
-import by.intexsoft.diplom.common_module.repository.DeletingPartyRequestRepository;
-import by.intexsoft.diplom.common_module.repository.PartyRepository;
-import by.intexsoft.diplom.common_module.repository.PartyTypeRepository;
-import by.intexsoft.diplom.common_module.repository.PersonRepository;
+import by.intexsoft.diplom.common_module.repository.*;
 import by.intexsoft.diplom.person.dto.PartyDto;
 import by.intexsoft.diplom.person.exception.*;
 import by.intexsoft.diplom.security.jwt.JwtUtil;
@@ -33,11 +32,12 @@ public class OrganizerService {
         private final PersonRepository personRepository;
         private final PartyRepository partyRepository;
         private final PartyTypeRepository partyTypeRepository;
+        private final PartyStatusRepository partyStatusRepository;
         private final DeletingPartyRequestRepository deletingRequestRepository;
         private final JwtUtil jwtUtil;
         private final ModelMapper modelMapper;
 
-        public HttpStatus createParty( String token, PartyDto partyCreateDto) {
+        public HttpStatus createPartyRequest(String token, PartyDto partyCreateDto) {
             Person organizer = getOrganizerByToken(token);
             Party party = convertToParty(partyCreateDto, organizer);
             checkEventDate(partyCreateDto);
@@ -106,13 +106,19 @@ public class OrganizerService {
             Party party = new Party();
             party.setOrganizer(organizer);
             party.setImages(partyDto.getImages());
-            party.setType(getType(partyDto.getType()));
+            party.setType(getPartyType(partyDto.getType()));
             party.setDateOfEvent(formatDateOfEvent(partyDto.getDateOfEvent()));
+            party.setStatus(getPartyStatus(PartyStatusEnum.UNAVAILABLE.name()));
             modelMapper.map(partyDto, party);
             return party;
         }
 
-        private PartyType getType(String typeName){
+        private PartyStatus getPartyStatus(String statusName){
+            return partyStatusRepository.findByStatus(statusName)
+                    .orElseThrow(() -> new StatusNotFoundException("status not found"));
+        }
+
+        private PartyType getPartyType(String typeName){
             return partyTypeRepository.findByType(typeName)
                     .orElseThrow(() -> new IllegalArgumentException("type mot found", null));
         }

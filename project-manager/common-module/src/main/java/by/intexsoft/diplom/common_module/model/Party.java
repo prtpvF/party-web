@@ -54,6 +54,10 @@ public class Party {
         @NotBlank(message = "field can't be empty")
         private String address;
 
+        @ManyToOne
+        @JoinColumn(name = "status_id", nullable = false)
+        private PartyStatus status;
+
         @Nullable
         @Max(value = 5, message = "value must be maximum 5")
         private double minimalRating;
@@ -69,7 +73,8 @@ public class Party {
         @UpdateTimestamp
         private LocalDateTime updatedAt;
 
-        @OneToOne(mappedBy = "party", fetch = FetchType.LAZY)
+        @OneToOne(mappedBy = "party", fetch = FetchType.LAZY,
+                  cascade = CascadeType.REMOVE)
         private DeletingPartyRequest request;
 
         @ManyToMany(fetch = FetchType.LAZY, mappedBy = "parties")

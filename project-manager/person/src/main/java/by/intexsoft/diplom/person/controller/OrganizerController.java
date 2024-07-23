@@ -15,10 +15,11 @@ public class OrganizerController {
 
         private final OrganizerService organizerService;
 
+        @PreAuthorize("hasRole('ROLE_ORGANIZER')")
         @PostMapping("/party")
         public HttpStatus createParty(@RequestBody PartyDto partyDto,
                                       @RequestHeader("token") String token){
-            return organizerService.createParty(token, partyDto);
+            return organizerService.createPartyRequest(token, partyDto);
         }
 
         @PreAuthorize("hasRole('ROLE_ORGANIZER')")

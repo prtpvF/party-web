@@ -45,21 +45,27 @@ public class PersonExceptionsHandler {
             return new ResponseEntity(ex.getMessage(), status);
         }
 
-    @ExceptionHandler(value = PartyNotFoundException.class)
-    public ResponseEntity partyNotFoundExceptionHandler(PartyNotFoundException ex) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        return new ResponseEntity(ex.getMessage(), status);
-    }
+        @ExceptionHandler(value = PartyNotFoundException.class)
+        public ResponseEntity partyNotFoundExceptionHandler(PartyNotFoundException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
 
-    @ExceptionHandler(value = IllegalPartyOrganizerException.class)
-    public ResponseEntity illegalPartyOrganizerHandler(IllegalPartyOrganizerException ex) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        return new ResponseEntity(ex.getMessage(), status);
-    }
+        @ExceptionHandler(value = IllegalPartyOrganizerException.class)
+        public ResponseEntity illegalPartyOrganizerHandler(IllegalPartyOrganizerException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
 
-    @ExceptionHandler(value = RequestAlreadyExistException.class)
-    public ResponseEntity requestAlreadyExistExceptionHandler(RequestAlreadyExistException ex) {
-        HttpStatus status = HttpStatus.FOUND;
-        return new ResponseEntity(ex.getMessage(), status);
-    }
+        @ExceptionHandler(value = RequestAlreadyExistException.class)
+        public ResponseEntity requestAlreadyExistExceptionHandler(RequestAlreadyExistException ex) {
+            HttpStatus status = HttpStatus.FOUND;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = StatusNotFoundException.class)
+        public ResponseEntity statusNotFoundExceptionHandler(StatusNotFoundException ex) {
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
 }
