@@ -29,7 +29,7 @@ public class Party {
         @NotBlank(message = "field can't be empty")
         private String name;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne
         @JoinColumn(name = "type_id")
         private PartyType type;
 

@@ -64,7 +64,7 @@ public class Person {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(
             name = "person_parties",
-            joinColumns = {@JoinColumn(name = "party_id"),     //укероротить
+            joinColumns = {@JoinColumn(name = "party_id"),
             }, inverseJoinColumns = {@JoinColumn(name = "id")}
     )
     private List<Party> parties = new ArrayList<>();
