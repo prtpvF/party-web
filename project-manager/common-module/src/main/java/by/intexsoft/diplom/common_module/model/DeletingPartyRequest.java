@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "PartyDeletingRequest")
 @Data
-public class PartyDeletingRequest {
+public class DeletingPartyRequest {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

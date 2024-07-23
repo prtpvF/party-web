@@ -1,8 +1,6 @@
 package by.intexsoft.diplom.common_module.model;
 
-import by.intexsoft.diplom.common_module.model.Party.Party;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 

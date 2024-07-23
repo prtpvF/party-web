@@ -1,8 +1,10 @@
 package by.intexsoft.diplom.common_module.repository;
 
-import by.intexsoft.diplom.common_module.model.PartyDeletingRequest;
+import by.intexsoft.diplom.common_module.model.DeletingPartyRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PartyDeletingRequestRepository extends JpaRepository<PartyDeletingRequest, Integer> {
+import java.util.Optional;
 
+public interface DeletingPartyRequestRepository extends JpaRepository<DeletingPartyRequest, Integer> {
+    Optional<DeletingPartyRequest> findByPartyId(Integer partyId);
 }

@@ -1,7 +1,6 @@
 package by.intexsoft.diplom.common_module.model.role;
 
-import by.intexsoft.diplom.common_module.model.Party.Party;
-import by.intexsoft.diplom.common_module.model.enums.PartyTypeEnum;
+import by.intexsoft.diplom.common_module.model.Party;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,16 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PartyType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
 
-    private String type;
+        private String type;
 
-    @OneToMany(mappedBy = "type")
-    private List<Party> parties = new ArrayList<>();
+        @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
+        private List<Party> parties = new ArrayList<>();
 
-    public PartyType(String type) {
-        this.type = type;
-    }
+        public PartyType(String type) {
+            this.type = type;
+        }
 }

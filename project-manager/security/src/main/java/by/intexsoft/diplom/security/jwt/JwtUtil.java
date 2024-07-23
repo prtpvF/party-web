@@ -54,9 +54,9 @@ public class JwtUtil {
     }
 
     public String extractTokenFromHeader(HttpServletRequest request) {
-        String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7);
+        String token = request.getHeader("token");
+        if(token != null) {
+            return token;
         }
         return null;
     }

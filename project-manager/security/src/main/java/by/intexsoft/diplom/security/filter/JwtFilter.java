@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -27,6 +28,7 @@ import java.io.IOException;
 public class JwtFilter extends GenericFilterBean {
 
         private final JwtUtil jwtUtil;
+        private final PersonDetailsService personDetailsService;
 
         @Override
         public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -35,12 +37,15 @@ public class JwtFilter extends GenericFilterBean {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             String token = jwtUtil.extractTokenFromHeader(request);
             try {
-                if (token != null ) {
+                if (token != null) {
                     String username = jwtUtil.validateTokenAndRetrieveClaim(token);
                     jwtUtil.isTokenActive(username);
                     log.info("Token is valid for user: {}", username);
+                    PersonDetails personDetails = personDetailsService.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken
+                            (personDetails,null, personDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
-                filterChain.doFilter(servletRequest, servletResponse);
             } catch (JWTVerificationException e) {
                 log.error("JWT verification failed: {}", e.getMessage());
                 sendErrorResponse(response);

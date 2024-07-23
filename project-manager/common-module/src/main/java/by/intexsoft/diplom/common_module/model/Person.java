@@ -1,6 +1,5 @@
 package by.intexsoft.diplom.common_module.model;
 
-import by.intexsoft.diplom.common_module.model.Party.Party;
 import by.intexsoft.diplom.common_module.model.role.PersonRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -53,7 +52,7 @@ public class Person {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "role")
     private PersonRole role;
 
@@ -97,6 +96,9 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private List<Person> friends = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer")
+    private List<DeletingPartyRequest> partyDeletingRequests = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -20,14 +20,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PersonDetailsService implements UserDetailsService {
 
-    private final PersonRepository personRepository;
+        private final PersonRepository personRepository;
 
-    @Override
-    public PersonDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person person = personRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + person.getRole()));
-        return new PersonDetails(person);
-    }
+        @Override
+        public PersonDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            Person person = personRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+            Set<GrantedAuthority> authorities = new HashSet<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + person.getRole().getRoleName()));
+            return new PersonDetails(person, authorities);
+        }
 }

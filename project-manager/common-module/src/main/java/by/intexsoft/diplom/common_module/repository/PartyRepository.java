@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.common_module.repository;
 
-import by.intexsoft.diplom.common_module.model.Party.Party;
+import by.intexsoft.diplom.common_module.model.Party;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -10,20 +10,23 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 
 @Getter
 public class PersonDetails implements UserDetails {
 
         private final Person person;
+        private final Set<GrantedAuthority> authorities;
 
-        public PersonDetails(Person person) {
+        public PersonDetails(Person person, Set<GrantedAuthority> authorities) {
             this.person = person;
+            this.authorities = authorities;
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return Collections.singletonList(new SimpleGrantedAuthority(person.getRole().toString()));
+           return authorities;
         }
 
         @Override

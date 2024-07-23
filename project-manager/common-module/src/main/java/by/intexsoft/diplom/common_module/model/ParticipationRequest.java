@@ -1,6 +1,5 @@
 package by.intexsoft.diplom.common_module.model;
 
-import by.intexsoft.diplom.common_module.model.Party.Party;
 import jakarta.persistence.*;
 import lombok.Data;
 

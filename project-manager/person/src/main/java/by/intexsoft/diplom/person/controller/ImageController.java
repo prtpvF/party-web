@@ -13,10 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageController {
 
-    private final ImageService imageService;
+        private final ImageService imageService;
 
-    @PostMapping("/image")
-    public List<String> saveImagesIntoDropbox(@ModelAttribute List<MultipartFile> files){
-        return imageService.saveImagesToDropBox(files);
-    }
+        @PostMapping("/image")
+        public List<String> saveImagesIntoDropbox(@ModelAttribute List<MultipartFile> files) {
+            return imageService.saveImagesToDropBox(files);
+        }
 }
