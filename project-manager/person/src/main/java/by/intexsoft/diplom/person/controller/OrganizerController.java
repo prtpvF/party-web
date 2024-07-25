@@ -1,5 +1,7 @@
 package by.intexsoft.diplom.person.controller;
 
+import by.intexsoft.diplom.common_module.model.ParticipationRequest;
+import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.PartyDto;
 import by.intexsoft.diplom.person.service.OrganizerService;
 
@@ -7,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,7 +37,21 @@ public class OrganizerController {
         @PatchMapping("/party/{id}")
         public HttpStatus updateParty(@PathVariable("id") int partyId,
                                       @RequestHeader("token") String token,
-                                      @RequestBody PartyDto partyDto){
+                                      @RequestBody PartyDto partyDto) {
             return organizerService.updateParty(partyId, token, partyDto);
+        }
+
+        @PostMapping("/request/{id}")
+        public HttpStatus answerParticipationRequest(@PathVariable("id") int requestId,
+                                                     @RequestHeader("token") String token,
+                                                     @RequestBody OrgAnswerDto orgAnswerDto){
+                return organizerService.answerRequest(requestId, token, orgAnswerDto);
+        }
+
+        @PreAuthorize("hasRole('ROLE_ORGANIZER')")
+        @DeleteMapping("/participation-request/{id}")
+        public HttpStatus deleteParticipationRequest(@PathVariable("id") int requestId,
+                                                     @RequestHeader("token") String token){
+              return organizerService.deleteRequest(requestId, token);
         }
 }

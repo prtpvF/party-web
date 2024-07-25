@@ -12,6 +12,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartyDto {
 
+        private int id;
         private String name;
         private String type;
         private Integer ageRestriction;

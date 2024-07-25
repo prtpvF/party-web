@@ -68,4 +68,28 @@ public class PersonExceptionsHandler {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return new ResponseEntity(ex.getMessage(), status);
         }
+
+        @ExceptionHandler(value = RequestNotFoundException.class)
+        public ResponseEntity requestNotFoundExceptionHandler(RequestNotFoundException ex) {
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = ParticipationRequestAlsoExists.class)
+        public ResponseEntity participationRequestAlsoExistsHandler(ParticipationRequestAlsoExists ex) {
+            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = ParticipationRequestNotFoundException.class)
+        public ResponseEntity participationRequestNotFoundExceptionHandler(ParticipationRequestNotFoundException ex) {
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = InvalidRequestOwner.class)
+        public ResponseEntity invalidRequestOwnerHandler(InvalidRequestOwner ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
 }
