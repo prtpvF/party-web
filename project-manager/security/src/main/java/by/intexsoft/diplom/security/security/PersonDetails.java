@@ -1,15 +1,11 @@
-package by.intexsoft.diplom.security.security;
+package by.intexsoft.diplom.security;
 
-import by.intexsoft.diplom.common_module.model.Person;
+import by.intexsoft.diplom.common.model.Person;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 
 

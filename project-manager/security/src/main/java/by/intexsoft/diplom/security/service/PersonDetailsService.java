@@ -1,19 +1,18 @@
-package by.intexsoft.diplom.security.service;
+package by.intexsoft.diplom.service;
 
-import by.intexsoft.diplom.common_module.model.Person;
-import by.intexsoft.diplom.common_module.repository.PersonRepository;
-import by.intexsoft.diplom.security.security.PersonDetails;
+
+
+import by.intexsoft.diplom.common.model.Person;
+import by.intexsoft.diplom.common.repository.PersonRepository;
+import by.intexsoft.diplom.security.PersonDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service

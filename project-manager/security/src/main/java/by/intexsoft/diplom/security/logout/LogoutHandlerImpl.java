@@ -1,6 +1,6 @@
-package by.intexsoft.diplom.security.logout;
+package by.intexsoft.diplom.logout;
 
-import by.intexsoft.diplom.security.jwt.JwtUtil;
+import by.intexsoft.diplom.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

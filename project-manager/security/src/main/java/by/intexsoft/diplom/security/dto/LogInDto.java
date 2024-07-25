@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.security.dto;
+package by.intexsoft.diplom.dto;
 
 import lombok.Data;
 

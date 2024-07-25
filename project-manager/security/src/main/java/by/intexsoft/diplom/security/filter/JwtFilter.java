@@ -1,10 +1,9 @@
-package by.intexsoft.diplom.security.filter;
+package by.intexsoft.diplom.filter;
 
-import by.intexsoft.diplom.security.jwt.JwtUtil;
-import by.intexsoft.diplom.security.security.PersonDetails;
-import by.intexsoft.diplom.security.service.PersonDetailsService;
+import by.intexsoft.diplom.jwt.JwtUtil;
+import by.intexsoft.diplom.security.PersonDetails;
+import by.intexsoft.diplom.service.PersonDetailsService;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -15,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;

@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.security.configuration;
+package by.intexsoft.diplom.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
