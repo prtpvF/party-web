@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "PartyDeletingRequest")
 @Data
-public class DeletingPartyRequestMode {
+public class DeletingPartyRequestModel {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,5 @@ public class DeletingPartyRequestMode {
 
         @OneToOne(cascade = CascadeType.REMOVE)
         @JoinColumn(name = "party_id", referencedColumnName = "id")
-        private PartyModel partyModel;
+        private PartyModel party;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonRole {
+public class PersonRoleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,7 +23,7 @@ public class PersonRole {
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<PersonModel> personModels = new ArrayList<>();
 
-    public PersonRole(String roleName){
+    public PersonRoleModel(String roleName){
         this.roleName=roleName;
     }
 

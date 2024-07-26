@@ -1,24 +1,21 @@
 package by.intexsoft.diplom.auth.service;
 
-import by.intexsoft.diplom.auth.dto.LogInDto;
+import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.auth.exception.PersonNotFoundException;
-import by.intexsoft.diplom.common_module.model.Person;
-import by.intexsoft.diplom.common_module.model.enums.PersonRolesEnum;
-import by.intexsoft.diplom.common_module.model.role.PersonRole;
-import by.intexsoft.diplom.common_module.repository.PersonRepository;
-import by.intexsoft.diplom.common_module.repository.RoleRepository;
+import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
+import by.intexsoft.diplom.common.model.role.PersonRoleModel;
+import by.intexsoft.diplom.common.repository.PersonRepository;
+import by.intexsoft.diplom.common.repository.RoleRepository;
 import by.intexsoft.diplom.security.jwt.JwtUtil;
-import by.intexsoft.diplom.security.security.PersonDetails;
-import by.intexsoft.diplom.security.service.PersonDetailsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,26 +32,24 @@ public class AuthService {
         private final PasswordEncoder passwordEncoder;
         private final ModelMapper modelMapper;
         private final JwtUtil jwtUtil;
-        private final PersonDetailsService personDetailsService;
 
         @Transactional
         public void register(RegistrationDto registrationDto) {
             checkPersonExists(registrationDto.getUsername(), registrationDto.getEmail());
-            Person person = convertDtoToPerson(registrationDto);
-            preparePersonForRegistration(person, registrationDto.isOrganizer());
-            personRepository.save(person);
-            log.info("New person has registered: {}", person);
+            PersonModel personModel = convertDtoToPerson(registrationDto);
+            preparePersonForRegistration(personModel, registrationDto.isOrganizer());
+            personRepository.save(personModel);
+            log.info("New person has registered: {}", personModel);
         }
 
-        public String login(LogInDto logInDto) {
-            Person person = personRepository.findByUsername(logInDto.getUsername())
+        public String login(LoginDto logInDto) {
+            PersonModel personModel = personRepository.findByUsername(logInDto.getUsername())
                     .filter(p -> passwordEncoder.matches(logInDto.getPassword(), p.getPassword()))
                     .orElseThrow(() -> new PersonNotFoundException("Person with these credentials not found"));
-           authPerson(person.getUsername());
-            return createJwtToken(person.getUsername());
+            return createJwtToken(personModel.getUsername());
         }
 
-        public void logout(HttpServletRequest request, HttpServletResponse response, String token) {
+       public void logout(HttpServletRequest request, HttpServletResponse response, String token) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (authentication != null) {
@@ -63,30 +58,24 @@ public class AuthService {
             }
         }
 
-        private void authPerson(String username){
-            PersonDetails personDetails = personDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(personDetails, null, personDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }
-
         private void checkPersonExists(String username, String email) {
             personRepository.findByUsernameOrEmail(username, email).ifPresent(p -> {
-                throw new PersonAlreadyExists("Person with this username already exists");
+                throw new PersonAlreadyExists("Person with this credentials already exists");
             });
         }
 
-        private Person convertDtoToPerson(RegistrationDto registrationDto) {
-            return modelMapper.map(registrationDto, Person.class);
+        private PersonModel convertDtoToPerson(RegistrationDto registrationDto) {
+            return modelMapper.map(registrationDto, PersonModel.class);
         }
 
-        private void preparePersonForRegistration(Person person, boolean organizer) {
-            person.setActive(true);
-            person.setPassword(passwordEncoder.encode(person.getPassword()));
-            person.setRating(0.0);
-            person.setRole(getPersonRole(organizer));
+        private void preparePersonForRegistration(PersonModel personModel, boolean organizer) {
+            personModel.setActive(true);
+            personModel.setPassword(passwordEncoder.encode(personModel.getPassword()));
+            personModel.setRating(0.0);
+            personModel.setRole(getPersonRole(organizer));
         }
 
-        private PersonRole getPersonRole(boolean organizer) {
+        private PersonRoleModel getPersonRole(boolean organizer) {
             String roleName = organizer ? PersonRolesEnum.ORGANIZER.name() : PersonRolesEnum.USER.name();
             return roleRepository.findByRoleName(roleName)
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleName));
@@ -94,8 +83,7 @@ public class AuthService {
 
 
         private String createJwtToken(String username) {
-            String token = jwtUtil.generateToken(username);
-            return token;
+            return jwtUtil.generateToken(username);
         }
 
         private String getUsernameFromToken(String token) {

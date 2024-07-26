@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PartyType {
+public class PartyTypeModel {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class PartyType {
         @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
         private List<PartyModel> parties = new ArrayList<>();
 
-        public PartyType(String type) {
+        public PartyTypeModel(String type) {
             this.type = type;
         }
 
