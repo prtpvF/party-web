@@ -2,6 +2,7 @@ package by.intexsoft.diplom.auth.controller;
 
 import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
+import by.intexsoft.diplom.auth.response.AuthResponse;
 import by.intexsoft.diplom.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:8090")
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -33,13 +33,18 @@ public class AuthController {
 
         @Operation(summary = "Get a user by Id")
         @PostMapping("/login")
-        public String login(@RequestBody LoginDto loginDto) {
+        public AuthResponse login(@RequestBody LoginDto loginDto) {
             return authService.login(loginDto);
         }
 
-        @SecurityRequirement(name = "token")
+        @PostMapping("/refresh-token")
+        public AuthResponse refreshToken(@RequestHeader("authorization") String accessToken) {
+           return authService.createJwtToken(accessToken);
+        }
+
         @GetMapping("/logout")
-        public void logout(HttpServletRequest request, HttpServletResponse response, @RequestHeader("token") String token) {
-            authService.logout(request, response, token);
+        public void logout(HttpServletRequest request, HttpServletResponse response,
+                           @RequestHeader("authorization") String authorization) {
+            authService.logout(request, response, authorization);
         }
 }

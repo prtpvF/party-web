@@ -30,12 +30,12 @@ import org.springframework.context.annotation.Configuration;
         }
 )
 @SecurityScheme(
-        name = "token",
+        name = "authorization",
         description = "JWT auth",
         scheme = "bearer",
         type = SecuritySchemeType.APIKEY,
         in = SecuritySchemeIn.HEADER,
-        paramName = "token"
+        paramName = "authorization"
 )
 @Configuration
 public class SwaggerConfig {

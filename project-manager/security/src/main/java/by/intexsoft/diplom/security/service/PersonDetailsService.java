@@ -1,10 +1,10 @@
-package by.intexsoft.diplom.service;
+package by.intexsoft.diplom.security.service;
 
 
 
-import by.intexsoft.diplom.common.model.Person;
+import by.intexsoft.diplom.common.model.PersonModel;
 import by.intexsoft.diplom.common.repository.PersonRepository;
-import by.intexsoft.diplom.security.PersonDetails;
+import by.intexsoft.diplom.security.security.PersonDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,10 +23,10 @@ public class PersonDetailsService implements UserDetailsService {
 
         @Override
         public PersonDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            Person person = personRepository.findByUsername(username)
+            PersonModel personModel = personRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
             Set<GrantedAuthority> authorities = new HashSet<>();
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + person.getRole().getRoleName()));
-            return new PersonDetails(person, authorities);
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + personModel.getRole().getRoleName()));
+            return new PersonDetails(personModel, authorities);
         }
 }

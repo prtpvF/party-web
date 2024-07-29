@@ -1,8 +1,8 @@
-package by.intexsoft.diplom.filter;
+package by.intexsoft.diplom.security.filter;
 
-import by.intexsoft.diplom.jwt.JwtUtil;
-import by.intexsoft.diplom.security.PersonDetails;
-import by.intexsoft.diplom.service.PersonDetailsService;
+import by.intexsoft.diplom.security.jwt.JwtUtil;
+import by.intexsoft.diplom.security.security.PersonDetails;
+import by.intexsoft.diplom.security.service.PersonDetailsService;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -33,11 +33,11 @@ public class JwtFilter extends GenericFilterBean {
                 throws IOException, ServletException {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            String token = jwtUtil.extractTokenFromHeader(request);
+            String authorization = jwtUtil.extractTokenFromHeader(request);
             try {
-                if (token != null) {
-                    String username = jwtUtil.validateTokenAndRetrieveClaim(token);
-                    jwtUtil.isTokenActive(username);
+                if (authorization != null) {
+                    String username = jwtUtil.validateTokenAndRetrieveClaim(authorization);
+                    jwtUtil.isAccessTokenActive(username);
                     log.info("Token is valid for user: {}", username);
                     PersonDetails personDetails = personDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken
@@ -55,6 +55,6 @@ public class JwtFilter extends GenericFilterBean {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(String.format("{\"error\": \"%s\"}", "Invalid JWT token."));
+            response.getWriter().write(String.format("{\"error\": \"%s\"}", "Invalid JWT authorization."));
         }
 }

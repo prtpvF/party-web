@@ -1,7 +1,7 @@
-package by.intexsoft.diplom.configuration;
+package by.intexsoft.diplom.security.configuration;
 
-import by.intexsoft.diplom.logout.LogoutHandlerImpl;
-import by.intexsoft.diplom.filter.JwtFilter;
+import by.intexsoft.diplom.security.filter.JwtFilter;
+import by.intexsoft.diplom.security.logout.LogoutHandlerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +29,12 @@ public class SecurityConfiguration {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http.authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration",
-                    "/auth/login",
-                    "/public/party/**",
-                    "/public/person/find",
-                    "/auth/logout").permitAll().anyRequest().authenticated())
+                            "/auth/login",
+                            "/public/party/**",
+                            "/public/person/find",
+                            "/auth/logout",
+                            "/swagger-ui/**",
+                            "/v3/api-docs/**").permitAll().anyRequest().authenticated())
                     .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
             http.logout(logout ->
                     logout
