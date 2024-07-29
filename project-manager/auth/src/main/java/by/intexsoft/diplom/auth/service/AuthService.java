@@ -4,6 +4,7 @@ import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.auth.exception.PersonNotFoundException;
+import by.intexsoft.diplom.auth.response.AuthResponse;
 import by.intexsoft.diplom.common.model.PersonModel;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.role.PersonRoleModel;
@@ -42,20 +43,41 @@ public class AuthService {
             log.info("New person has registered: {}", personModel);
         }
 
-        public String login(LoginDto logInDto) {
+        public AuthResponse login(LoginDto logInDto) {
             PersonModel personModel = personRepository.findByUsername(logInDto.getUsername())
                     .filter(p -> passwordEncoder.matches(logInDto.getPassword(), p.getPassword()))
                     .orElseThrow(() -> new PersonNotFoundException("Person with these credentials not found"));
-            return createJwtToken(personModel.getUsername());
+            String refreshToken = jwtUtil.generateRefreshToken(personModel.getUsername());
+            String token = jwtUtil.generateToken(personModel.getUsername());
+            return AuthResponse.builder()
+                    .accessToken(token)
+                    .refreshToken(refreshToken)
+                    .build();
         }
 
-       public void logout(HttpServletRequest request, HttpServletResponse response, String token) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        public void logout(HttpServletRequest request, HttpServletResponse response,
+                           String authorization) {
+            Authentication authentication = SecurityContextHolder
+                    .getContext()
+                    .getAuthentication();
 
             if (authentication != null) {
-                new SecurityContextLogoutHandler().logout(request, response, authentication);
-                jwtUtil.removeToken(getUsernameFromToken(token));
+                new SecurityContextLogoutHandler().logout(request, response,
+                        authentication);
+                jwtUtil.removeTokens(getUsernameFromToken(authorization));
             }
+        }
+
+        public AuthResponse createJwtToken(String refreshToken) {
+            String username = getUsernameFromToken(refreshToken);
+            jwtUtil.isRefreshTokenActive(username);
+            jwtUtil.removeTokens(username);
+            String accessToken = jwtUtil.generateToken(username);
+            String refreshedToken = jwtUtil.generateRefreshToken(username);
+            return AuthResponse.builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshedToken)
+                    .build();
         }
 
         private void checkPersonExists(String username, String email) {
@@ -81,12 +103,7 @@ public class AuthService {
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleName));
         }
 
-
-        private String createJwtToken(String username) {
-            return jwtUtil.generateToken(username);
-        }
-
-        private String getUsernameFromToken(String token) {
-            return jwtUtil.validateTokenAndRetrieveClaim(token);
+        private String getUsernameFromToken(String authorization) {
+            return jwtUtil.validateTokenAndRetrieveClaim(authorization);
         }
 }

@@ -35,8 +35,8 @@ public class ExceptionsHandler {
     @ExceptionHandler(value = SignatureException.class)
     public ResponseEntity signatureVerificationExceptionHandler(SignatureVerificationException ex) {
         HttpStatus status = HttpStatus.CONFLICT;
-        String message = "something wrong with token";
-        log.warn("something happened with token");
+        String message = "something wrong with authorization";
+        log.warn("something happened with authorization");
         return new ResponseEntity(message, status);
     }
 }

@@ -1,6 +1,6 @@
-package by.intexsoft.diplom.logout;
+package by.intexsoft.diplom.security.logout;
 
-import by.intexsoft.diplom.jwt.JwtUtil;
+import by.intexsoft.diplom.security.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,10 @@ public class LogoutHandlerImpl implements LogoutHandler {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String token = request.getHeader("token");
-        if(token!=null){
-            String username = jwtUtil.validateTokenAndRetrieveClaim(token);
-            jwtUtil.removeToken(username);
+        String authorization = request.getHeader("authorization");
+        if(authorization!=null){
+            String username = jwtUtil.validateTokenAndRetrieveClaim(authorization);
+            jwtUtil.removeTokens(username);
         }
     }
 }
