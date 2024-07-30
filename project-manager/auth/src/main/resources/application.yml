@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: "auth"
+  datasource:
+    url: ${DB_DATASOURCE_URL}
+    password: ${DB_DATASOURCE_PASSWORD}
+    username: ${DB_DATASOURCE_USERNAME}
+  main:
+    lazy-initialization: true
+  cloud:
+    config:
+      enabled: false
+  api-docs:
+    path: ${API_DOCS_PATH}
+kafka:
+  producer:
+    bootstrap-servers: "localhost:9092"
+  topic:
+    name: ${KAFKA_AUTH_TOPIC_NAME}
+jpa:
+   hibernate:
+     ddl-auto: update
+jwt:
+  secret: ${JWT_SECRET}
+  lifetime: ${JWT_LIFETIME}
+refresh-authorization:
+  lifetime: 28800000
+server:
+  port: 8090

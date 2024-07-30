@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: "notification-service"
+kafka:
+    producer:
+      bootstrap-servers: "localhost:9092"
+    topic:
+      name: ${KAFKA_AUTH_TOPIC_NAME}
+server:
+  port: 9090
+
+mail:
+  host: "smtp.gmail.com"
+  port: 587
+  username: "caplyginmihail48@gmail.com"
+  password: "jbxg rsop vndl abay"
+  properties:
+    mail.smtp.auth: true
+    mail.smtp.starttls.enable: true
+
