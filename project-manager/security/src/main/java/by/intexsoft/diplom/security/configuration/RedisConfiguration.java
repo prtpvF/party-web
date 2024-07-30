@@ -28,7 +28,7 @@ public class RedisConfiguration {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new JdkSerializationRedisSerializer());
+        template.setValueSerializer(new StringRedisSerializer());
         template.setEnableTransactionSupport(true);
         template.afterPropertiesSet();
         return template;

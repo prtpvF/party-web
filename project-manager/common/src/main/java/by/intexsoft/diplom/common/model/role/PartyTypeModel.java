@@ -1,8 +1,11 @@
 package by.intexsoft.diplom.common.model.role;
 
-import by.intexsoft.diplom.common.model.PartyModel;
+import by.intexsoft.diplom.common.model.PartyEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ public class PartyTypeModel {
         private String type;
 
         @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
-        private List<PartyModel> parties = new ArrayList<>();
+        private List<PartyEntity> parties = new ArrayList<>();
 
         public PartyTypeModel(String type) {
             this.type = type;

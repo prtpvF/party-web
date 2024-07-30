@@ -7,16 +7,21 @@ spring:
     username: ${DB_DATASOURCE_USERNAME}
   main:
     lazy-initialization: true
+    allow-bean-definition-overriding: true
   cloud:
     config:
       enabled: false
   api-docs:
     path: ${API_DOCS_PATH}
-kafka:
-  producer:
-    bootstrap-servers: "localhost:9092"
-  topic:
-    name: ${KAFKA_AUTH_TOPIC_NAME}
+  kafka:
+    producer:
+      bootstrap-servers: "localhost:9092"
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
+    topic-auth:
+      name: ${KAFKA_AUTH_TOPIC_NAME}
+    topic-verify:
+      name: ${KAFKA_VERIFY_TOPIC_NAME}
 jpa:
    hibernate:
      ddl-auto: update
@@ -27,3 +32,5 @@ refresh-authorization:
   lifetime: 28800000
 server:
   port: 8090
+verification:
+  lifetime: 600000 #10 minutes

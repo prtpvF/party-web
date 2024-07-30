@@ -8,6 +8,7 @@ import by.intexsoft.diplom.auth.kafka.KafkaProducer;
 import by.intexsoft.diplom.auth.response.AuthResponse;
 import by.intexsoft.diplom.common.model.PersonModel;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
+import by.intexsoft.diplom.common.model.enums.PersonStatusEnum;
 import by.intexsoft.diplom.common.model.role.PersonRoleModel;
 import by.intexsoft.diplom.common.repository.PersonRepository;
 import by.intexsoft.diplom.common.repository.RoleRepository;
@@ -18,11 +19,17 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
+
+import java.security.SecureClassLoader;
+import java.security.SecureRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -31,19 +38,27 @@ public class AuthService {
 
         private final PersonRepository personRepository;
         private final RoleRepository roleRepository;
-        private final KafkaProducer producer;
+        private final SchedulerService schedulerService;
+        private final EmailVerificationService emailVerificationService;
         private final PasswordEncoder passwordEncoder;
         private final ModelMapper modelMapper;
         private final JwtUtil jwtUtil;
 
+        /**
+         * Method prepares person for registration, checks person's existing in db,
+         * sends email with verification code and starts threads which will delete person in case
+         * person won't finish registration process
+         * @param registrationDto - dto with necessary data for registration
+         */
         @Transactional
         public void register(RegistrationDto registrationDto) {
             checkPersonExists(registrationDto.getUsername(), registrationDto.getEmail());
             PersonModel personModel = convertDtoToPerson(registrationDto);
             preparePersonForRegistration(personModel, registrationDto.isOrganizer());
             personRepository.save(personModel);
-            producer.sendMessage(registrationDto.getEmail());
+            emailVerificationService.sendVerificationCodeToUser(registrationDto);
             log.info("New person has registered: {}", personModel);
+            schedulerService.scheduleUserDeletion();
         }
 
         public AuthResponse login(LoginDto logInDto) {
@@ -97,6 +112,7 @@ public class AuthService {
             personModel.setActive(true);
             personModel.setPassword(passwordEncoder.encode(personModel.getPassword()));
             personModel.setRating(0.0);
+            personModel.setStatus(PersonStatusEnum.UNAVAILABLE.name());
             personModel.setRole(getPersonRole(organizer));
         }
 

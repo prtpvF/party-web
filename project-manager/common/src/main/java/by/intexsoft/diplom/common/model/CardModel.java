@@ -15,5 +15,5 @@ public class CardModel {
     private int id;
 
     @OneToMany(mappedBy = "card")
-    private List<OperationModel> operationModels = new ArrayList<>();
+    private List<OperationModel> operations = new ArrayList<>();
 }

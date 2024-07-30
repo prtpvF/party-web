@@ -1,14 +1,23 @@
 spring:
   application:
     name: "notification-service"
-kafka:
-    producer:
+  kafka:
+    consumer:
       bootstrap-servers: "localhost:9092"
-    topic:
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      value.deserializer.delegate.class: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    topic-auth:
       name: ${KAFKA_AUTH_TOPIC_NAME}
+    topic-verify:
+      name: ${KAFKA_VERIFY_TOPIC_NAME}
 server:
   port: 9090
-
 mail:
   host: ${HOST}
   port: 587
@@ -17,4 +26,4 @@ mail:
   properties:
     mail.smtp.auth: true
     mail.smtp.starttls.enable: true
-
+debug: true

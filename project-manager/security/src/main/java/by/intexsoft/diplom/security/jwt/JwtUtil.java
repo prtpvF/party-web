@@ -95,8 +95,8 @@ public class JwtUtil {
          * Method adds type of key for storaging in redis db.
          * If type==access than a token will be deleted after a day
          * else a token will be deleted after 7 days
-         * @param type          type of token what will be saved in db
-         * @param username      person's username what will be added as a key
+         * @param type type of token what will be saved in db
+         * @param username person's username what will be added as a key
          * @param authorization encrypted person's data
          */
         private void saveTypeTokenToRedis(String type, String username,

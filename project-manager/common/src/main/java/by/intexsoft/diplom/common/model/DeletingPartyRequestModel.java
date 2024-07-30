@@ -24,5 +24,5 @@ public class DeletingPartyRequestModel {
 
         @OneToOne(cascade = CascadeType.REMOVE)
         @JoinColumn(name = "party_id", referencedColumnName = "id")
-        private PartyModel party;
+        private PartyEntity party;
 }

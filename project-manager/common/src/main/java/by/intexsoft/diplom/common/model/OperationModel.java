@@ -16,10 +16,10 @@ public class OperationModel {
     private int id;
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-    private PersonModel personModel;
+    private PersonModel person;
     @ManyToOne
     @JoinColumn(name = "card_id", nullable = false)
-    private CardModel cardModel;
+    private CardModel card;
     private double amount;
     private LocalDateTime created_at;
     @NotNull(message = "status can't be empty")

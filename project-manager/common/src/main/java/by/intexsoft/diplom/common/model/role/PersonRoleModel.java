@@ -2,7 +2,10 @@ package by.intexsoft.diplom.common.model.role;
 
 import by.intexsoft.diplom.common.model.PersonModel;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
