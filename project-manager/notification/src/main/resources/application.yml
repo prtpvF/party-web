@@ -10,10 +10,10 @@ server:
   port: 9090
 
 mail:
-  host: "smtp.gmail.com"
+  host: ${HOST}
   port: 587
-  username: "caplyginmihail48@gmail.com"
-  password: "jbxg rsop vndl abay"
+  username: ${USERNAME}
+  password: ${PASSWORD}
   properties:
     mail.smtp.auth: true
     mail.smtp.starttls.enable: true
