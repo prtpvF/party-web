@@ -4,6 +4,7 @@ import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.auth.exception.PersonNotFoundException;
+import by.intexsoft.diplom.auth.kafka.KafkaProducer;
 import by.intexsoft.diplom.auth.response.AuthResponse;
 import by.intexsoft.diplom.common.model.PersonModel;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
@@ -30,6 +31,7 @@ public class AuthService {
 
         private final PersonRepository personRepository;
         private final RoleRepository roleRepository;
+        private final KafkaProducer producer;
         private final PasswordEncoder passwordEncoder;
         private final ModelMapper modelMapper;
         private final JwtUtil jwtUtil;
@@ -40,6 +42,7 @@ public class AuthService {
             PersonModel personModel = convertDtoToPerson(registrationDto);
             preparePersonForRegistration(personModel, registrationDto.isOrganizer());
             personRepository.save(personModel);
+            producer.sendMessage(registrationDto.getEmail());
             log.info("New person has registered: {}", personModel);
         }
 
