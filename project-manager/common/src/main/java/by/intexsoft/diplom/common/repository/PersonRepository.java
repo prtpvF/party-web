@@ -21,7 +21,9 @@ public interface PersonRepository extends JpaRepository<PersonModel, Integer> {
         Optional<PersonModel> findByUsername(@Param("username") String username);
         Optional<PersonModel> findByEmail(String email);
         Optional<PersonModel> findByUsernameOrEmail(String username, String email);
-        List<PersonModel> findAllByUsername(List<String> usernames);
+
+        @Query("SELECT p FROM PersonModel p WHERE p.username IN :usernames")
+        List<PersonModel> findAllByUsername(@Param("usernames") List<String> usernames);
 
         @Transactional
         @Modifying
