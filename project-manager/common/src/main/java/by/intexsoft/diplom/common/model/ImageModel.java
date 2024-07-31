@@ -17,5 +17,5 @@ public class ImageModel {
 
     @ManyToOne
     @JoinColumn(name = "party_id", nullable = false)
-    private PartyModel partyModel;
+    private PartyEntity party;
 }

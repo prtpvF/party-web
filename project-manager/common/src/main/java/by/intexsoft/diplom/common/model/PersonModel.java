@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.common.model;
 
-import by.intexsoft.diplom.common.model.role.PersonRole;
+import by.intexsoft.diplom.common.model.role.PersonRoleModel;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -62,12 +62,13 @@ public class PersonModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role")
-    private PersonRole role;
+    private PersonRoleModel role;
 
     @NotBlank
     @Length(min = 3, max = 15)
     private String city;
 
+    private String status;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(
@@ -76,15 +77,15 @@ public class PersonModel {
             }, inverseJoinColumns = {@JoinColumn(name = "id")}
     )
     @JsonIdentityReference(alwaysAsId = true)
-    private List<PartyModel> parties = new ArrayList<>();
+    private List<PartyEntity> parties = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     @JsonManagedReference
-    private List<ParticipationRequestModel> participationRequestModels = new ArrayList<>();
+    private List<ParticipationRequestModel> participationRequests = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     @JsonIdentityReference(alwaysAsId = true)
-    private List<OperationModel> paymentOperationModels = new ArrayList<>(); // change name
+    private List<OperationModel> paymentOperations = new ArrayList<>(); // change name
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinTable(
@@ -93,15 +94,15 @@ public class PersonModel {
             inverseJoinColumns = {@JoinColumn(name = "id")}
     )
     @JsonIdentityReference(alwaysAsId = true)
-    private List<ConversationModel> conversationModels = new ArrayList<>();
+    private List<ConversationModel> conversations = new ArrayList<>();
 
     @OneToMany( fetch = FetchType.LAZY,mappedBy = "sender")
     @JsonIdentityReference(alwaysAsId = true)
-    private List<FriendshipRequestModel> sentFriendshipRequestModel = new ArrayList<>();
+    private List<FriendshipRequestModel> sentFriendshipRequests = new ArrayList<>();
 
     @OneToMany( fetch = FetchType.LAZY,mappedBy = "receiver")
     @JsonIdentityReference(alwaysAsId = true)
-    private List<FriendshipRequestModel> receivedFriendshipRequestModel = new ArrayList<>();
+    private List<FriendshipRequestModel> receivedFriendshipRequests = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -113,7 +114,7 @@ public class PersonModel {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer")
     @JsonIdentityReference(alwaysAsId = true)
-    private List<DeletingPartyRequestMode> partyDeletingRequests = new ArrayList<>();
+    private List<DeletingPartyRequestModel> partyDeletingRequests = new ArrayList<>();
 
     @Override
     public String toString() {

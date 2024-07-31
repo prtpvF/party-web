@@ -17,7 +17,7 @@ public class MessageModel {
 
     @ManyToOne
     @JoinColumn(name = "conversation_id", nullable = false)
-    private ConversationModel conversationModel;
+    private ConversationModel conversation;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)

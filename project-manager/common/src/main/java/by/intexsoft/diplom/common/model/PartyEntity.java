@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.common.model;
 
-import by.intexsoft.diplom.common.model.role.PartyType;
+import by.intexsoft.diplom.common.model.role.PartyTypeModel;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.annotation.Nullable;
@@ -28,7 +28,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PartyModel {
+public class PartyEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class PartyModel {
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "type_id")
         @JsonBackReference
-        private PartyType type;
+        private PartyTypeModel type;
 
         @NotNull
         @ManyToOne(fetch = FetchType.LAZY)
@@ -86,18 +86,18 @@ public class PartyModel {
 
         @OneToOne(mappedBy = "party", fetch = FetchType.LAZY,
                   cascade = CascadeType.REMOVE)
-        private DeletingPartyRequestMode request;
+        private DeletingPartyRequestModel request;
 
         @ManyToMany(fetch = FetchType.LAZY, mappedBy = "parties")
         @JsonIdentityReference(alwaysAsId = true)
         private List<PersonModel> guests = new ArrayList<>();
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
-        private List<ParticipationRequestModel> participationRequestModels = new ArrayList<>();
+        private List<ParticipationRequestModel> participationRequests = new ArrayList<>();
 
         @OneToMany(mappedBy = "party")
         @JsonIdentityReference(alwaysAsId = true)
-        private Set<ImageModel> imageModels = new HashSet<>();
+        private Set<ImageModel> images = new HashSet<>();
 
         @ElementCollection
         private List<Integer> rates = new ArrayList<>();

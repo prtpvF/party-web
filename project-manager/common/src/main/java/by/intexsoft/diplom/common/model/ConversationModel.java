@@ -23,5 +23,5 @@ public class ConversationModel {
     private Set<PersonModel> participants = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "conversation")
-    private List<MessageModel> messageModelList = new ArrayList<>();
+    private List<MessageModel> messagesList = new ArrayList<>();
 }

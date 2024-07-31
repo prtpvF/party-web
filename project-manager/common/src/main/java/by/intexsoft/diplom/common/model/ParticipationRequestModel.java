@@ -2,7 +2,10 @@ package by.intexsoft.diplom.common.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "participation_request")
@@ -19,15 +22,15 @@ public class ParticipationRequestModel {
         @ManyToOne
         @JoinColumn(name = "person_id", nullable = false)
         @JsonBackReference
-        private PersonModel personModel;
+        private PersonModel person;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "party_id", nullable = false)
-        private PartyModel partyModel;
+        private PartyEntity party;
 
-        public ParticipationRequestModel(PartyModel partyModel, PersonModel personModel) {
-            this.partyModel = partyModel;
-            this.personModel = personModel;
+        public ParticipationRequestModel(PartyEntity party, PersonModel person) {
+            this.party = party;
+            this.person = person;
         }
 
         @Override

@@ -1,7 +1,10 @@
 package by.intexsoft.diplom.common.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,7 @@ public class PartyStatusModel {
     private String status;
 
     @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
-    private List<PartyModel> parties = new ArrayList<>();
+    private List<PartyEntity> parties = new ArrayList<>();
 
     public PartyStatusModel(String status) {
         this.status = status;

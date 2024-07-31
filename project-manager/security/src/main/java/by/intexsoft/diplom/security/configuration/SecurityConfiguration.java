@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                             "/public/person/find",
                             "/auth/logout",
                             "/swagger-ui/**",
+                            "/verification/email",
                             "/v3/api-docs/**").permitAll().anyRequest().authenticated())
                     .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
             http.logout(logout ->
