@@ -20,7 +20,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
-@Component
+//@Component
 @Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends GenericFilterBean {

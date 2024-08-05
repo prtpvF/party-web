@@ -38,11 +38,10 @@ public class AuthService {
 
         private final PersonRepository personRepository;
         private final RoleRepository roleRepository;
-        private final SchedulerService schedulerService;
         private final EmailVerificationService emailVerificationService;
         private final PasswordEncoder passwordEncoder;
         private final ModelMapper modelMapper;
-        private final JwtUtil jwtUtil;
+
 
         /**
          * Method prepares person for registration, checks person's existing in db,
@@ -58,45 +57,39 @@ public class AuthService {
             personRepository.save(personModel);
             emailVerificationService.sendVerificationCodeToUser(registrationDto);
             log.info("New person has registered: {}", personModel);
-            schedulerService.scheduleUserDeletion();
         }
 
-        public AuthResponse login(LoginDto logInDto) {
-            PersonModel personModel = personRepository.findByUsername(logInDto.getUsername())
-                    .filter(p -> passwordEncoder.matches(logInDto.getPassword(), p.getPassword()))
-                    .orElseThrow(() -> new PersonNotFoundException("Person with these credentials not found"));
-            String refreshToken = jwtUtil.generateRefreshToken(personModel.getUsername());
-            String token = jwtUtil.generateToken(personModel.getUsername());
-            return AuthResponse.builder()
-                    .accessToken(token)
-                    .refreshToken(refreshToken)
-                    .build();
-        }
+//        public AccessTokenResponse login(LoginDto logInDto) {
+//            PersonModel personModel = personRepository.findByUsername(logInDto.getUsername())
+//                    .filter(p -> passwordEncoder.matches(logInDto.getPassword(), p.getPassword()))
+//                    .orElseThrow(() -> new PersonNotFoundException("Person with these credentials not found"));
+//            return keycloakService.generateToken(logInDto);
+//        }
 
-        public void logout(HttpServletRequest request, HttpServletResponse response,
-                           String authorization) {
-            Authentication authentication = SecurityContextHolder
-                    .getContext()
-                    .getAuthentication();
+//        public void logout(HttpServletRequest request, HttpServletResponse response,
+//                           String authorization) {
+//            Authentication authentication = SecurityContextHolder
+//                    .getContext()
+//                    .getAuthentication();
+//
+//            if (authentication != null) {
+//                new SecurityContextLogoutHandler().logout(request, response,
+//                        authentication);
+//                jwtUtil.removeTokens(getUsernameFromToken(authorization));
+//            }
+//        }
 
-            if (authentication != null) {
-                new SecurityContextLogoutHandler().logout(request, response,
-                        authentication);
-                jwtUtil.removeTokens(getUsernameFromToken(authorization));
-            }
-        }
-
-        public AuthResponse createJwtToken(String refreshToken) {
-            String username = getUsernameFromToken(refreshToken);
-            jwtUtil.isRefreshTokenActive(username);
-            jwtUtil.removeTokens(username);
-            String accessToken = jwtUtil.generateToken(username);
-            String refreshedToken = jwtUtil.generateRefreshToken(username);
-            return AuthResponse.builder()
-                    .accessToken(accessToken)
-                    .refreshToken(refreshedToken)
-                    .build();
-        }
+//        public AuthResponse createJwtToken(String refreshToken) {
+//            String username = getUsernameFromToken(refreshToken);
+//            jwtUtil.isRefreshTokenActive(username);
+//            jwtUtil.removeTokens(username);
+//            String accessToken = jwtUtil.generateToken(username);
+//            String refreshedToken = jwtUtil.generateRefreshToken(username);
+//            return AuthResponse.builder()
+//                    .accessToken(accessToken)
+//                    .refreshToken(refreshedToken)
+//                    .build();
+//        }
 
         private void checkPersonExists(String username, String email) {
             personRepository.findByUsernameOrEmail(username, email).ifPresent(p -> {
@@ -122,7 +115,7 @@ public class AuthService {
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleName));
         }
 
-        private String getUsernameFromToken(String authorization) {
-            return jwtUtil.validateTokenAndRetrieveClaim(authorization);
-        }
+//        private String getUsernameFromToken(String authorization) {
+//            return jwtUtil.validateTokenAndRetrieveClaim(authorization);
+//        }
 }

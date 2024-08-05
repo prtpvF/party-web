@@ -22,9 +22,30 @@ spring:
       name: ${KAFKA_AUTH_TOPIC_NAME}
     topic-verify:
       name: ${KAFKA_VERIFY_TOPIC_NAME}
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: auth-app
+            client-secret: 15po2NTE5e9AUEuv4CNkEvuRj2YEfq4Q
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          keycloak:
+            user-name-attribute: preferred_username
+            issuer-uri: 'http://localhost:8080/realms/free-party'
+            authorization-uri: 'http://localhost:8080/realms/free-party/protocol/openid-connect/auth'
+            token-uri: 'http://localhost:8080/realms/free-party/protocol/openid-connect/token'
 jpa:
    hibernate:
      ddl-auto: update
+   properties:
+     hibernate:
+       dialect: org.hibernate.dialect.Postgresql
 jwt:
   secret: ${JWT_SECRET}
   lifetime: ${JWT_LIFETIME}
