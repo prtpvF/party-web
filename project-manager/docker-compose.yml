@@ -1,0 +1,136 @@
+volumes:
+  pg_diplom:
+
+services:
+  diplom_db:
+    container_name: db
+    image: postgres
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+    ports:
+      - "5434:5432"
+  auth_service:
+    container_name: auth
+    restart: always
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    depends_on:
+      - diplom_db
+    environment:
+      SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      JAVA_OPTS: ${JAVA_OPTS}
+      HOST_NAME: ${HOST_NAME}
+      REDIS_PORT: ${REDIS_PORT}
+  person_service:
+    container_name: person
+    restart: always
+    build:
+      context: ./person
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8091"
+    depends_on:
+      - diplom_db
+    environment:
+      SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+      KAFKA_AUTH_TOPIC_NAME: ${AUTH_TOPIC}
+      KAFKA_VERIFY_TOPIC_NAME: ${VERIFY_TOPIC}
+  public-api_service:
+    container_name: public
+    restart: always
+    build:
+      context: ./public-api
+      dockerfile: Dockerfile
+    ports:
+      - "8092:8092"
+    depends_on:
+      - diplom_db
+    environment:
+      SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - "2181:2181"
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka:latest
+    expose:
+      - 9092
+      - 29092
+    ports:
+      - 9092:9092
+      - 29092:29092
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: ${KAFKA_ZOOKEEPER_CONNECT}
+      ALLOW_PLAINTEXT_LISTENER: ${ALLOW_PLAINTEXT_LISTENER}
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: ${KAFKA_AUTO_CREATE_TOPICS_ENABLE}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: ${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP}
+      KAFKA_LISTENERS: ${KAFKA_LISTENERS}
+      KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENERS}
+      KAFKA_CREATE_TOPICS: ${KAFKA_CREATE_TOPICS}
+      HOSTNAME_COMMAND: ${HOSTNAME_COMMAND}
+    depends_on:
+      - zookeeper
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  keycloak-service:
+    container_name:
+      keycloak
+    image: quay.io/keycloak/keycloak:25.0.2
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_METRICS_ENABLED: ${KC_METRICS_ENABLED}
+      KC_HEALTH_ENABLED: ${KC_HEALTH_ENABLED}
+      KC_DB: ${KC_DB}
+      KC_DB_URL: ${KC_DB_URL}
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+
+    depends_on:
+      keycloak_postgres-db:
+        condition: service_healthy
+    command:
+      - start-dev
+    volumes:
+      - ./auth/import:/opt/keycloak/data/import
+    networks:
+      - keycloak_demo_dev_network
+
+  keycloak_postgres-db:
+    container_name: keycloak-db
+    image: postgres:latest
+    ports:
+      - "5436:5432"
+    environment:
+        POSTGRES_DB: ${KEYCLOAK_DB}
+        POSTGRES_USER: ${KEYCLOAK_DB_USER}
+        POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+    networks:
+      - keycloak_demo_dev_network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U keycloak_user -d keycloak_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  keycloak_demo_dev_network:
+    driver: bridge
