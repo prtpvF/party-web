@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -28,11 +30,9 @@ public class SchedulerService {
 
         private final PersonRepository personRepository;
 
-        @Async
+        @Scheduled(initialDelay = 5000, fixedDelay = 60000)
         public void scheduleUserDeletion() {
              CompletableFuture.runAsync(() -> {
-                try {
-                    TimeUnit.MINUTES.sleep(10);
                     List<PersonModel> persons = findAllUnavailablePersons();
                     List<String> unavailablePersonsUsernames = persons.stream()
                             .filter(user -> user.getStatus().equals(PersonStatusEnum.UNAVAILABLE.name()))
@@ -41,10 +41,8 @@ public class SchedulerService {
                     if (!unavailablePersonsUsernames.isEmpty()) {
                         personRepository.deleteBatchByUsernames(unavailablePersonsUsernames);
                     }
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
                   log.info("start cleaning unavailable persons");
-                }
+
             });
         }
 

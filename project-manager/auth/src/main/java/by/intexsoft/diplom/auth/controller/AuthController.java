@@ -5,7 +5,6 @@ import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.response.AuthResponse;
 import by.intexsoft.diplom.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -14,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,20 +32,30 @@ public class AuthController {
             return new ResponseEntity("success", HttpStatus.CREATED);
         }
 
-        @Operation(summary = "Get a user by Id")
-        @PostMapping("/login")
-        public AuthResponse login(@RequestBody LoginDto loginDto) {
-            return authService.login(loginDto);
+        @GetMapping("/j")
+        public String fds(Principal principal){
+            return "hello " + principal.getName();
         }
 
-        @PostMapping("/refresh-token")
-        public AuthResponse refreshToken(@RequestHeader("authorization") String accessToken) {
-           return authService.createJwtToken(accessToken);
+        @GetMapping("/g")
+        public String f(){
+            return "gfd";
         }
 
-        @GetMapping("/logout")
-        public void logout(HttpServletRequest request, HttpServletResponse response,
-                           @RequestHeader("authorization") String authorization) {
-            authService.logout(request, response, authorization);
-        }
+//        @Operation(summary = "Get a user by Id")
+//        @PostMapping("/login")
+//        public AccessTokenResponse login(@RequestBody LoginDto loginDto) {
+//            return authService.login(loginDto);
+//        }
+
+//        @PostMapping("/refresh-token")
+//        public AuthResponse refreshToken(@RequestHeader("authorization") String accessToken) {
+//           return authService.createJwtToken(accessToken);
+//        }
+//
+//        @GetMapping("/logout")
+//        public void logout(HttpServletRequest request, HttpServletResponse response,
+//                           @RequestHeader("authorization") String authorization) {
+//            authService.logout(request, response, authorization);
+//        }
 }

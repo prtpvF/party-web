@@ -1,20 +1,34 @@
 package by.intexsoft.diplom.security.configuration;
 
-import by.intexsoft.diplom.security.filter.JwtFilter;
-import by.intexsoft.diplom.security.logout.LogoutHandlerImpl;
+
+import by.intexsoft.diplom.security.keycloak.KeycloakLogoutHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Configuration
 @EnableWebSecurity
@@ -23,29 +37,39 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
         securedEnabled = true)
 public class SecurityConfiguration {
 
-        private final LogoutHandlerImpl logoutHandler;
-        private final JwtFilter filter;
+        private final KeycloakLogoutHandler keycloakLogoutHandler;
+        private static final String GROUPS = "groups";
+        private static final String REALM_ACCESS_CLAIM = "realm_access";
+        private static final String ROLES_CLAIM = "roles";
 
-        @Bean
+
+
+    @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-            http.authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration",
+            http
+                    .authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration",
                             "/auth/login",
                             "/public/party/**",
                             "/public/person/find",
                             "/auth/logout",
                             "/swagger-ui/**",
                             "/verification/email",
-                            "/v3/api-docs/**").permitAll().anyRequest().authenticated())
-                    .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-            http.logout(logout ->
-                    logout
-                            .logoutUrl("/auth/logout")
-                            .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
-                    .exceptionHandling(exceptionHandling ->
-                            exceptionHandling
-                                    .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                    .csrf((csrf) -> csrf.disable());
-                    http.logout((logout) -> logout.logoutUrl("/auth/logout").addLogoutHandler(logoutHandler));
+                            "/v3/api-docs/**", "/auth/g").permitAll().anyRequest().authenticated());
+                // .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+            http.oauth2ResourceServer((oauth2) -> oauth2
+                    .jwt(
+                            jwt -> {
+                                JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+                                jwtAuthenticationConverter.setPrincipalClaimName("preferred_username");
+                                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter);
+                            }
+                    ));
+        http.oauth2Client(Customizer.withDefaults());
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            http.oauth2Login(Customizer.withDefaults()
+        )
+                    .logout(logout -> logout.addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/"));
+            http.csrf(CsrfConfigurer::disable);
             return http.build();
         }
 
@@ -54,5 +78,50 @@ public class SecurityConfiguration {
             return new BCryptPasswordEncoder();
         }
 
+        @Bean
+        public GrantedAuthoritiesMapper userAuthoritiesMapperForKeycloak() {
+            return authorities -> {
+                Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
+                var authority = authorities.iterator().next();
+                boolean isOidc = authority instanceof OidcUserAuthority;
+
+                if (isOidc) {
+                    var oidcUserAuthority = (OidcUserAuthority) authority;
+                    var userInfo = oidcUserAuthority.getUserInfo();
+
+                    if (userInfo.hasClaim(REALM_ACCESS_CLAIM)) {
+                        var realmAccess = userInfo.getClaimAsMap(REALM_ACCESS_CLAIM);
+                        var roles = (Collection<String>) realmAccess.get(ROLES_CLAIM);
+                        mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                    } else if (userInfo.hasClaim(GROUPS)) {
+                        Collection<String> roles = userInfo.getClaim(
+                                GROUPS);
+                        mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                    }
+                } else {
+                    var oauth2UserAuthority = (OAuth2UserAuthority) authority;
+                    Map<String, Object> userAttributes = oauth2UserAuthority.getAttributes();
+
+                    if (userAttributes.containsKey(REALM_ACCESS_CLAIM)) {
+                        Map<String, Object> realmAccess = (Map<String, Object>) userAttributes.get(
+                                REALM_ACCESS_CLAIM);
+                        Collection<String> roles = (Collection<String>) realmAccess.get(ROLES_CLAIM);
+                        mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                    }
+                }
+                return mappedAuthorities;
+            };
+        }
+
+        Collection<GrantedAuthority> generateAuthoritiesFromClaim(Collection<String> roles) {
+            return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(
+                    Collectors.toList());
+        }
+
+        @Bean
+        public JwtDecoder jwtDecoder() {
+            return NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/realms/free-party/protocol/openid-connect/certs")
+                    .build();
+        }
 
 }

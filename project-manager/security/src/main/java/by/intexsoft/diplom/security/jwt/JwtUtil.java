@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Date;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 @Slf4j
 public class JwtUtil {
