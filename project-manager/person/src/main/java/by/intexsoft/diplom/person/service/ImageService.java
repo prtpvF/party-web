@@ -3,12 +3,12 @@ package by.intexsoft.diplom.person.service;
 import by.intexsoft.diplom.person.exception.InvalidFileSizeException;
 import by.intexsoft.diplom.person.exception.InvalidFileTypeException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Service for saving and manipulating images

@@ -8,12 +8,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DropBoxConfiguration {
-    @Value("${dropbox.access.token}")
-    private String ACCESS_TOKEN;
 
-    @Bean
-    public DbxClientV2 dbxClient() {
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-        return new DbxClientV2(config, ACCESS_TOKEN);
-    }
+        @Value("${dropbox.access.token}")
+        private String ACCESS_TOKEN;
+
+        @Bean
+        public DbxClientV2 dbxClient() {
+            DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+            return new DbxClientV2(config, ACCESS_TOKEN);
+        }
 }

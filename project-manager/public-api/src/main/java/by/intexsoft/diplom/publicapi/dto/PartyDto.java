@@ -1,27 +1,31 @@
 package by.intexsoft.diplom.publicapi.dto;
 
-import by.intexsoft.diplom.common_module.model.Image;
-import by.intexsoft.diplom.common_module.model.Person;
-import by.intexsoft.diplom.common_module.model.role.PartyType;
-import lombok.Data;
+import by.intexsoft.diplom.common.model.ImageModel;
+import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.role.PartyTypeModel;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PartyDto {
-    private int id;
-    private String name;
-    private PartyType type;
-    private Person organizer;
-    private int ageRestriction;
-    private int countOfPlaces;
-    private String description;
-    private String city;
-    private String address;
-    private double ticketCost;
-    private LocalDateTime dateOfEvent;
-    private Set<Image> images = new HashSet<>();
+
+        private int id;
+        private String name;
+        private PartyTypeModel type;
+        private PersonModel organizer;
+        private int ageRestriction;
+        private int countOfPlaces;
+        private String description;
+        private String city;
+        private String address;
+        private double ticketCost;
+        private LocalDateTime dateOfEvent;
+        private Set<ImageModel> images = new HashSet<>();
 
 }

@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.person.dto;
 
-import by.intexsoft.diplom.common_module.model.Image;
+import by.intexsoft.diplom.common.model.ImageModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -23,5 +23,5 @@ public class PartyDto {
         private Double minimalRating;
         private Double ticketCost;
         private LocalDateTime dateOfEvent;
-        private Set<Image> images = new HashSet<>();
+        private Set<ImageModel> images = new HashSet<>();
 }

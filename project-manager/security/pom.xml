@@ -63,11 +63,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
 		<dependency>
@@ -98,6 +93,7 @@
 		<dependency>
 			<groupId>by.intexsoft.diplom</groupId>
 			<artifactId>common</artifactId>
+			<version>0.0.1-SHAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -106,7 +102,5 @@
 		</dependency>
 
 	</dependencies>
-
-
 
 </project>

@@ -1,8 +1,8 @@
 package by.intexsoft.diplom.person.service;
 
-import by.intexsoft.diplom.common_module.model.*;
-import by.intexsoft.diplom.common_module.model.enums.PartyStatusEnum;
-import by.intexsoft.diplom.common_module.repository.*;
+import by.intexsoft.diplom.common.model.*;
+import by.intexsoft.diplom.common.model.enums.PartyStatusEnum;
+import by.intexsoft.diplom.common.repository.*;
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.dto.PartyDto;
@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,13 +35,14 @@ public class OrganizerService {
         /**
          * method creates a request to create party
          * by retrieving and converting PartyDto in Party model
-         * @param token - identifier of organizer
+         * @param principal - authenticated user
          * @param partyCreateDto - object what will be converted in Party model
          * @return HttpStatus
          */
-        public HttpStatus createPartyRequest(String token, PartyDto partyCreateDto) {
-            Person organizer = personService.getPersonFromToken(token);
-            Party party = convertToParty(partyCreateDto, organizer);
+        public HttpStatus createPartyRequest(Principal principal,
+                                             PartyDto partyCreateDto) {
+            PersonModel organizer = personService.getPersonFromToken(principal);
+            PartyEntity party = convertToParty(partyCreateDto, organizer);
             checkEventDate(partyCreateDto);
             partyRepository.save(party);
             return HttpStatus.CREATED;
@@ -49,21 +51,22 @@ public class OrganizerService {
         /**
          * method creates a request to delete a party
          * by retrieving Party model from DB and calls validating method
-         * @param token - identifier of organizer
+         * @param principal - authenticated user
          * @param partyId - identifier of an instance of Party what will be retrieved from DB
          * @return HttpStatus
          */
-        public HttpStatus createPartyDeleteRequest(int partyId, String token) {
-            DeletingPartyRequest request = new DeletingPartyRequest();
-            prepareDeletingRequest(request, token, partyId);
+        public HttpStatus createPartyDeleteRequest(int partyId, Principal principal) {
+            DeletingPartyRequestModel request = new DeletingPartyRequestModel();
+            prepareDeletingRequest(request, principal, partyId);
             deletingRequestRepository.save(request);
             return HttpStatus.OK;
         }
 
-        public HttpStatus updateParty(int partyId, String token,
+        public HttpStatus updateParty(int partyId,
+                                      Principal principal,
                                       PartyDto partyDto) {
-            Party party = personService.findPartyById(partyId);
-            checkPartyOwner(token, partyId);
+            PartyEntity party = personService.findPartyById(partyId);
+            checkPartyOwner(principal, partyId);
             modelMapper.map(partyDto, party);
             System.out.println(party);
             partyRepository.save(party);
@@ -77,19 +80,20 @@ public class OrganizerService {
          * or else the request will be deleted and person will receive a notification
          * about refusal
          * @param requestId - identifier of participation request
-         * @param token - encrypted person username
+         * @param principal - authenticated user
          * @param orgAnswerDto - Dto of organizer's decision flag (accept if flag = true, refuse if flag = false)
          * @return HttpStatus
          */
-        public HttpStatus answerRequest(int requestId, String token,
+        public HttpStatus answerRequest(int requestId,
+                                        Principal principal,
                                         OrgAnswerDto orgAnswerDto) {
-            ParticipationRequest request = findRequestById(requestId);
+            ParticipationRequestModel request = findRequestById(requestId);
             ParticipationRequestDto dto = modelMapper.map(request, ParticipationRequestDto.class);
-            Person organizer = personService.getPersonFromToken(token);
+            PersonModel organizer = personService.getPersonFromToken(principal);
             if(orgAnswerDto.getAccept()){
                 isRequestBelongToOrganizer(dto, organizer);
-                Party party = retrievePartyFromRequest(dto);
-                Person guest = retrievePersonFromRequest(dto);
+                PartyEntity party = retrievePartyFromRequest(dto);
+                PersonModel guest = retrievePersonFromRequest(dto);
                 addPersonToPartyGuest(guest, party);
                 //todo send notification about accepting
                 return HttpStatus.CREATED;
@@ -98,15 +102,15 @@ public class OrganizerService {
             return HttpStatus.OK;
         }
 
-        public HttpStatus deleteRequest(int requestId, String token) {
-            Person organizer = personService.getPersonFromToken(token);
+        public HttpStatus deleteRequest(int requestId, Principal principal) {
+            PersonModel organizer = personService.getPersonFromToken(principal);
             ParticipationRequestDto requestDto = personService.getValidatedPersonParticipationRequest(requestId);
             isRequestBelongToOrganizer(requestDto, organizer);
             requestRepository.deleteById(requestId);
             return HttpStatus.OK;
         }
 
-        private void addPersonToPartyGuest(Person person, Party party) {
+        private void addPersonToPartyGuest(PersonModel person, PartyEntity party) {
             party.getGuests().add(person);
             person.getParties().add(party);
             partyRepository.save(party);
@@ -114,8 +118,8 @@ public class OrganizerService {
         }
 
         private void isRequestBelongToOrganizer(ParticipationRequestDto request,
-                                                Person organizer) {
-            Party partyFromRequest = personService.findPartyById(request.getPartyId());
+                                                PersonModel organizer) {
+            PartyEntity partyFromRequest = personService.findPartyById(request.getPartyId());
             if(!partyFromRequest.getOrganizer().equals(organizer)){
                throw new InvalidRequestOwner("you cant answer this request " +
                        "'cause you are not the organizer of this party");
@@ -127,7 +131,7 @@ public class OrganizerService {
          * @param request - ParticipationRequestDto object
          * @return founded party
          */
-        private Party retrievePartyFromRequest(ParticipationRequestDto request){
+        private PartyEntity retrievePartyFromRequest(ParticipationRequestDto request){
             return personService.findPartyById(request.getPartyId());
         }
 
@@ -136,7 +140,7 @@ public class OrganizerService {
          * @param request - ParticipationRequest object
          * @return founded person
          */
-        private Person retrievePersonFromRequest(ParticipationRequestDto request) {
+        private PersonModel retrievePersonFromRequest(ParticipationRequestDto request) {
             return personService.findPersonById(request.getPersonId());
         }
 
@@ -146,28 +150,30 @@ public class OrganizerService {
          * @param requestId - identifier of participate request
          * @return founded participate request
          */
-        private ParticipationRequest findRequestById(int requestId) {
+        private ParticipationRequestModel findRequestById(int requestId) {
             return requestRepository.findById(requestId)
                     .orElseThrow(() -> new RequestNotFoundException
                             ("participate request with this id doesnt exist"));
         }
 
-        private void prepareDeletingRequest(DeletingPartyRequest request, String token, int partyId) {
-            request.setOrganizer(personService.getPersonFromToken(token));
+        private void prepareDeletingRequest(DeletingPartyRequestModel request,
+                                            Principal principal,
+                                            int partyId) {
+            request.setOrganizer(personService.getPersonFromToken(principal));
             request.setParty(personService.findPartyById(partyId));
-            checkPartyOwner(token, partyId);
+            checkPartyOwner(principal, partyId);
             isDeletingRequestExist(partyId);
         }
 
         /**
          * This method checks whether the organizer retrieved from the token
          * corresponds to the true party’s organizer.
-         * @param token - identification of a person
+         * @param principal - authenticated user
          * @param partyId - identification of a party
          */
-        private void checkPartyOwner(String token, int partyId) {
-            Party party = personService.findPartyById(partyId);
-            Person organizer = personService.getPersonFromToken(token);
+        private void checkPartyOwner(Principal principal, int partyId) {
+            PartyEntity party = personService.findPartyById(partyId);
+            PersonModel organizer = personService.getPersonFromToken(principal);
             if(!party.getOrganizer().equals(organizer)){
                 throw new IllegalPartyOrganizerException("you are not an organizer of this party!");
             }
@@ -198,18 +204,19 @@ public class OrganizerService {
             return LocalDateTime.now();
         }
 
-        private List<PartyDto> getConvertedList(List<Party> partyList) {
+        private List<PartyDto> getConvertedList(List<PartyEntity> partyList) {
             List<PartyDto> partyDtoList = new ArrayList<>();
             partyList.stream().map(this::convertPartyToDto).forEach(partyDtoList::add);
             return partyDtoList;
         }
 
-        private PartyDto convertPartyToDto(Party party) {
+        private PartyDto convertPartyToDto(PartyEntity party) {
+
             return modelMapper.map(party, PartyDto.class);
         }
 
-        private Party convertToParty(PartyDto partyDto, Person organizer) {
-            Party party = new Party();
+        private PartyEntity convertToParty(PartyDto partyDto, PersonModel organizer) {
+            PartyEntity party = new PartyEntity();
             party.setOrganizer(organizer);
             party.setImages(partyDto.getImages());
             party.setType(personService.getPartyType(partyDto.getType()));
@@ -219,7 +226,7 @@ public class OrganizerService {
             return party;
         }
 
-        private PartyStatus getPartyStatus(String statusName){
+        private PartyStatusModel getPartyStatus(String statusName){
             return partyStatusRepository.findByStatus(statusName)
                     .orElseThrow(() -> new StatusNotFoundException("status not found"));
         }

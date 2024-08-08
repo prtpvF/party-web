@@ -22,10 +22,9 @@
 
     <modules>
         <module>auth</module>
-        <module>common-module</module>
+        <module>common</module>
         <module>security</module>
         <module>public-api</module>
-        <module>admin</module>
         <module>person</module>
     </modules>
 

@@ -2,6 +2,7 @@ volumes:
   pg_diplom:
 
 services:
+
   diplom_db:
     container_name: db
     image: postgres
@@ -12,6 +13,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
     ports:
       - "5434:5432"
+
   auth_service:
     container_name: auth
     restart: always
@@ -30,9 +32,9 @@ services:
       JAVA_OPTS: ${JAVA_OPTS}
       HOST_NAME: ${HOST_NAME}
       REDIS_PORT: ${REDIS_PORT}
+
   person_service:
     container_name: person
-    restart: always
     build:
       context: ./person
       dockerfile: Dockerfile
@@ -46,9 +48,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
       KAFKA_AUTH_TOPIC_NAME: ${AUTH_TOPIC}
       KAFKA_VERIFY_TOPIC_NAME: ${VERIFY_TOPIC}
+      HIBERNATE_DIALECT: ${HIBERNATE_DIALECT}
+
   public-api_service:
     container_name: public
-    restart: always
     build:
       context: ./public-api
       dockerfile: Dockerfile
@@ -60,11 +63,21 @@ services:
       SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+      HIBERNATE_DIALECT: ${HIBERNATE_DIALECT}
+      CLIENT_ID: ${CLIENT_ID}
+      AUTHORIZATION_GRANT_TYPE: ${AUTHORIZATION_GRANT_TYPE}
+      USERNAME_ATTRIBUTE: ${USERNAME_ATTRIBUTE}
+      ISSUER_URI: ${ISSUER_URI}
+      AUTHORIZATION_URI: ${AUTHORIZATION_URI}
+      TOKEN_URI: ${TOKEN_URI}
+      SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_JWK-SET-URI: ${KC_SET_URI}
+
   zookeeper:
     container_name: zookeeper
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
+
   kafka:
     container_name: kafka
     image: wurstmeister/kafka:latest
@@ -99,6 +112,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_METRICS_ENABLED: ${KC_METRICS_ENABLED}
       KC_HEALTH_ENABLED: ${KC_HEALTH_ENABLED}
+
       KC_DB: ${KC_DB}
       KC_DB_URL: ${KC_DB_URL}
       KC_DB_USERNAME: ${KC_DB_USERNAME}

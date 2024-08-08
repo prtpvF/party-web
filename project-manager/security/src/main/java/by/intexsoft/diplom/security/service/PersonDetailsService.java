@@ -1,7 +1,6 @@
 package by.intexsoft.diplom.security.service;
 
 
-
 import by.intexsoft.diplom.common.model.PersonModel;
 import by.intexsoft.diplom.common.repository.PersonRepository;
 import by.intexsoft.diplom.security.security.PersonDetails;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Service
+@Service
 @RequiredArgsConstructor
 public class PersonDetailsService implements UserDetailsService {
 

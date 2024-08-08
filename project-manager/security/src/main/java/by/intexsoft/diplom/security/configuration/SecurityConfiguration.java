@@ -2,7 +2,9 @@ package by.intexsoft.diplom.security.configuration;
 
 
 import by.intexsoft.diplom.security.keycloak.KeycloakLogoutHandler;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -42,9 +44,14 @@ public class SecurityConfiguration {
         private static final String REALM_ACCESS_CLAIM = "realm_access";
         private static final String ROLES_CLAIM = "roles";
 
+        @Value("${spring.security.oauth2.client.provider.keycloak.jwk-set-uri}")
+        private String CET_URI;
 
-
-    @Bean
+        @PostConstruct
+        public void init() {
+            System.out.println("JWK Set URI: " + CET_URI);
+        }
+        @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                     .authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration",
@@ -55,7 +62,6 @@ public class SecurityConfiguration {
                             "/swagger-ui/**",
                             "/verification/email",
                             "/v3/api-docs/**", "/auth/g").permitAll().anyRequest().authenticated());
-                // .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
             http.oauth2ResourceServer((oauth2) -> oauth2
                     .jwt(
                             jwt -> {
@@ -64,7 +70,6 @@ public class SecurityConfiguration {
                                 jwt.jwtAuthenticationConverter(jwtAuthenticationConverter);
                             }
                     ));
-        http.oauth2Client(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
             http.oauth2Login(Customizer.withDefaults()
         )
@@ -120,8 +125,7 @@ public class SecurityConfiguration {
 
         @Bean
         public JwtDecoder jwtDecoder() {
-            return NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/realms/free-party/protocol/openid-connect/certs")
+            return NimbusJwtDecoder.withJwkSetUri(CET_URI)
                     .build();
         }
-
 }

@@ -1,4 +1,13 @@
-.idea
-../.idea/
-./DS_Store
-../DS_Store
+public-api/.idea
+person/.idea
+auth/.idea
+common/.idea
+security/.idea
+notification/.idea
+target
+.env
+.idea/
+.DS_Store
+*.log
+
+../.DS_Store

@@ -1,3 +1,4 @@
+/Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/PartyEntity.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/PartyStatusModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/role/PartyTypeModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/repository/CardRepository.java
@@ -19,12 +20,12 @@
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/enums/PartyStatusEnum.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/repository/PartyRepository.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/enums/PersonRolesEnum.java
+/Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/enums/PersonStatusEnum.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/FriendshipRequestModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/CardModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/repository/PartyTypeRepository.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/enums/MessageTypeEnum.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/repository/ImageRepository.java
-/Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/PartyModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/MessageModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/ParticipationRequestModel.java
 /Users/mihail/Documents/free-party/party-web/project-manager/common/src/main/java/by/intexsoft/diplom/common/model/ImageModel.java

@@ -47,6 +47,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>by.intexsoft.diplom</groupId>
+			<artifactId>security</artifactId>
+			<version>0.0.1-SHAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -56,22 +62,33 @@
 			<artifactId>spring-rabbit-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>by.intexsoft.diplom</groupId>
-            <artifactId>by.intexsoft.diplom</artifactId>
-            <version>0.0.1-SHAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
 		<dependency>
 			<groupId>by.intexsoft.diplom</groupId>
-			<artifactId>security</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SHAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.4.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>by.intexsoft.diplom</groupId>
+			<artifactId>security</artifactId>
+			<version>0.0.1-SHAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
