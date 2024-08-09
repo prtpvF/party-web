@@ -15,9 +15,9 @@ spring:
     path: ${API_DOCS_PATH}
   kafka:
     producer:
-      bootstrap-servers: "localhost:9092"
-      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
-      value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     topic-auth:
       name: ${KAFKA_AUTH_TOPIC_NAME}
     topic-verify:
@@ -27,19 +27,19 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: auth-app
-            client-secret: 15po2NTE5e9AUEuv4CNkEvuRj2YEfq4Q
-            authorization-grant-type: authorization_code
+            client-id: ${CLIENT_ID}
+            authorization-grant-type: ${AUTHORIZATION_GRANT_TYPE}
             scope:
               - openid
               - profile
               - email
         provider:
           keycloak:
-            user-name-attribute: preferred_username
-            issuer-uri: 'http://localhost:8080/realms/free-party'
-            authorization-uri: 'http://localhost:8080/realms/free-party/protocol/openid-connect/auth'
-            token-uri: 'http://localhost:8080/realms/free-party/protocol/openid-connect/token'
+            user-name-attribute: ${USERNAME_ATTRIBUTE}
+            issuer-uri: ${ISSUER_URI}
+            jwk-set-uri: ${JWK_SET_URI}
+            authorization-uri: ${AUTHORIZATION_URI}
+            token-uri: ${TOKEN_URI}
 jpa:
    hibernate:
      ddl-auto: update
@@ -55,3 +55,12 @@ server:
   port: 8090
 verification:
   lifetime: 600000 #10 minutes
+keycloak:
+  realm: ${REALM_NAME}
+  server-url: ${SERVER_URL}
+  client-id: ${CLIENT_ID}
+  grant-type: ${GRANT_TYPE}
+  username: ${USERNAME}
+  password: ${PASSWORD}
+
+redis:

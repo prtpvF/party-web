@@ -45,23 +45,24 @@ public class SecurityConfiguration {
         private static final String ROLES_CLAIM = "roles";
 
         @Value("${spring.security.oauth2.client.provider.keycloak.jwk-set-uri}")
-        private String CET_URI;
+        private String SET_URI;
 
         @PostConstruct
         public void init() {
-            System.out.println("JWK Set URI: " + CET_URI);
+            System.out.println("JWK Set URI: " + SET_URI);
         }
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
-                    .authorizeHttpRequests((request) -> request.requestMatchers("/auth/registration",
+                    .authorizeHttpRequests((request) -> request.requestMatchers(
+                            "/auth/registration",
                             "/auth/login",
                             "/public/party/**",
                             "/public/person/find",
                             "/auth/logout",
                             "/swagger-ui/**",
                             "/verification/email",
-                            "/v3/api-docs/**", "/auth/g").permitAll().anyRequest().authenticated());
+                            "/v3/api-docs/**").permitAll().anyRequest().authenticated());
             http.oauth2ResourceServer((oauth2) -> oauth2
                     .jwt(
                             jwt -> {
@@ -125,7 +126,7 @@ public class SecurityConfiguration {
 
         @Bean
         public JwtDecoder jwtDecoder() {
-            return NimbusJwtDecoder.withJwkSetUri(CET_URI)
+            return NimbusJwtDecoder.withJwkSetUri(SET_URI)
                     .build();
         }
 }
