@@ -5,6 +5,7 @@ spring:
     url: ${DB_DATASOURCE_URL}
     password: ${DB_DATASOURCE_PASSWORD}
     username: ${DB_DATASOURCE_USERNAME}
+
   main:
     lazy-initialization: true
     allow-bean-definition-overriding: true

@@ -13,15 +13,16 @@ import java.util.Set;
 @Table(name = "conversation")
 @Data
 public class ConversationModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "conversations")
-    private Set<PersonModel> participants = new HashSet<>();
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "conversation")
-    private List<MessageModel> messagesList = new ArrayList<>();
+        @ManyToMany(fetch = FetchType.EAGER,mappedBy = "conversations")
+        private Set<PersonModel> participants = new HashSet<>();
+
+        @OneToMany(fetch = FetchType.EAGER,mappedBy = "conversation")
+        private List<MessageModel> messagesList = new ArrayList<>();
 }

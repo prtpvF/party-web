@@ -34,7 +34,7 @@ public class SchedulerService {
         @Value("${keycloak.realm}")
         private String realm;
 
-        @Scheduled(initialDelay = 5000, fixedDelay = 60000)
+        @Scheduled(initialDelay = 5000, fixedDelay = 600000)
         public void scheduleUserDeletion() {
              CompletableFuture.runAsync(() -> {
                  RealmResource realmResource = keycloak.realm(realm);

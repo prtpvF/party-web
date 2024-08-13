@@ -11,19 +11,20 @@ import java.time.LocalDateTime;
 @Table(name = "friendship_request")
 @Data
 public class FriendshipRequestModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private PersonModel sender;
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private PersonModel receiver;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
 
-    @NotNull
-    private FriendshipRequestStatusEnum status;
+        @ManyToOne
+        @JoinColumn(name = "sender_id")
+        private PersonModel sender;
+        @ManyToOne
+        @JoinColumn(name = "receiver_id")
+        private PersonModel receiver;
 
-    private LocalDateTime createdAt; //LOCALDATETIME
+        @NotNull
+        private FriendshipRequestStatusEnum status;
+
+        private LocalDateTime createdAt;
 }

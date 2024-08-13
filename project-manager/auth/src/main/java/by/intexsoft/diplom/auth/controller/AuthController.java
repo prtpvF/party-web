@@ -18,7 +18,7 @@ public class AuthController {
         private final AuthService authService;
 
         @PostMapping("/registration")
-        public Integer registration(@RequestBody UserRepresentation userRepresentation,
+        public ResponseEntity registration(@RequestBody UserRepresentation userRepresentation,
                                            @RequestParam Boolean isOrganizer) {
             return authService.register(userRepresentation, isOrganizer);
         }
@@ -26,5 +26,11 @@ public class AuthController {
         @PutMapping("/verification/{userId}")
         public void verifyEmail(@PathVariable String userId) {
             authService.sendEmailVerification(userId);
+        }
+
+        @PostMapping("/user/registration")
+        public HttpStatus saveUerIntoGeneralDb(@RequestBody RegistrationDto registrationDto) {
+            authService.saveUserIntoApplicationDb(registrationDto);
+            return HttpStatus.OK;
         }
 }

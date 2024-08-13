@@ -17,10 +17,6 @@ public class RegistrationDto {
         @Length(min = 4, max = 15, message = "username must be in 4-15 characters length")
         private String username;
 
-        @NotBlank(message = "field can't be blank")
-        @Length(min = 4, max = 30, message = "[password] must be in 4-30 characters length")
-        private String password;
-
         @Min(value = 14, message = "you must be older than 14")
         @Max(value = 100, message = "entered age isn't correct")
         private int age;

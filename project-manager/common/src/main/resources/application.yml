@@ -1,0 +1,14 @@
+spring:
+  #APPLICATION DB
+  db1:
+    datasource:
+      url: ${DB_DATASOURCE_URL}
+      password: ${DB_DATASOURCE_PASSWORD}
+      username: ${DB_DATASOURCE_USERNAME}
+
+      #KEYCLOAK DB
+  db2:
+    datasource:
+      url: ${KEYCLOAK_DB_URL}
+      password: keycloak_password
+      username: keycloak_user
