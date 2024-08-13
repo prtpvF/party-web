@@ -37,7 +37,7 @@ public class PartyEntity {
         @NotBlank(message = "field can't be empty")
         private String name;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
         @JoinColumn(name = "type_id")
         @JsonBackReference
         private PartyTypeModel type;
@@ -84,10 +84,6 @@ public class PartyEntity {
         @UpdateTimestamp
         private LocalDateTime updatedAt;
 
-        @OneToOne(mappedBy = "party", fetch = FetchType.LAZY,
-                  cascade = CascadeType.REMOVE)
-        private DeletingPartyRequestModel request;
-
         @ManyToMany(fetch = FetchType.LAZY, mappedBy = "parties")
         @JsonIdentityReference(alwaysAsId = true)
         private List<PersonModel> guests = new ArrayList<>();
@@ -98,6 +94,9 @@ public class PartyEntity {
         @OneToMany(mappedBy = "party")
         @JsonIdentityReference(alwaysAsId = true)
         private Set<ImageModel> images = new HashSet<>();
+
+        @OneToMany(mappedBy = "party")
+        private List<PartyPaymentModel> payments = new ArrayList<>();
 
         @ElementCollection
         private List<Integer> rates = new ArrayList<>();

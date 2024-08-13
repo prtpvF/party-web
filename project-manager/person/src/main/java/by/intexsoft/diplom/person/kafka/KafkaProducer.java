@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.auth.kafka;
+package by.intexsoft.diplom.person.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,17 +13,11 @@ public class KafkaProducer {
 
         private final KafkaTemplate<String, KafkaMessageModel> kafkaTemplate;
 
-        @Value("${spring.kafka.topic-auth.name}")
-        private String authTopic;
-
-        @Value("${spring.kafka.topic-verify.name}")
-        private String verifyTopic;
+        @Value("${spring.kafka.topic-participation.name}")
+        private String participationTopic;
 
         public void sendMessage( KafkaMessageModel kafkaMessageModel) {
-            kafkaTemplate.send(authTopic, kafkaMessageModel);
+            kafkaTemplate.send(participationTopic, kafkaMessageModel);
         }
 
-        public void sendVerificationCode(KafkaMessageModel messageModelDto) {
-            kafkaTemplate.send(verifyTopic, messageModelDto);
-        }
 }

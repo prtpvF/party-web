@@ -1,6 +1,7 @@
 package by.intexsoft.diplom.common.model;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.Part;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,5 +16,5 @@ public class CardModel {
     private int id;
 
     @OneToMany(mappedBy = "card")
-    private List<OperationModel> operations = new ArrayList<>();
+    private List<PartyPaymentModel> operations = new ArrayList<>();
 }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface PartyTypeRepository extends JpaRepository<PartyTypeModel, Integer> {
-    Optional<PartyTypeModel> findByType(String type);
+    Optional<PartyTypeModel> findByType(String name);
 }

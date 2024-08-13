@@ -63,6 +63,12 @@ public class PersonExceptionsHandler {
             return new ResponseEntity(ex.getMessage(), status);
         }
 
+        @ExceptionHandler(value = IllegalDataOfEventException.class)
+        public ResponseEntity illegalDateOfEventExceptionHandler(IllegalDataOfEventException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity(ex.getMessage(), status);
+        }
+
         @ExceptionHandler(value = StatusNotFoundException.class)
         public ResponseEntity statusNotFoundExceptionHandler(StatusNotFoundException ex) {
             HttpStatus status = HttpStatus.NOT_FOUND;

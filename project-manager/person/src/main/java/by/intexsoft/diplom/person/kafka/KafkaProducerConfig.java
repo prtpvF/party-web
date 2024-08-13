@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.auth.kafka;
+package by.intexsoft.diplom.person.kafka;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -28,6 +28,13 @@ public class KafkaProducerConfig {
         @Bean
         public NewTopic newVerifyTopic() {
             return new NewTopic("verify-topic",
+                    1,
+                    (short) 1);
+        }
+
+        @Bean
+        public NewTopic newParticipationTopic() {
+            return new NewTopic("participation-topic",
                     1,
                     (short) 1);
         }

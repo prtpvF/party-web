@@ -44,14 +44,14 @@ public class ExceptionsHandler {
         }
 
         @ExceptionHandler(value = CodesAreNotEqualException.class)
-        public ResponseEntity codesAreNotEqualExceptionHandler(CodesAreNotEqualException ex) {
+        public ResponseEntity<String> codesAreNotEqualExceptionHandler(CodesAreNotEqualException ex) {
             HttpStatus status = HttpStatus.CONFLICT;
-            return new ResponseEntity(ex.getMessage(), status);
+            return new ResponseEntity<>(ex.getMessage(), status);
         }
 
         @ExceptionHandler(value = SocketTimeoutException.class)
-        public ResponseEntity socketTimeoutExceptionHandler(SocketTimeoutException ex) {
+        public ResponseEntity<String> socketTimeoutExceptionHandler(SocketTimeoutException ex) {
             HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
-            return new ResponseEntity(ex.getMessage(), status);
+            return new ResponseEntity<>(ex.getMessage(), status);
         }
 }

@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.auth.kafka;
+package by.intexsoft.diplom.person.kafka;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ public class KafkaMessageModel {
 
         private String topic;
         private String toEmail;
-        private String verificationCode;
+        private String data;
         private String username;
 
 }

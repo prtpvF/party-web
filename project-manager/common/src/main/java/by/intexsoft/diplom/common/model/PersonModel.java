@@ -81,7 +81,7 @@ public class PersonModel {
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
         @JsonIdentityReference(alwaysAsId = true)
-        private List<OperationModel> paymentOperations = new ArrayList<>(); // change name
+        private List<PartyPaymentModel> paymentOperations = new ArrayList<>(); // change name
 
         @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
         @JoinTable(
@@ -107,10 +107,6 @@ public class PersonModel {
                 inverseJoinColumns = @JoinColumn(name = "friend_id")
         )
         private List<PersonModel> friends = new ArrayList<>();
-
-        @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer")
-        @JsonIdentityReference(alwaysAsId = true)
-        private List<DeletingPartyRequestModel> partyDeletingRequests = new ArrayList<>();
 
         @Override
         public String toString() {

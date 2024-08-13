@@ -34,7 +34,7 @@ public class PersonService {
         private final ModelMapper modelMapper;
 
         public HttpStatus sendParticipationRequest(int partyId, Principal principal){
-                PersonModel person = getPersonFromToken(principal);
+                PersonModel person = getPersonByPrincipal(principal);
                 PartyEntity party = findPartyById(partyId);
                 isRequestDataValid(person, party);
                 requestRepository.save(new ParticipationRequestModel(party, person));
@@ -42,7 +42,7 @@ public class PersonService {
         }
 
         public List<ParticipationRequestDto> getAllPersonParticipationRequests(Principal principal) {
-                PersonModel person = getPersonFromToken(principal);
+                PersonModel person = getPersonByPrincipal(principal);
                 return convertListOfRequestToDto(person.getParticipationRequests());
         }
 
@@ -52,13 +52,13 @@ public class PersonService {
 
         public HttpStatus deleteParticipationRequest(int participationRequestId, Principal principal) {
                 ParticipationRequestModel participationRequest = findParticipationRequestById(participationRequestId);
-                PersonModel person = getPersonFromToken(principal);
+                PersonModel person = getPersonByPrincipal(principal);
                 isParticipateRequestBelongToPerson(participationRequest, person);
                 requestRepository.delete(participationRequest);
                 return HttpStatus.OK;
         }
 
-        public String getUsernameFromToken(Principal principal) {
+        public String getPersonUsername(Principal principal) {
                 try {
                       return principal.getName();
                 }catch (SignatureVerificationException ex){
@@ -72,13 +72,11 @@ public class PersonService {
          * @param principal - authenticated user
          * @return organizer model
          */
-        public PersonModel getPersonFromToken(Principal principal) {
-                String username = getUsernameFromToken(principal);
+        public PersonModel getPersonByPrincipal(Principal principal) {
+                String username = getPersonUsername(principal);
                 PersonModel organizer = personRepository.findByUsername(username)
                         .orElseThrow(() -> new PersonNotFoundException("person with this username not found"));
-                if (!organizer.isActive()) {
-                        throw new AccountIsBannedException("you are banned");
-                }
+                isPersonBanned(organizer);
                 return organizer;
         }
 
@@ -95,6 +93,26 @@ public class PersonService {
         public PersonModel findPersonById(int personId){
                 return personRepository.findById(personId)
                         .orElseThrow(() -> new PersonNotFoundException("person not found"));
+        }
+
+        public void isPersonBanned(PersonModel personModel) {
+                if(!personModel.isActive()) {
+                        throw new AccountIsBannedException("you are banned");
+                }
+        }
+
+        /**
+         * This method checks whether the organizer retrieved from the token
+         * corresponds to the true party’s organizer.
+         * @param principal - authenticated user
+         * @param partyId - identification of a party
+         */
+        public void checkPartyOwner(Principal principal, int partyId) {
+                PartyEntity party = findPartyById(partyId);
+                PersonModel organizer = getPersonByPrincipal(principal);
+                if(!party.getOrganizer().equals(organizer)){
+                        throw new IllegalPartyOrganizerException("you are not an organizer of this party!");
+                }
         }
 
         private void isParticipateRequestBelongToPerson(ParticipationRequestModel participationRequest,
