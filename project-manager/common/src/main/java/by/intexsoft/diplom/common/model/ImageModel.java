@@ -18,4 +18,6 @@ public class ImageModel {
     @ManyToOne
     @JoinColumn(name = "party_id", nullable = false)
     private PartyEntity party;
+
+    private String status;
 }

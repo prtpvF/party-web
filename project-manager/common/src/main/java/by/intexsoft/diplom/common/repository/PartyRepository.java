@@ -16,5 +16,11 @@ public interface PartyRepository extends JpaRepository<PartyEntity, Integer> {
 
         @Query(value = "SELECT * FROM Party p WHERE p.person_id=person_id", nativeQuery = true)
         List<PartyEntity> findAllByPerson(PersonModel personModel);
+
+        @Query(value = "SELECT * FROM Party p WHERE p.city=city AND p.status_id=2", nativeQuery = true)
+        List<PartyEntity> findAllUnavailableByCity(String city);
+
+        @Query(value = "SELECT * FROM Party p WHERE p.city=city AND p.status_id=status_id", nativeQuery = true)
+        List<PartyEntity> findAllByStatusAndCity(Integer statusId, String city);
 }
 

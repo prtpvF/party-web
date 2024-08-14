@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.person.service.request;
 
+import by.intexsoft.diplom.common.model.ImageModel;
 import by.intexsoft.diplom.common.model.PartyEntity;
 import by.intexsoft.diplom.common.model.PartyStatusModel;
 import by.intexsoft.diplom.common.model.PersonModel;
@@ -12,6 +13,7 @@ import by.intexsoft.diplom.person.exception.PartyNotFoundException;
 import by.intexsoft.diplom.person.exception.RequestAlreadyExistException;
 import by.intexsoft.diplom.person.exception.StatusNotFoundException;
 import by.intexsoft.diplom.person.kafka.KafkaMessageModel;
+import by.intexsoft.diplom.person.service.DropBoxService;
 import by.intexsoft.diplom.person.service.PersonService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 /**
  * Class where all organizer's request are storing (CRUD request)
@@ -37,12 +40,13 @@ public class CrudPartyRequestService {
         private final PersonService personService;
         private final PartyRepository partyRepository;
         private final PartyStatusRepository partyStatusRepository;
+        private final DropBoxService dropBoxService;
         private final KafkaTemplate<String, KafkaMessageModel> kafkaTemplate;
         private final ModelMapper modelMapper;
 
-        private static final String CREATE = "create";
-        private static final String UPDATE = "update";
-        private static final String DELETE = "delete";
+        private static final String FLAG_CREATE = "create";
+        private static final String FLAG_UPDATE = "update";
+        private static final String FLAG_DELETE = "delete";
 
         @Value("${spring.kafka.topic-admin.name}")
         private String adminTopic;
@@ -67,10 +71,10 @@ public class CrudPartyRequestService {
         public HttpStatus createPartyRequest(Principal principal,
                                              PartyDto partyCreateDto) {
             PersonModel organizer = personService.getPersonByPrincipal(principal);
-            PartyEntity party = convertForRegistration(partyCreateDto, organizer);
+            PartyEntity party = processPartyCreating(partyCreateDto, organizer);
             checkPartyCreationEligibility(organizer, partyCreateDto);
             partyRepository.save(party);
-            sendMessageToAdmins(principal, CREATE);
+            sendMessageToAdmins(principal, FLAG_CREATE);
             return HttpStatus.CREATED;
         }
 
@@ -83,22 +87,29 @@ public class CrudPartyRequestService {
          * @return HttpStatus
          */
         public HttpStatus createPartyDeleteRequest(int partyId, Principal principal) {
-            PartyEntity party = partyRepository.findById(partyId)
-                    .orElseThrow(() -> new PartyNotFoundException(
-                            "cannot find party with this id"));
+            PartyEntity party = getPartyById(partyId);
             personService.checkPartyOwner(principal, partyId);
             isDeletingRequestExist(partyId);
+            processPartyDeleting(party);
+            sendMessageToAdmins(principal, FLAG_DELETE);
+            return HttpStatus.OK;
+        }
+
+        private void processPartyDeleting(PartyEntity party) {
             if(party.getPayments().isEmpty()) {
                 partyRepository.delete(party);
+                deletePartyFilesFromCloud(party);
             }
-            else {
-                party.setStatus(new PartyStatusModel(PartyStatusEnum
-                        .WAIT_FOR_DELETING
-                        .name()));
-                partyRepository.save(party);
-                sendMessageToAdmins(principal, DELETE);
-            }
-            return HttpStatus.OK;
+            party.setStatus(new PartyStatusModel(PartyStatusEnum
+                    .WAIT_FOR_DELETING
+                    .name()));
+            partyRepository.save(party);
+        }
+
+        private PartyEntity getPartyById(int partyId) {
+            return partyRepository.findById(partyId)
+                    .orElseThrow(() -> new PartyNotFoundException(
+                            "cannot find party with this id"));
         }
 
         public HttpStatus updateParty(int partyId,
@@ -108,7 +119,7 @@ public class CrudPartyRequestService {
             personService.checkPartyOwner(principal, partyId);
             modelMapper.map(partyDto, party);
             partyRepository.save(party);
-            sendMessageToAdmins(principal, UPDATE);
+            sendMessageToAdmins(principal, FLAG_UPDATE);
             return HttpStatus.OK;
         }
 
@@ -129,7 +140,7 @@ public class CrudPartyRequestService {
             return LocalDateTime.now();
         }
 
-        private PartyEntity convertForRegistration(PartyDto partyDto, PersonModel organizer) {
+        private PartyEntity processPartyCreating(PartyDto partyDto, PersonModel organizer) {
             PartyEntity party = new PartyEntity();
             party.setOrganizer(organizer);
             party.setImages(partyDto.getImages());
@@ -178,13 +189,13 @@ public class CrudPartyRequestService {
             messageModel.setUsername(organizer.getUsername());
             messageModel.setToEmail("random");
             switch (flag){
-                case CREATE:
+                case FLAG_CREATE:
                     data = partyCreateMessage;
                     break;
-                case DELETE:
+                case FLAG_DELETE:
                     data = partyDeleteMessage;
                     break;
-                case UPDATE:
+                case FLAG_UPDATE:
                     data = partyUpdateMessage;
                     break;
                 default:
@@ -196,4 +207,11 @@ public class CrudPartyRequestService {
             kafkaTemplate.send(adminTopic, messageModel);
         }
 
+        private void deletePartyFilesFromCloud(PartyEntity party) {
+            Set<ImageModel> images = party.getImages();
+
+            for (ImageModel image : images) {
+                dropBoxService.deleteFile(image.getName());
+            }
+        }
 }
