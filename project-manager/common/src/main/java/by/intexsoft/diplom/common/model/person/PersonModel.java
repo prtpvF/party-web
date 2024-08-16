@@ -1,6 +1,7 @@
 package by.intexsoft.diplom.common.model.person;
 
 import by.intexsoft.diplom.common.model.conversation.ConversationModel;
+import by.intexsoft.diplom.common.model.party.PartyDraftModel;
 import by.intexsoft.diplom.common.model.request.FriendshipRequestModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
@@ -104,6 +105,9 @@ public class PersonModel {
         @OneToMany( fetch = FetchType.LAZY,mappedBy = "receiver")
         @JsonIdentityReference(alwaysAsId = true)
         private List<FriendshipRequestModel> receivedFriendshipRequests = new ArrayList<>();
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+        private List<PartyDraftModel> partyDrafts = new ArrayList<>();
 
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(

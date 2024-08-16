@@ -7,6 +7,7 @@ public enum PartyStatusEnum {
     WAIT_FOR_UPDATING,
     WAIT_FOR_CREATING,
     PENDING_REVISION,
-    REJECTED_FOR_UPDATE
+    REJECTED_FOR_UPDATE,
+    IN_DRAFT
 
 }

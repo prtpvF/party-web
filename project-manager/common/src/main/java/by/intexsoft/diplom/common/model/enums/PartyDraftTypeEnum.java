@@ -1,2 +1,7 @@
-package by.intexsoft.diplom.common.model.enums;public enum PartyDraftTypeEnum {
+package by.intexsoft.diplom.common.model.enums;
+
+public enum PartyDraftTypeEnum {
+
+        UPDATING,
+        CREATING
 }

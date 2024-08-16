@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.common.model.party;
 
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.role.PartyTypeModel;
 import by.intexsoft.diplom.common.model.status.PartyDraftStatusModel;
 import jakarta.persistence.*;
@@ -38,7 +39,15 @@ public class PartyDraftModel {
 
         private Double minimalRating;
 
-        @OneToOne
+        @ManyToOne
+        @JoinColumn(name = "person_id")
+        private PersonModel owner;
+
+        @ManyToOne
+        @JoinColumn(name = "type_id")
+        private PartyDraftType type;
+
+        @ManyToOne
         @JoinColumn(name = "status_id")
         private PartyDraftStatusModel status;
 
@@ -52,8 +61,7 @@ public class PartyDraftModel {
         @UpdateTimestamp
         private LocalDateTime updatedAt;
 
-        private boolean draftFlag = true;
-
-        @OneToOne(mappedBy = "draft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        @OneToOne(fetch = FetchType.LAZY, optional = true)
+        @JoinColumn(name = "party_id", referencedColumnName = "id", nullable = true)
         private PartyEntity party;
 }
