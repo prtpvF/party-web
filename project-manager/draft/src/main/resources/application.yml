@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: draft
+
+  datasource:
+    datasource:
+      url: ${DB_DATASOURCE_URL}
+      password: ${DB_DATASOURCE_PASSWORD}
+      username: ${DB_DATASOURCE_USERNAME}
+
+  #jpa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  main:
+    allow-bean-definition-overriding: true
+
+  #keycloak
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${CLIENT_ID}
+            authorization-grant-type: ${AUTHORIZATION_GRANT_TYPE}
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          keycloak:
+            user-name-attribute: ${USERNAME_ATTRIBUTE}
+            issuer-uri: ${ISSUER_URI}
+            jwk-set-uri: ${JWK_SET_URI}
+            authorization-uri: ${AUTHORIZATION_URI}
+            token-uri: ${TOKEN_URI}
+  #kafka
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic-auth:
+      name: ${KAFKA_AUTH_TOPIC_NAME}
+    topic-verify:
+      name: ${KAFKA_VERIFY_TOPIC_NAME}
+    topic-participation:
+      name: ${KAFKA_PARTICIPATION_TOPIC_NAME}
+    topic-admin:
+      name: ${KAFKA_ADMIN_TOPIC_NAME}
+    topic-organizer:
+      name: ${KAFKA_ORGANIZER_TOPIC_NAME}
+
+#logging
+logging:
+  file:
+    name: draft.log
+  level:
+    root: info
+
+server:
+  port: 9098

@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.common.model.role;
 
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

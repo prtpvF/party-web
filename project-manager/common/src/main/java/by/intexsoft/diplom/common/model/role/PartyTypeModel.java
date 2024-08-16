@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.common.model.role;
 
-import by.intexsoft.diplom.common.model.PartyEntity;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
