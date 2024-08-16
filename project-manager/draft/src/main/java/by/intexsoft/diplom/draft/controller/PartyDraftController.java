@@ -4,7 +4,6 @@ import by.intexsoft.diplom.draft.dto.PartyDraftDto;
 import by.intexsoft.diplom.draft.service.PartyDraftService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,36 +16,6 @@ import java.util.List;
 public class PartyDraftController {
 
         private final PartyDraftService partyDraftService;
-
-        @Value("${api.getPartyDraft.summary}")
-        private String getPartyDraftSummary;
-
-        @Value("${api.getPartyDraft.description}")
-        private String getPartyDraftDescription;
-
-        @Value("${api.getAllPartyDrafts.summary}")
-        private String getAllPartyDraftsSummary;
-
-        @Value("${api.getAllPartyDrafts.description}")
-        private String getAllPartyDraftsDescription;
-
-        @Value("${api.addCreatingDraft.summary}")
-        private String addCreatingDraftSummary;
-
-        @Value("${api.addCreatingDraft.description}")
-        private String addCreatingDraftDescription;
-
-        @Value("${api.deleteDraft.summary}")
-        private String deleteDraftDraftSummary;
-
-        @Value("${api.deleteDraft.description}")
-        private String deleteDraftDescription;
-
-        @Value("${api.updateDraft.summary}")
-        private String updateDraftDraftSummary;
-
-        @Value("${api.updateDraft.description}")
-        private String updateDraftDescription;
 
         @Operation(summary = "Gets party draft by ID",
             description = "returns an error message and 403 status if draft doesn't exist " +
