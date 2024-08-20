@@ -46,6 +46,10 @@ public class PartyEntity {
         @JsonBackReference
         private PartyTypeModel type;
 
+        @OneToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "draft_id")
+        private PartyDraftModel draft;
+
         @NotNull
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "person_id")

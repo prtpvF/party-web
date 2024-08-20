@@ -62,14 +62,22 @@ public class DraftExceptionHandler {
         }
 
         @ExceptionHandler(IllegalArgumentException.class)
+<<<<<<< HEAD
         public ResponseEntity<String> illegalIllegalArgumentExceptionHandle(IllegalArgumentException e) {
+=======
+        public ResponseEntity<String> illegalArgumentExceptionHandle(IllegalArgumentException e) {
+>>>>>>> 3fde4c30443d2041b900952d15a715083e9858cf
             log.info(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
         }
 
+<<<<<<< HEAD
         @ExceptionHandler(DraftAlreadyExistsException.class)
         public ResponseEntity<String> draftAlreadyExistsExceptionHandle(DraftAlreadyExistsException e) {
             log.info(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
         }
 }
+=======
+}
+>>>>>>> 3fde4c30443d2041b900952d15a715083e9858cf

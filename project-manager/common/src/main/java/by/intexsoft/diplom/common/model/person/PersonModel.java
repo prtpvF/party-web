@@ -1,8 +1,11 @@
 package by.intexsoft.diplom.common.model.person;
 
 import by.intexsoft.diplom.common.model.conversation.ConversationModel;
+<<<<<<< HEAD
 import by.intexsoft.diplom.common.model.draft.PartyCreateDraftModel;
 import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
+=======
+>>>>>>> 3fde4c30443d2041b900952d15a715083e9858cf
 import by.intexsoft.diplom.common.model.request.FriendshipRequestModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.party.PartyEntity;

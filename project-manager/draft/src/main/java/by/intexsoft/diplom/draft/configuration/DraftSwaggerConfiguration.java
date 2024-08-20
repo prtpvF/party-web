@@ -44,7 +44,11 @@ public class DraftSwaggerConfiguration {
         public GroupedOpenApi authModuleApi() {
             return GroupedOpenApi.builder()
                     .group("draft-module-api")
+<<<<<<< HEAD
                     .pathsToMatch("/draft/**")
+=======
+                    .pathsToMatch("draft/**")
+>>>>>>> 3fde4c30443d2041b900952d15a715083e9858cf
                     .build();
         }
 }

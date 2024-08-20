@@ -1,7 +1,6 @@
 package by.intexsoft.diplom.draft.service;
 
 import by.intexsoft.diplom.common.model.status.PartyDraftStatusModel;
-import by.intexsoft.diplom.common.repository.party.PartyDraftStatusRepository;
 import by.intexsoft.diplom.draft.exception.DraftStatusNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

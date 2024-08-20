@@ -23,17 +23,10 @@ public class PersonService {
 
 
         public PersonModel findByPrincipal(Principal principal) {
-            PersonModel p = personRepository.findByUsername(principal.getName())
+            return personRepository.findByUsername(principal.getName())
                     .orElseThrow(() -> new PersonNotFoundException("cannot find person"));
-//            System.out.println(p);
-//            System.out.println(p.getId());
-            return p;
         }
 
-        public PersonModel findById(Integer id) {
-            return personRepository.findById(id)
-                    .orElseThrow(() -> new PersonNotFoundException("cannot find person"));
-        }
 
         public void verifyPartyOwnership(PartyEntity party, Principal principal) {
             PersonModel authenticatedPerson = findByPrincipal(principal);
