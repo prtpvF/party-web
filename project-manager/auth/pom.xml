@@ -7,8 +7,6 @@
         <artifactId>project-manager</artifactId>
         <version>0.0.1-SHAPSHOT</version>
     </parent>
-
-
     <artifactId>auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>auth</name>

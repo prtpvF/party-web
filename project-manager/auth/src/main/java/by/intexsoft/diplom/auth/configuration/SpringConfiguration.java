@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class SpringConfiguration {
@@ -24,7 +25,7 @@ public class SpringConfiguration {
         private String username;
 
         @Value("${keycloak.password}")
-        private String password;;
+        private String password;
 
         @Bean
         public ModelMapper modelMapper() {
@@ -41,5 +42,10 @@ public class SpringConfiguration {
                     .username(username)
                     .password(password)
                     .build();
+        }
+
+        @Bean
+        public RestTemplate restTemplate() {
+                return new RestTemplate();
         }
 }

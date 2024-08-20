@@ -1,6 +1,7 @@
 package by.intexsoft.diplom.auth.exception.handler;
 
 import by.intexsoft.diplom.auth.exception.CodesAreNotEqualException;
+import by.intexsoft.diplom.auth.exception.InvalidDataException;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.auth.exception.PersonNotFoundException;
 import jakarta.ws.rs.InternalServerErrorException;
@@ -52,6 +53,12 @@ public class ExceptionsHandler {
         @ExceptionHandler(value = SocketTimeoutException.class)
         public ResponseEntity<String> socketTimeoutExceptionHandler(SocketTimeoutException ex) {
             HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
+            return new ResponseEntity<>(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = InvalidDataException.class)
+        public ResponseEntity<String> invalidDataExceptionHandler(InvalidDataException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
             return new ResponseEntity<>(ex.getMessage(), status);
         }
 }

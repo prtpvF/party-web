@@ -4,15 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
-
-        private final String grant_type = "password";
-        private final String client_id = "auth-app";
-        private String username;
-        private String password;
+public class AuthenticationDTOResponse {
+        private Object response;
 }
