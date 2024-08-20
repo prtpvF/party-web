@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.common.model.party;
 
+import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +24,5 @@ public class PartyDraftType {
         private String name;
 
         @OneToMany(mappedBy = "type")
-        private List<PartyDraftModel> drafts = new ArrayList<>();
+        private List<PartyUpdateDraftModel> drafts = new ArrayList<>();
 }

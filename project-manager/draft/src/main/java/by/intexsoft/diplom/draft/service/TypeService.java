@@ -1,7 +1,7 @@
 package by.intexsoft.diplom.draft.service;
 
 import by.intexsoft.diplom.common.model.enums.PartyDraftTypeEnum;
-import by.intexsoft.diplom.common.model.party.PartyDraftModel;
+import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
 import by.intexsoft.diplom.common.model.party.PartyDraftType;
 import by.intexsoft.diplom.common.repository.party.PartyDraftTypeRepository;
 import by.intexsoft.diplom.draft.dto.PartyDraftDto;
@@ -17,10 +17,17 @@ public class TypeService {
 
         public PartyDraftType findByName(String typeName) {
             return draftTypeRepository.findByName(typeName)
-                    .orElseThrow(() -> new DraftTypeNotFoundException("Cannot find draft type"));
+                    .orElseThrow(() -> new DraftTypeNotFoundException(
+                            "Cannot find draft type"));
         }
 
-        public void assignDraftType(PartyDraftDto partyDraftDto, PartyDraftModel draftModel) {
+        public PartyDraftType findById(Integer id) {
+            return draftTypeRepository.findById(id)
+                    .orElseThrow(() -> new DraftTypeNotFoundException(
+                            "Cannot find draft type"));
+        }
+
+        public void assignDraftType(PartyDraftDto partyDraftDto, PartyUpdateDraftModel draftModel) {
             if (partyDraftDto.getPartyId() == null) {
                 draftModel.setType(findByName(PartyDraftTypeEnum.CREATING.name()));
             } else {

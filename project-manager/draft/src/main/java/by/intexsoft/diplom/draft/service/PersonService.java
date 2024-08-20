@@ -1,38 +1,38 @@
 package by.intexsoft.diplom.draft.service;
 
-import by.intexsoft.diplom.common.model.party.PartyDraftModel;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
-import by.intexsoft.diplom.draft.exception.IllegalDraftOwnerException;
 import by.intexsoft.diplom.draft.exception.IllegalPartyOwnerException;
 import by.intexsoft.diplom.draft.exception.PersonNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PersonService {
 
-        private final PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
 
         public PersonModel findByPrincipal(Principal principal) {
-            return personRepository.findByUsername(principal.getName())
+            PersonModel p = personRepository.findByUsername(principal.getName())
                     .orElseThrow(() -> new PersonNotFoundException("cannot find person"));
+//            System.out.println(p);
+//            System.out.println(p.getId());
+            return p;
         }
 
         public PersonModel findById(Integer id) {
             return personRepository.findById(id)
                     .orElseThrow(() -> new PersonNotFoundException("cannot find person"));
-        }
-
-        public void verifyDraftOwnership(PersonModel authenticatedPerson,
-                                         PartyDraftModel draft) {
-            if (!draft.getOwner().equals(authenticatedPerson)) {
-                throw new IllegalDraftOwnerException("You are not the owner of this draft!");
-            }
         }
 
         public void verifyPartyOwnership(PartyEntity party, Principal principal) {

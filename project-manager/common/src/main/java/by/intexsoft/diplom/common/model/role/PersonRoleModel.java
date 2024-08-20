@@ -1,6 +1,8 @@
 package by.intexsoft.diplom.common.model.role;
 
 import by.intexsoft.diplom.common.model.person.PersonModel;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +25,8 @@ public class PersonRoleModel {
 
     private String roleName;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role")
+    @JsonManagedReference
     private List<PersonModel> personModels = new ArrayList<>();
 
     public PersonRoleModel(String roleName){

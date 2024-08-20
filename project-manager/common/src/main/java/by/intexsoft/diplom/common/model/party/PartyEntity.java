@@ -46,9 +46,6 @@ public class PartyEntity {
         @JsonBackReference
         private PartyTypeModel type;
 
-        @OneToOne(mappedBy = "party", fetch = FetchType.LAZY)
-        private PartyDraftModel draft;
-
         @NotNull
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "person_id")
@@ -98,7 +95,7 @@ public class PartyEntity {
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
         private List<ParticipationRequestModel> participationRequests = new ArrayList<>();
 
-        @OneToMany(mappedBy = "party")
+        @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)
         @JsonIdentityReference(alwaysAsId = true)
         private Set<ImageModel> images = new HashSet<>();
 

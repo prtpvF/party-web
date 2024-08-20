@@ -1,6 +1,7 @@
 package by.intexsoft.diplom.common.model.status;
 
-import by.intexsoft.diplom.common.model.party.PartyDraftModel;
+import by.intexsoft.diplom.common.model.draft.PartyCreateDraftModel;
+import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,9 @@ public class PartyDraftStatusModel {
 
         private String name;
 
-        @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-        private List<PartyDraftModel> partyDraft = new ArrayList<>();
+        @OneToMany(mappedBy = "status", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+        private List<PartyUpdateDraftModel> partyDraft = new ArrayList<>();
+
+        @OneToMany(mappedBy = "status", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+        private List<PartyCreateDraftModel> partyCreateDraft = new ArrayList<>();
 }

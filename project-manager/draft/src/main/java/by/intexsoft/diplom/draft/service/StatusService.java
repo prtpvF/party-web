@@ -17,10 +17,4 @@ public class StatusService {
                     .orElseThrow(() -> new DraftStatusNotFoundException(
                             "Cannot find draft status"));
         }
-
-        public PartyDraftStatusModel findByName(String statusName) {
-            return draftStatusRepository.findByName(statusName)
-                    .orElseThrow(() -> new DraftStatusNotFoundException(
-                            "Cannot find draft status"));
-        }
 }

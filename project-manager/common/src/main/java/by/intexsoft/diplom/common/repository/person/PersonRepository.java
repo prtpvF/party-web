@@ -16,7 +16,6 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends JpaRepository<PersonModel, Integer> {
 
-        @EntityGraph(attributePaths = {"role", "participationRequests"})
         @Query("SELECT p FROM PersonModel p WHERE p.username = :username")
         Optional<PersonModel> findByUsername(@Param("username") String username);
         Optional<PersonModel> findByEmail(String email);

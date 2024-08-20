@@ -1,12 +1,14 @@
 package by.intexsoft.diplom.common.model.person;
 
 import by.intexsoft.diplom.common.model.conversation.ConversationModel;
-import by.intexsoft.diplom.common.model.party.PartyDraftModel;
+import by.intexsoft.diplom.common.model.draft.PartyCreateDraftModel;
+import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
 import by.intexsoft.diplom.common.model.request.FriendshipRequestModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.payment.PartyPaymentModel;
 import by.intexsoft.diplom.common.model.role.PersonRoleModel;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -19,6 +21,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
@@ -62,8 +66,9 @@ public class PersonModel {
         @UpdateTimestamp
         private LocalDateTime updatedAt;
 
-        @ManyToOne(fetch = FetchType.EAGER)
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "role")
+        @JsonBackReference
         private PersonRoleModel role;
 
         @NotBlank
@@ -106,8 +111,11 @@ public class PersonModel {
         @JsonIdentityReference(alwaysAsId = true)
         private List<FriendshipRequestModel> receivedFriendshipRequests = new ArrayList<>();
 
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.REMOVE)
+        private List<PartyUpdateDraftModel> partyUpdatingDrafts = new ArrayList<>();
+
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
-        private List<PartyDraftModel> partyDrafts = new ArrayList<>();
+        private List<PartyCreateDraftModel> partyCreatingDrafts = new ArrayList<>();
 
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(
@@ -120,7 +128,8 @@ public class PersonModel {
         @Override
         public String toString() {
             return "Person{" +
-                    "username='" + username + '\'' +
+                    "id='" + id + '\''+
+                    ", username='" + username + '\'' +
                     ", email='" + email + '\'' +
                     ", age=" + age +
                     ", createdAt=" + createdAt +
