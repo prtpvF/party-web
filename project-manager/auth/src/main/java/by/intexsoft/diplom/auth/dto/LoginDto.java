@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginDto {
 
-        private final String grant_type = "password";
-        private final String client_id = "auth-app";
+        private final String grantType = "password";
+        private final String clientId = "auth-app";
         private String username;
         private String password;
 }

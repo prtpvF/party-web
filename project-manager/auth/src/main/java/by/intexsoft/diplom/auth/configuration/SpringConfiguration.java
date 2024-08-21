@@ -1,5 +1,7 @@
 package by.intexsoft.diplom.auth.configuration;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
@@ -47,5 +49,12 @@ public class SpringConfiguration {
         @Bean
         public RestTemplate restTemplate() {
                 return new RestTemplate();
+        }
+
+        @Bean
+        public ObjectMapper objectMapper() {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+                return objectMapper;
         }
 }

@@ -1,15 +1,12 @@
 package by.intexsoft.diplom.common.model.person;
 
 import by.intexsoft.diplom.common.model.conversation.ConversationModel;
-<<<<<<< HEAD
 import by.intexsoft.diplom.common.model.draft.PartyCreateDraftModel;
 import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
-=======
->>>>>>> 3fde4c30443d2041b900952d15a715083e9858cf
-import by.intexsoft.diplom.common.model.request.FriendshipRequestModel;
-import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.payment.PartyPaymentModel;
+import by.intexsoft.diplom.common.model.request.FriendshipRequestModel;
+import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.role.PersonRoleModel;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -24,8 +21,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 

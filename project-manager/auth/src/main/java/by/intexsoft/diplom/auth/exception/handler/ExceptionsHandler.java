@@ -1,15 +1,14 @@
 package by.intexsoft.diplom.auth.exception.handler;
 
-import by.intexsoft.diplom.auth.exception.CodesAreNotEqualException;
-import by.intexsoft.diplom.auth.exception.InvalidDataException;
-import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
-import by.intexsoft.diplom.auth.exception.PersonNotFoundException;
+import by.intexsoft.diplom.auth.exception.*;
 import jakarta.ws.rs.InternalServerErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.net.SocketTimeoutException;
 
@@ -58,6 +57,24 @@ public class ExceptionsHandler {
 
         @ExceptionHandler(value = InvalidDataException.class)
         public ResponseEntity<String> invalidDataExceptionHandler(InvalidDataException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = RefreshTokenException.class)
+        public ResponseEntity<String> refreshTokenExceptionHandler(RefreshTokenException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = HttpClientErrorException.class)
+        public ResponseEntity<String> httpClientErrorExceptionHandler(HttpClientErrorException ex) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(ex.getMessage(), status);
+        }
+
+        @ExceptionHandler(value = HttpServerErrorException.class)
+        public ResponseEntity<String> httpServerErrorExceptionHandler(HttpServerErrorException ex) {
             HttpStatus status = HttpStatus.BAD_REQUEST;
             return new ResponseEntity<>(ex.getMessage(), status);
         }

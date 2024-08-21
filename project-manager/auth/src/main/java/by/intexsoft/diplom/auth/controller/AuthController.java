@@ -4,7 +4,11 @@ import by.intexsoft.diplom.auth.dto.AuthenticationDTOResponse;
 import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.service.AuthService;
+import by.intexsoft.diplom.auth.service.KeycloakService;
+import by.intexsoft.diplom.auth.service.RefreshTokenService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -13,12 +17,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
 
        private final AuthService authService;
+       private final RefreshTokenService refreshTokenService;
+       private final KeycloakService keycloakService;
 
         @Operation(
                 summary = "registration method",
@@ -30,12 +38,18 @@ public class AuthController {
         }
 
         @PostMapping("/login")
-        public AuthenticationDTOResponse login(@RequestBody LoginDto loginDto) {
-                return authService.login(loginDto);
+        public ResponseEntity<?> login(@RequestBody LoginDto loginDto,
+                                       HttpServletResponse response) {
+                return authService.login(loginDto, response);
+        }
+
+        @PostMapping("/refresh")
+        public ResponseEntity<?> refreshToken(@CookieValue(value = "refresh-token", required = false) Cookie cookie) {
+            return refreshTokenService.refreshToken(cookie);
         }
 
         @PutMapping("/verification/{userId}")
         public void verifyEmail(@PathVariable String userId) {
-            authService.sendEmailVerification(userId);
+            keycloakService.sendEmailVerification(userId);
         }
 }

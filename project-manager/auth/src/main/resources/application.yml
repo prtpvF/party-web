@@ -63,5 +63,6 @@ keycloak:
   grant-type: ${GRANT_TYPE}
   username: ${USERNAME}
   password: ${PASSWORD}
+  auth-login-url: ${TOKEN_URI}
 
 redis:
