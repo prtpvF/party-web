@@ -1,7 +1,6 @@
 package by.intexsoft.diplom.auth.exception.handler;
 
 import by.intexsoft.diplom.auth.exception.*;
-import jakarta.ws.rs.InternalServerErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
+import javax.ws.rs.InternalServerErrorException;
 import java.net.SocketTimeoutException;
 
 

@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +43,7 @@ public class KeycloakService {
                 Response response = realmResource.users().create(userRepresentation);
                 log.info("Response from Keycloak: {}", response.getStatus());
 
+
                 List<UserRepresentation> representations = usersResource
                         .search(userRepresentation.getUsername(),
                                 true);
@@ -55,6 +57,7 @@ public class KeycloakService {
                     emailVerification(foundedRepresentation.getId());
                     log.info("Email was sent to user id: {}", foundedRepresentation.getId());
                }
+
                 return HttpStatus.valueOf(response.getStatus());
             }
             else {
