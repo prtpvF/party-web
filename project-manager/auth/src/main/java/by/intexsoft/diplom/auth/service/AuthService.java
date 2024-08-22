@@ -24,8 +24,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j

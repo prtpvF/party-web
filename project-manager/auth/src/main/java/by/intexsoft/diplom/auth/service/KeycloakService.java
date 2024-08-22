@@ -4,13 +4,13 @@ import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.repository.person.RoleRepository;
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
-import org.keycloak.common.util.CollectionUtil;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -43,19 +43,21 @@ public class KeycloakService {
                 Response response = realmResource.users().create(userRepresentation);
                 log.info("Response from Keycloak: {}", response.getStatus());
 
-//                List<UserRepresentation> representations = usersResource
-//                        .search(userRepresentation.getUsername(),
-//                                true);
 
-//                if (!representations.isEmpty()) {
-//                    UserRepresentation foundedRepresentation = representations.stream()
-//                            .filter(user -> Objects.equals(false,
-//                                            user.isEmailVerified()))
-//                            .findFirst().orElse(null);
-//
-//                    emailVerification(foundedRepresentation.getId());
-//                    log.info("Email was sent to user id: {}", foundedRepresentation.getId());
-              // }
+                List<UserRepresentation> representations = usersResource
+                        .search(userRepresentation.getUsername(),
+                                true);
+
+                if (!representations.isEmpty()) {
+                    UserRepresentation foundedRepresentation = representations.stream()
+                            .filter(user -> Objects.equals(false,
+                                            user.isEmailVerified()))
+                            .findFirst().orElse(null);
+
+                    emailVerification(foundedRepresentation.getId());
+                    log.info("Email was sent to user id: {}", foundedRepresentation.getId());
+               }
+
                 return HttpStatus.valueOf(response.getStatus());
             }
             else {

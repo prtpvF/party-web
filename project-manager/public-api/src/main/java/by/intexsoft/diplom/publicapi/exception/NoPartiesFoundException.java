@@ -1,8 +1,8 @@
 package by.intexsoft.diplom.publicapi.exception;
 
-public class NoPartiesInCityException extends RuntimeException {
+public class NoPartiesFoundException extends RuntimeException {
 
-        public NoPartiesInCityException(String message) {
+        public NoPartiesFoundException(String message) {
         super(message);
     }
 }
