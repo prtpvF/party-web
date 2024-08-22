@@ -1,16 +1,15 @@
 package by.intexsoft.diplom.person.service;
 
-import by.intexsoft.diplom.common.model.ParticipationRequestModel;
-import by.intexsoft.diplom.common.model.PartyEntity;
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.role.PartyTypeModel;
-import by.intexsoft.diplom.common.repository.ParticipationRequestRepository;
-import by.intexsoft.diplom.common.repository.PartyRepository;
-import by.intexsoft.diplom.common.repository.PartyTypeRepository;
-import by.intexsoft.diplom.common.repository.PersonRepository;
+import by.intexsoft.diplom.common.repository.party.PartyRepository;
+import by.intexsoft.diplom.common.repository.party.PartyTypeRepository;
+import by.intexsoft.diplom.common.repository.person.PersonRepository;
+import by.intexsoft.diplom.common.repository.request.ParticipationRequestRepository;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.exception.*;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -50,7 +49,8 @@ public class PersonService {
                return convertRequestToDto(findParticipationRequestById(participationRequestId));
         }
 
-        public HttpStatus deleteParticipationRequest(int participationRequestId, Principal principal) {
+        public HttpStatus deleteParticipationRequest(int participationRequestId,
+                                                     Principal principal) {
                 ParticipationRequestModel participationRequest = findParticipationRequestById(participationRequestId);
                 PersonModel person = getPersonByPrincipal(principal);
                 isParticipateRequestBelongToPerson(participationRequest, person);
@@ -59,12 +59,9 @@ public class PersonService {
         }
 
         public String getPersonUsername(Principal principal) {
-                try {
+
                       return principal.getName();
-                }catch (SignatureVerificationException ex){
-                        log.warn("something wrong with token");
-                        return "error with token signature";
-                }
+
         }
 
         /**

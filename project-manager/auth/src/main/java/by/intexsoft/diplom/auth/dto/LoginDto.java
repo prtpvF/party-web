@@ -12,7 +12,7 @@ import lombok.Setter;
 public class LoginDto {
 
         private final String grantType = "password";
-        private final String clientId = "auth-app";
+        private final String clientId = "trainee_party";
         private String username;
         private String password;
 }

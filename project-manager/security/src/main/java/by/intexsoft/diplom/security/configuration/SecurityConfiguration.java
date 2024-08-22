@@ -2,7 +2,6 @@ package by.intexsoft.diplom.security.configuration;
 
 
 import by.intexsoft.diplom.security.keycloak.KeycloakLogoutHandler;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -25,11 +24,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Configuration
@@ -44,25 +41,38 @@ public class SecurityConfiguration {
         private static final String REALM_ACCESS_CLAIM = "realm_access";
         private static final String ROLES_CLAIM = "roles";
 
+        private static final String[] AUTH_ENDPOINTS = {
+                "/auth/registration",
+                "/auth/login",
+                "/auth/logout",
+                "auth/user/registration"
+        };
+
+        private static final String[] SWAGGER_ENDPOINTS = {
+                "/swagger-ui/**",
+                "/v3/api-docs/**"
+        };
+
+        private static final String[] PUBLIC_ENDPOINTS = {
+                "/public/person/find",
+                "/public/party/**"
+        };
+
         @Value("${spring.security.oauth2.client.provider.keycloak.jwk-set-uri}")
         private String SET_URI;
 
-        @PostConstruct
-        public void init() {
-            System.out.println("JWK Set URI: " + SET_URI);
-        }
+
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                     .authorizeHttpRequests((request) -> request.requestMatchers(
-                            "/auth/registration",
-                            "/auth/login",
-                            "/public/party/**",
-                            "/public/person/find",
-                            "/auth/logout",
-                            "/swagger-ui/**",
-                            "/verification/email",
-                            "/v3/api-docs/**").permitAll().anyRequest().authenticated());
+                                    Stream.of(
+                                            AUTH_ENDPOINTS,
+                                            SWAGGER_ENDPOINTS,
+                                            PUBLIC_ENDPOINTS)
+                                    .flatMap(Arrays::stream)
+                                    .toArray(String[]::new))
+                            .permitAll().anyRequest().authenticated());
             http.oauth2ResourceServer((oauth2) -> oauth2
                     .jwt(
                             jwt -> {
@@ -90,7 +100,7 @@ public class SecurityConfiguration {
                 Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
                 var authority = authorities.iterator().next();
                 boolean isOidc = authority instanceof OidcUserAuthority;
-
+                
                 if (isOidc) {
                     var oidcUserAuthority = (OidcUserAuthority) authority;
                     var userInfo = oidcUserAuthority.getUserInfo();

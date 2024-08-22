@@ -1,12 +1,12 @@
 package by.intexsoft.diplom.person.service.request;
 
-import by.intexsoft.diplom.common.model.ImageModel;
-import by.intexsoft.diplom.common.model.PartyEntity;
-import by.intexsoft.diplom.common.model.PartyStatusModel;
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.party.ImageModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.status.PartyStatusModel;
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.enums.PartyStatusEnum;
-import by.intexsoft.diplom.common.repository.PartyRepository;
-import by.intexsoft.diplom.common.repository.PartyStatusRepository;
+import by.intexsoft.diplom.common.repository.party.PartyRepository;
+import by.intexsoft.diplom.common.repository.party.PartyStatusRepository;
 import by.intexsoft.diplom.person.dto.PartyDto;
 import by.intexsoft.diplom.person.exception.IllegalDataOfEventException;
 import by.intexsoft.diplom.person.exception.PartyNotFoundException;

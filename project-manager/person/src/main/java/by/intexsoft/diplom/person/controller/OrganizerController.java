@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,5 +51,10 @@ public class OrganizerController {
         public HttpStatus deleteParticipationRequest(@PathVariable("id") int partyId,
                                                      Principal principal){
               return crudPartyRequestService.createPartyDeleteRequest(partyId, principal);
+        }
+
+        //todo my party
+        public List<PartyDto> getAllMyParties(Principal principal) {
+                return organizerService.getMyParties();
         }
 }

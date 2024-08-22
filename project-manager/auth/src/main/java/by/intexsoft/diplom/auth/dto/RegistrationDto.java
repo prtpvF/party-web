@@ -1,14 +1,15 @@
 package by.intexsoft.diplom.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +21,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RegistrationDto  {
 
-        @Min(value = 14, message = "you must be older than 14")
-        @Max(value = 100, message = "entered age isn't correct")
+//        @Min(value = 14, message = "you must be older than 14")
+//        @Max(value = 100, message = "entered age isn't correct")
         private int age;
 
-        @NotBlank
-        @Length(min = 3, max = 15)
+//        @NotBlank
+//        @Length(min = 3, max = 15)
         private String city;
 
         private boolean organizer;
 
-        @NotBlank
+       // @NotBlank
         private String username;
 
-        @NotBlank
+       // @NotBlank
         private String email;
 
         private boolean enabled;

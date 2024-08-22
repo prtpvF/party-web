@@ -1,20 +1,17 @@
 package by.intexsoft.diplom.publicapi.service;
 
-import by.intexsoft.diplom.common.model.PersonModel;
-import by.intexsoft.diplom.common.repository.PersonRepository;
+import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.publicapi.dto.PasswordResetDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import by.intexsoft.diplom.publicapi.dto.PersonUpdateDto;
 import by.intexsoft.diplom.publicapi.exception.EmailIsTakenException;
-import by.intexsoft.diplom.publicapi.exception.PasswordsDontMatchException;
 import by.intexsoft.diplom.publicapi.exception.PersonNotFoundException;
 import by.intexsoft.diplom.publicapi.exception.UsernameIsTakenException;
 import by.intexsoft.diplom.publicapi.util.ObjectMapper;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -26,7 +23,6 @@ import java.util.Optional;
 public class PersonService {
 
         private final PersonRepository personRepository;
-        private final PasswordEncoder passwordEncoder;
         private final ModelMapper modelMapper;
         private final ObjectMapper objectMapper;
 
@@ -38,8 +34,7 @@ public class PersonService {
         public void resetPassword(PasswordResetDto passwordResetDto, Principal principal) {
             String username = getusernameFromToken(principal);
             PersonModel person = getPersonByUsername(username);
-            doPasswordsMatch(passwordResetDto.getOldPassword(), username);
-            person.setPassword(passwordEncoder.encode(passwordResetDto.getNewPassword()));
+        //    doPasswordsMatch(passwordResetDto.getOldPassword(), username);
             personRepository.save(person);
             log.info(username + " has just reset password");
         }
@@ -90,19 +85,14 @@ public class PersonService {
                     -> new PersonNotFoundException("person with this id not found"));
         }
 
-        private void doPasswordsMatch(String oldPassword, String username) {
-            Optional<PersonModel> person = personRepository.findByUsername(username);
-            if (!passwordEncoder.matches(oldPassword, person.get().getPassword())) {
-                throw new PasswordsDontMatchException("passwords don't match");
-            }
-        }
+//        private void doPasswordsMatch(String oldPassword, String username) {
+//            Optional<PersonModel> person = personRepository.findByUsername(username);
+//            if (!passwordEncoder.matches(oldPassword, person.get().getPassword())) {
+//                throw new PasswordsDontMatchException("passwords don't match");
+//            }
+//        }
 
         private String getusernameFromToken(Principal principal){
-            try{
                 return principal.getName();
-            } catch (SignatureVerificationException exception){
-                log.warn("something wrong with token");
-                return "something wrong with token";
-            }
         }
 }

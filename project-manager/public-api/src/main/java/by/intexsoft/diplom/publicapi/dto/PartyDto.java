@@ -1,7 +1,8 @@
 package by.intexsoft.diplom.publicapi.dto;
 
-import by.intexsoft.diplom.common.model.ImageModel;
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.party.ImageModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.role.PartyTypeModel;
 import lombok.*;
 
@@ -17,8 +18,8 @@ public class PartyDto {
 
         private int id;
         private String name;
-        private PartyTypeModel type;
-        private PersonModel organizer;
+        private Integer typeId;
+        private Integer organizer;
         private int ageRestriction;
         private int countOfPlaces;
         private String description;
@@ -26,6 +27,5 @@ public class PartyDto {
         private String address;
         private double ticketCost;
         private LocalDateTime dateOfEvent;
-        private Set<ImageModel> images = new HashSet<>();
-
+        private Set<Integer> imageIdList = new HashSet<>();
 }

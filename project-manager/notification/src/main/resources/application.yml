@@ -3,10 +3,10 @@ spring:
     name: "notification-service"
   kafka:
     consumer:
-      bootstrap-servers: "localhost:9092"
-      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
-      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
-      value.deserializer.delegate.class: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value.deserializer.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
           json:
@@ -16,6 +16,8 @@ spring:
       name: ${KAFKA_AUTH_TOPIC_NAME}
     topic-verify:
       name: ${KAFKA_VERIFY_TOPIC_NAME}
+    topic-participation:
+      name: ${KAFKA_PARTICIPATION_TOPIC_NAME}
 server:
   port: 9090
 mail:
@@ -27,3 +29,11 @@ mail:
     mail.smtp.auth: true
     mail.smtp.starttls.enable: true
 debug: true
+
+keycloak:
+  server-url: ${SERVER_URL}
+  realm: ${REALM_NAME}
+  client-id: ${CLIENT_ID}
+  grant-type: ${GRANT_TYPE}
+  username: ${USERNAME}
+  password: ${PASSWORD}

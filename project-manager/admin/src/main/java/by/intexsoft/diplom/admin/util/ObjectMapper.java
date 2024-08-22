@@ -1,8 +1,8 @@
 package by.intexsoft.diplom.admin.util;
 
 import by.intexsoft.diplom.admin.dto.PartyDto;
-import by.intexsoft.diplom.common.model.ImageModel;
-import by.intexsoft.diplom.common.model.PartyEntity;
+import by.intexsoft.diplom.common.model.party.ImageModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

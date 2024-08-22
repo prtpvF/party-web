@@ -2,8 +2,9 @@ package by.intexsoft.diplom.admin.controller;
 
 import by.intexsoft.diplom.admin.dto.PartyDto;
 import by.intexsoft.diplom.admin.service.AdminService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +28,10 @@ public class AdminController {
         }
 
         @GetMapping("all/requests/by/{statusId}")
-        public List<PartyDto> findAllPartyRequestByStatus(@PathVariable("statusId") Integer statusId,
-                                                             Principal principal) {
-               return adminService.findAllPartyRequestsByStatusAndCity(principal, statusId);
+        public Page<PartyDto> findAllPartyRequestByStatus(@PathVariable("statusId") Integer statusId,
+                                                          Principal principal,
+                                                          Pageable pageable) {
+               return adminService.findAllPartyRequestsByStatusAndCity(principal, statusId, pageable);
         }
 
         @GetMapping("/party/{id}")

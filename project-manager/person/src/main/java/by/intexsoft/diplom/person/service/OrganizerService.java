@@ -1,9 +1,14 @@
 package by.intexsoft.diplom.person.service;
 
-import by.intexsoft.diplom.common.model.*;
-import by.intexsoft.diplom.common.repository.*;
+import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.repository.party.PartyRepository;
+import by.intexsoft.diplom.common.repository.person.PersonRepository;
+import by.intexsoft.diplom.common.repository.request.ParticipationRequestRepository;
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
+import by.intexsoft.diplom.person.dto.PartyDto;
 import by.intexsoft.diplom.person.exception.*;
 import by.intexsoft.diplom.person.kafka.KafkaMessageModel;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +20,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Service
@@ -67,6 +73,11 @@ public class OrganizerService {
             }
             sendNotificationAboutParticipationRequest(request,false);
             return HttpStatus.OK;
+        }
+
+        public List<PartyDto> getMyParties(Principal principal) {
+            PersonModel personModel = personService.getPersonByPrincipal(principal);
+            return personModel.getParties(); //todo
         }
 
         private void addPersonToPartyGuest(PersonModel person, PartyEntity party) {

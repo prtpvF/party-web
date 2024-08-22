@@ -1,6 +1,5 @@
 package by.intexsoft.diplom.admin.dto;
 
-import by.intexsoft.diplom.common.model.ImageModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartyDto {
-
+//todo list shot information
         private int id;
         private String name;
         private String type;
@@ -25,5 +24,5 @@ public class PartyDto {
         private Double minimalRating;
         private Double ticketCost;
         private LocalDateTime dateOfEvent;
-        private Set<String> imagesName = new HashSet<>();
+        private String imagesName;
 }

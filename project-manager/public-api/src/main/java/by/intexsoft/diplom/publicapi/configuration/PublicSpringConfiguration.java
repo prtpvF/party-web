@@ -1,4 +1,4 @@
-package by.intexsoft.diplom.publicapi;
+package by.intexsoft.diplom.publicapi.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,4 +11,6 @@ public class PublicSpringConfiguration {
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }
+
+
 }

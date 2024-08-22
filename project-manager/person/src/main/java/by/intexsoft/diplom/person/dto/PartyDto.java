@@ -1,8 +1,7 @@
 package by.intexsoft.diplom.person.dto;
 
-import by.intexsoft.diplom.common.model.ImageModel;
+import by.intexsoft.diplom.common.model.party.ImageModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

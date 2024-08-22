@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.auth.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -12,14 +13,17 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class AuthRedisConfiguration {
 
-        private static final String HOSTNAME = "localhost";
-        private static final int REDIS_PORT = 6379;
+        @Value("${host.name}")
+        private String hostname;
+
+        @Value("${redis.port}")
+        private int redisPort;
 
         @Bean
         public JedisConnectionFactory connectionFactory() {
             RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-            configuration.setHostName(HOSTNAME);
-            configuration.setPort(REDIS_PORT);
+            configuration.setHostName(hostname);
+            configuration.setPort(redisPort);
             return new JedisConnectionFactory(configuration);
         }
 
