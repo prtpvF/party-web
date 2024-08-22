@@ -1,12 +1,17 @@
 package by.intexsoft.diplom.publicapi.util;
 
-import by.intexsoft.diplom.common.model.PartyEntity;
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.party.ImageModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.publicapi.dto.PartyDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -14,17 +19,17 @@ public class ObjectMapper {
 
         public PartyDto convertPartyToDto(PartyEntity party){
             PartyDto partyDto = new PartyDto();
-            partyDto.setId(party.getId());
+           // partyDto.setId(party.getId());
             partyDto.setCity(party.getCity());
             partyDto.setAddress(party.getAddress());
-            partyDto.setImages(party.getImages());
+           // partyDto.setImageIdList(getImageIdList(party));
             partyDto.setName(party.getName());
             partyDto.setDescription(party.getDescription());
-            partyDto.setType(party.getType());
+            partyDto.setTypeId(party.getType().getId());
             partyDto.setAgeRestriction(party.getAgeRestriction());
             partyDto.setTicketCost(party.getTicketCost());
             partyDto.setDateOfEvent(party.getDateOfEvent());
-            partyDto.setOrganizer(party.getOrganizer());
+            partyDto.setOrganizer(party.getOrganizer().getId());
             partyDto.setCountOfPlaces(party.getCountOfPlaces());
           return partyDto;
         }
@@ -45,5 +50,13 @@ public class ObjectMapper {
                     .map(this::convertPartyToDto)
                     .collect(Collectors.toList());
             return mappedPartyList;
+        }
+
+        private Set<Integer> getImageIdList(PartyEntity party) {
+            Set<Integer> imageIdList = new HashSet<>();
+            for (ImageModel image : party.getImages()) {
+                imageIdList.add(image.getId());
+            }
+            return imageIdList;
         }
 }

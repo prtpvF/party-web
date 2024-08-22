@@ -2,7 +2,6 @@ spring:
   application:
     name: person
   datasource:
-    datasource:
       url: ${DB_DATASOURCE_URL}
       password: ${DB_DATASOURCE_PASSWORD}
       username: ${DB_DATASOURCE_USERNAME}
@@ -14,6 +13,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    servlet:
+      multipart:
+        enabled: true
+        max-file-size: 10MB
+        max-request-size: 10MB
   main:
     allow-bean-definition-overriding: true
 

@@ -3,6 +3,7 @@ package by.intexsoft.diplom.auth.service;
 import by.intexsoft.diplom.auth.dto.AuthResponseBuilder;
 import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
+import by.intexsoft.diplom.auth.dto.RegistrationRequest;
 import by.intexsoft.diplom.auth.exception.InvalidDataException;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.person.PersonModel;
@@ -12,12 +13,15 @@ import by.intexsoft.diplom.common.repository.person.RoleRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -35,66 +39,63 @@ public class AuthService {
         private final KeycloakService keycloakService;
 
         @Value("${keycloak.auth-login-url}")
-        private String keycloakAuthLoginUrl;
+        private String keycloakAuthLoginUri;
 
         @Value("${keycloak.client-id}")
         private String clientId;
 
-        public HttpStatus register(RegistrationDto registrationDto) {
-                keycloakService.saveUserIntoKeycloakDb(registrationDto);
-                saveUserIntoApplicationDb(registrationDto);
-            return CREATED;
+        public HttpStatus register(RegistrationRequest request) {
+            saveUserIntoApplicationDb(request.getDto());
+            return keycloakService.saveUserIntoKeycloakDb(request.getRepresentation());
         }
 
-        public ResponseEntity<AuthResponseBuilder> login(LoginDto loginDto, HttpServletResponse response) {
+        public ResponseEntity<AuthResponseBuilder> login(LoginDto loginDto,
+                                                         HttpServletResponse response) {
 
-                HttpEntity<MultiValueMap<String, String>> requestEntity = createAuthRequest(loginDto);
-                ResponseEntity<AuthResponseBuilder> tokenResponse = restTemplate
-                        .postForEntity(keycloakAuthLoginUrl,
-                                requestEntity,
-                                AuthResponseBuilder.class);
-
-                log.info("Authorization request successful. Response: {}", tokenResponse.getStatusCode());
-
-                return processAuthResponse(tokenResponse, response);
-
-        }
-
-        private HttpEntity<MultiValueMap<String, String>> createAuthRequest(LoginDto loginDto) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
             MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
             mapAdditionalFields(loginDto, multiValueMap);
 
-            return new HttpEntity<>(multiValueMap, headers);
-        }
+            HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(multiValueMap, headers);
 
-        private ResponseEntity<AuthResponseBuilder> processAuthResponse(ResponseEntity<AuthResponseBuilder> tokenResponse,
-                                                                        HttpServletResponse response) {
-            AuthResponseBuilder authResponse = tokenResponse.getBody();
-            if (authResponse != null) {
-                cookieService.addRefreshTokenInCookie("refresh-token",
-                        authResponse.getRefreshToken(),
-                        response);
+            try {
+                ResponseEntity<AuthResponseBuilder> tokenResponse = restTemplate.postForEntity(
+                        keycloakAuthLoginUri,
+                        httpEntity,
+                        AuthResponseBuilder.class
+                );
+                log.info("Authorization request successful. Response: {}", response);
 
-                return new ResponseEntity<>(authResponse, HttpStatus.OK);
-            } else {
-                throw new InvalidDataException("Authorization response body is null");
+                AuthResponseBuilder authResponse = tokenResponse.getBody();
+                if (authResponse != null) {
+
+
+                    cookieService.addRefreshTokenInCookie("refresh-token",
+                            authResponse.getRefreshToken(),
+                            response);
+
+                    return new ResponseEntity<>(authResponse, HttpStatus.OK);
+                } else {
+                    throw new InvalidDataException("Authorization response body is null");
+                }
+            } catch (HttpClientErrorException | HttpServerErrorException e) {
+                log.error("Authorization request failed with status code {} and response body: {}",
+                        e.getStatusCode(),
+                        e.getResponseBodyAsString(), e);
+                throw new InvalidDataException("Authorization request failed");
             }
         }
 
-        private void saveUserIntoApplicationDb(RegistrationDto registrationDto) {
+        public void saveUserIntoApplicationDb(RegistrationDto registrationDto) {
             PersonModel person = new PersonModel();
             modelMapper.map(registrationDto, person);
             person.setRole(getPersonRole(registrationDto.isOrganizer()));
             personRepository.save(person);
         }
 
-        private void mapAdditionalFields(LoginDto loginDto,
-                                         MultiValueMap<String,
-                                                 String> multiValueMap) {
-
+        private void mapAdditionalFields(LoginDto loginDto, MultiValueMap<String, String> multiValueMap) {
             multiValueMap.add("client_id", clientId);
             multiValueMap.add("grant_type", "password");
             multiValueMap.add("username", loginDto.getUsername());
@@ -102,9 +103,7 @@ public class AuthService {
         }
 
         private PersonRoleModel getPersonRole(boolean organizer) {
-            String roleName = organizer 
-                    ? PersonRolesEnum.ORGANIZER.name()
-                    : PersonRolesEnum.USER.name();
+            String roleName = organizer ? PersonRolesEnum.ORGANIZER.name() : PersonRolesEnum.USER.name();
             return roleRepository.findByRoleName(roleName)
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleName));
         }

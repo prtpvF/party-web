@@ -5,12 +5,13 @@ import by.intexsoft.diplom.publicapi.service.PartyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,19 +21,30 @@ public class PartyController {
 
         private final PartyService partyService;
 
+        private static final int DEFAULT_PAGE = 0;
+        private static final int DEFAULT_SIZE = 20;
+        private static final Sort DEFAULT_SORT = Sort.by(Sort.Direction.ASC, "name");
+
         @Operation(
                 summary = "find party by city",
                 description = "after successfully login, application will retrieve person's ip" +
                         "and return party in person's city"
         )
+        @GetMapping("/all/in/my")
+        public Page<PartyDto> findAllInCityByIp(@RequestHeader(value = "X-Forwarded-For", required = false) String ip,
+                                                Pageable pageable,
+                                                Principal principal) {
+            return partyService.getPartyInPersonCityByIp(ip, principal, pageable);
+        }
+
         @GetMapping("/all/{city}")
-        public List<PartyDto> findAllByCity(@PathVariable("city") String city) {
-            return partyService.getPartyInPersonCity(city);
+        public Page<PartyDto> findAllByCity(@PathVariable("city") String city,
+                                             Pageable pageable) {
+                return partyService.getPartyInPersonCity(city, pageable);
         }
 
         @GetMapping("/{id}")
         public PartyDto getParty(@PathVariable("id") int id) {
             return partyService.getParty(id);
         }
-
 }

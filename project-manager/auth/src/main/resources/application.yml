@@ -65,4 +65,7 @@ keycloak:
   password: ${PASSWORD}
   auth-login-url: ${TOKEN_URI}
 
+host:
+  name: ${HOST_NAME}
 redis:
+  port: ${REDIS_PORT}

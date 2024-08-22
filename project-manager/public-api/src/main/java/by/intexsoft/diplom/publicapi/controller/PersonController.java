@@ -43,4 +43,9 @@ public class PersonController {
             personService.updateProfile(principal, personUpdateDto);
             return HttpStatus.OK;
         }
+
+        @GetMapping("/closed")
+        public String closed(){
+            return "hi";
+        }
 }

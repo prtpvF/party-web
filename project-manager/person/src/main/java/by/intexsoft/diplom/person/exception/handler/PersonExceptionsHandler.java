@@ -107,4 +107,10 @@ public class PersonExceptionsHandler {
             log.error("something get wrong with dropbox", ex);
             return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
         }
+
+        @ExceptionHandler(value = PartyTypeNotFoundException.class)
+        public ResponseEntity<String> partyTypeNotFoundExceptionHandler(PartyTypeNotFoundException ex) {
+            log.info("cannot find party type");
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
+        }
 }

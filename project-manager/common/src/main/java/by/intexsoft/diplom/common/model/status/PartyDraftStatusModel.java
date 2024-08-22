@@ -2,7 +2,6 @@ package by.intexsoft.diplom.common.model.status;
 
 import by.intexsoft.diplom.common.model.draft.PartyCreateDraftModel;
 import by.intexsoft.diplom.common.model.draft.PartyUpdateDraftModel;
-import by.intexsoft.diplom.common.model.party.PartyDraftModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

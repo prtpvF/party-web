@@ -17,11 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import static org.springframework.http.HttpStatus.CREATED;
 
 @Service
 @RequiredArgsConstructor
@@ -34,30 +33,30 @@ public class KeycloakService {
         @Value("${keycloak.realm}")
         private String realm;
 
-        public HttpStatus saveUserIntoKeycloakDb(RegistrationDto registrationDto) {
+        public HttpStatus saveUserIntoKeycloakDb(UserRepresentation userRepresentation) {
             RealmResource realmResource = getCurrentRealm();
-            if(!isEmailTaken(registrationDto.getEmail()) &&
-                    !isUsernameTaken(registrationDto.getUsername())) {
+            if(!isEmailTaken(userRepresentation.getEmail()) &&
+                    !isUsernameTaken(userRepresentation.getUsername())) {
 
-                mapAdditionalFieldToDto(registrationDto);
                 UsersResource usersResource = getUserResource();
-                UserRepresentation representation1 = convertToUserRepresentation(registrationDto);
 
-                System.out.println(representation1.getCredentials());
-                realmResource.users().create(representation1);
-                List<UserRepresentation> representations = usersResource
-                        .searchByUsername(registrationDto.getUsername(),
-                                true);
-                if (!CollectionUtil.isEmpty(representations)) {
-                    UserRepresentation representation = representations.stream()
-                            .filter(user -> Objects.equals(false,
-                                            user.isEmailVerified()))
-                            .findFirst().orElse(null);
+                Response response = realmResource.users().create(userRepresentation);
+                log.info("Response from Keycloak: {}", response.getStatus());
 
-                    emailVerification(representation.getId());
-                    log.info("Email was sent to user id: {}", representation.getId());
-                }
-                return CREATED;
+//                List<UserRepresentation> representations = usersResource
+//                        .search(userRepresentation.getUsername(),
+//                                true);
+
+//                if (!representations.isEmpty()) {
+//                    UserRepresentation foundedRepresentation = representations.stream()
+//                            .filter(user -> Objects.equals(false,
+//                                            user.isEmailVerified()))
+//                            .findFirst().orElse(null);
+//
+//                    emailVerification(foundedRepresentation.getId());
+//                    log.info("Email was sent to user id: {}", foundedRepresentation.getId());
+              // }
+                return HttpStatus.valueOf(response.getStatus());
             }
             else {
                 throw new PersonAlreadyExists("these credentials is already taken");
@@ -69,13 +68,13 @@ public class KeycloakService {
             userResource.get(userId).sendVerifyEmail();
         }
 
-        public boolean isUsernameTaken(String username) {
+        private boolean isUsernameTaken(String username) {
             RealmResource realmResource = keycloak.realm(realm);
             List<UserRepresentation> users = realmResource.users().search(username, true);
             return !users.isEmpty();
         }
 
-        public boolean isEmailTaken(String email) {
+        private boolean isEmailTaken(String email) {
             RealmResource realmResource = keycloak.realm(realm);
             List<UserRepresentation> users = realmResource.users().search(null,
                     null,

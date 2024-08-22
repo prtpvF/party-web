@@ -49,9 +49,10 @@ public class ImageService {
         }
 
         private void isFileTypeValid(MultipartFile file) {
-            if (!Objects.equals(file.getContentType(), "image/jpeg") &&
-                    !Objects.equals(file.getContentType(), "image/png") &&
-                    !Objects.equals(file.getContentType(), "image/jpg")) {
+            String contentType = file.getContentType();
+            if (!"image/jpeg".equalsIgnoreCase(contentType) &&
+                    !"image/png".equalsIgnoreCase(contentType) &&
+                    !"image/jpg".equalsIgnoreCase(contentType)) {
                 throw new InvalidFileTypeException("Invalid file format. Only JPEG and PNG files are allowed.");
             }
         }

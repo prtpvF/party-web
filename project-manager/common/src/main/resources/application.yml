@@ -12,3 +12,7 @@ spring:
       url: ${KEYCLOAK_DB_URL}
       password: keycloak_password
       username: keycloak_user
+
+  jpa:
+    hibernate:
+      ddl-auto: validate

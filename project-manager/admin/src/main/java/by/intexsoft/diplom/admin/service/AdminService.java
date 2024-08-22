@@ -4,16 +4,18 @@ import by.intexsoft.diplom.admin.dto.PartyDto;
 import by.intexsoft.diplom.admin.exception.*;
 import by.intexsoft.diplom.admin.kafka.KafkaMessageModel;
 import by.intexsoft.diplom.admin.util.ObjectMapper;
-import by.intexsoft.diplom.common.model.PartyEntity;
-import by.intexsoft.diplom.common.model.PartyStatusModel;
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.status.PartyStatusModel;
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.enums.PartyStatusEnum;
-import by.intexsoft.diplom.common.repository.PartyRepository;
-import by.intexsoft.diplom.common.repository.PartyStatusRepository;
-import by.intexsoft.diplom.common.repository.PersonRepository;
+import by.intexsoft.diplom.common.repository.party.PartyRepository;
+import by.intexsoft.diplom.common.repository.party.PartyStatusRepository;
+import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -51,20 +53,20 @@ public class AdminService {
         private String declineRequestText;
 
         public List<PartyDto> findAllPartyCrudRequestInAdminCity(Principal principal) {
-                List<PartyEntity> foundedParties = partyRepository.findAllUnavailableByCity(
-                        principal.getName());
+                List<PartyEntity> foundedParties = partyRepository.findAllUnavailableByCity(getCityByPrincipal(principal));
                 if (foundedParties.isEmpty()) {
                         throw new EmptyPartiesListException("not parties' requests in your city");
                 }
                 return objectMapper.convertPartyListToDtoList(foundedParties);
         }
 
-        public List<PartyDto> findAllPartyRequestsByStatusAndCity(Principal principal,
-                                                                  Integer statusId) {
+        public Page<PartyDto> findAllPartyRequestsByStatusAndCity(Principal principal,
+                                                                  Integer statusId,
+                                                                  Pageable pageable) {
                 String city = getCityByPrincipal(principal);
                 isStatusExists(statusId);
-                List<PartyEntity> foundedParties = partyRepository.findAllByStatusAndCity(statusId, city);
-                return objectMapper.convertPartyListToDtoList(foundedParties);
+                Page<PartyEntity> page = partyRepository.findAllByStatusAndCity(statusId, city, pageable);
+                return page.map(party -> objectMapper.convertPartyToDto(party));
         }
 
         public PartyDto getParty(Integer id) {

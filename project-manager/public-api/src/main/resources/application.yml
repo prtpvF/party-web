@@ -1,17 +1,19 @@
 spring:
   datasource:
     url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
+
   main:
     lazy-initialization: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         dialect: ${DIALECT}
+        format_sql: true
   cloud:
     config:
       import-check:
@@ -22,7 +24,7 @@ spring:
         registration:
           keycloak:
             client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
+          #  client-secret: ${CLIENT_SECRET}
             authorization-grant-type: ${AUTHORIZATION_GRANT_TYPE}
             scope:
               - openid
@@ -32,8 +34,8 @@ spring:
           keycloak:
             user-name-attribute: ${USERNAME_ATTRIBUTE}
             issuer-uri: ${ISSUER_URI}
-            authorization-uri: ${AUTHORIZATION_URI}
             jwk-set-uri: ${JWK_SET_URI}
+            authorization-uri: ${AUTHORIZATION_URI}
             token-uri: ${TOKEN_URI}
 logging:
   level:

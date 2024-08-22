@@ -1,6 +1,6 @@
 package by.intexsoft.diplom.publicapi.dto;
 
-import by.intexsoft.diplom.common.model.PersonModel;
+import by.intexsoft.diplom.common.model.person.PersonModel;
 import lombok.*;
 
 import java.util.ArrayList;

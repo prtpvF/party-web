@@ -1,20 +1,23 @@
 package by.intexsoft.diplom.person.service;
 
-import by.intexsoft.diplom.common.model.*;
-import by.intexsoft.diplom.common.repository.*;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
+import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
-import by.intexsoft.diplom.person.exception.*;
-import by.intexsoft.diplom.person.kafka.KafkaMessageModel;
+import by.intexsoft.diplom.person.dto.PartyDto;
+import by.intexsoft.diplom.person.exception.IllegalPartyOrganizerException;
+import by.intexsoft.diplom.person.exception.InvalidRequestOwner;
+import by.intexsoft.diplom.person.util.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Service
@@ -23,20 +26,12 @@ import java.security.Principal;
 public class OrganizerService {
 
         private final PersonService personService;
-        private final PartyRepository partyRepository;
+        private final PartyService partyService;
+        private final NotificationService notificationService;
+        private final ParticipationRequestService requestService;
         private final PersonRepository personRepository;
-        private final ParticipationRequestRepository requestRepository;
-        private final KafkaTemplate<String, KafkaMessageModel> kafkaTemplate;
         private final ModelMapper modelMapper;
-
-        @Value("${spring.kafka.topic-participation.name}")
-        private String participationTopic;
-
-        @Value("${participation-request-decline}")
-        private String decline;
-
-        @Value("${participation-request-apply}")
-        private String apply;
+        private final ObjectMapper objectMapper;
 
         /**
          * method checks is organizer's decision positive or not.
@@ -52,28 +47,40 @@ public class OrganizerService {
         public HttpStatus answerRequest(int requestId,
                                         Principal principal,
                                         OrgAnswerDto orgAnswerDto) {
-            ParticipationRequestModel request = findRequestById(requestId);
+            ParticipationRequestModel request = requestService.findRequestById(requestId);
             ParticipationRequestDto dto = modelMapper.map(request,
                                           ParticipationRequestDto.class);
             PersonModel organizer = personService.getPersonByPrincipal(principal);
 
             if(Boolean.TRUE.equals(orgAnswerDto.getAccept())){
                 isRequestBelongToOrganizer(dto, organizer);
-                PartyEntity party = retrievePartyFromRequest(dto);
+                PartyEntity party = partyService.retrievePartyFromRequest(dto);
                 PersonModel guest = retrievePersonFromRequest(dto);
-                addPersonToPartyGuest(guest, party);
-                sendNotificationAboutParticipationRequest(request,true);
+                partyService.addPersonToPartyGuest(guest, party);
+                notificationService.sendNotificationAboutParticipationRequest(request,true);
+                personRepository.save(guest);
                 return HttpStatus.CREATED;
             }
-            sendNotificationAboutParticipationRequest(request,false);
+            notificationService.sendNotificationAboutParticipationRequest(request,false);
             return HttpStatus.OK;
         }
 
-        private void addPersonToPartyGuest(PersonModel person, PartyEntity party) {
-            party.getGuests().add(person);
-            person.getParties().add(party);
-            partyRepository.save(party);
-            personRepository.save(person);
+        /**
+         * returns slim dto object with: id, name, ticket cost, organizer, type fields
+         * @param principal - authenticated organizer
+         * @return list of slim organizer's dto
+         */
+        public List<PartyDto> getMyParties(Principal principal) {
+            PersonModel organizer = personService.getPersonByPrincipal(principal);
+            return objectMapper.getSlimPartyDtoListForOrganizer(
+                    partyService
+                            .findAllOrganizerParties(organizer));
+        }
+
+        public PartyDto getParty(Integer partyId, Principal principal) {
+            PartyEntity party = partyService.findPartyById(partyId);
+            isPartyBelongsToOrganizer(principal, party);
+            return objectMapper.convertPartyToDtoForOrganizer(party);
         }
 
         private void isRequestBelongToOrganizer(ParticipationRequestDto request,
@@ -86,15 +93,6 @@ public class OrganizerService {
         }
 
         /**
-         * method retrieves party model from participation request
-         * @param request - ParticipationRequestDto object
-         * @return founded party
-         */
-        private PartyEntity retrievePartyFromRequest(ParticipationRequestDto request){
-            return personService.findPartyById(request.getPartyId());
-        }
-
-        /**
          * method retrieves person model from participation request
          * @param request - ParticipationRequest object
          * @return founded person
@@ -103,35 +101,12 @@ public class OrganizerService {
             return personService.findPersonById(request.getPersonId());
         }
 
-        /**
-         * method find a participation request by id in DB
-         * or throw an exception if nothing found
-         * @param requestId - identifier of participate request
-         * @return founded participate request
-         */
-        private ParticipationRequestModel findRequestById(int requestId) {
-            return requestRepository.findById(requestId)
-                    .orElseThrow(() -> new RequestNotFoundException
-                            ("participate request with this id doesnt exist"));
-        }
-
-        private void sendNotificationAboutParticipationRequest(ParticipationRequestModel request,
-                                                               boolean flag) {
-            PersonModel personFromRequest = request.getPerson();
-            KafkaMessageModel kafkaMessage = new KafkaMessageModel();
-            if(flag) {
-                kafkaMessage.setData(String.format(apply,
-                        personFromRequest.getUsername(),
-                        request.getParty().getName()));
+        private void isPartyBelongsToOrganizer(Principal principal,
+                                               PartyEntity party) {
+            PersonModel organizer = personService.getPersonByPrincipal(principal);
+            if(!party.getOrganizer().equals(organizer)) {
+                throw new IllegalPartyOrganizerException(
+                        "you are not the organizer of this party!");
             }
-            else {
-                kafkaMessage.setData(String.format(decline,
-                        personFromRequest.getUsername(),
-                        request.getParty().getName()));
-            }
-            kafkaMessage.setTopic(participationTopic);
-            kafkaMessage.setToEmail(personFromRequest.getEmail());
-            kafkaMessage.setUsername(personFromRequest.getUsername());
-            kafkaTemplate.send(participationTopic, kafkaMessage);
         }
 }
