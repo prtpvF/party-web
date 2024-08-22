@@ -53,8 +53,7 @@ public class AdminService {
         private String declineRequestText;
 
         public List<PartyDto> findAllPartyCrudRequestInAdminCity(Principal principal) {
-                List<PartyEntity> foundedParties = partyRepository.findAllUnavailableByCity(
-                        principal.getName());
+                List<PartyEntity> foundedParties = partyRepository.findAllUnavailableByCity(getCityByPrincipal(principal));
                 if (foundedParties.isEmpty()) {
                         throw new EmptyPartiesListException("not parties' requests in your city");
                 }

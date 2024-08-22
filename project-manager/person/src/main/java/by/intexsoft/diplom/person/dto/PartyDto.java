@@ -1,6 +1,5 @@
 package by.intexsoft.diplom.person.dto;
 
-import by.intexsoft.diplom.common.model.party.ImageModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,13 +16,15 @@ public class PartyDto {
         private int id;
         private String name;
         private String type;
+        private String organizerUsername;
         private Integer ageRestriction;
+        private Set<GuestDto> guests = new HashSet<>();
         private Integer countOfPlaces;
         private String description;
         private String city;
-        private String address;
+        private String coordinates;
         private Double minimalRating;
         private Double ticketCost;
         private LocalDateTime dateOfEvent;
-        private Set<ImageModel> images = new HashSet<>();
+        private String imagePath;
 }

@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartyDto {
-//todo list shot information
+
         private int id;
         private String name;
         private String type;
@@ -24,5 +22,5 @@ public class PartyDto {
         private Double minimalRating;
         private Double ticketCost;
         private LocalDateTime dateOfEvent;
-        private String imagesName;
+        private String imageName;
 }

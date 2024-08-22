@@ -90,7 +90,7 @@ public class PersonModel {
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
         @JsonIdentityReference(alwaysAsId = true)
-        private List<PartyPaymentModel> paymentOperations = new ArrayList<>(); // change name
+        private List<PartyPaymentModel> paymentOperations = new ArrayList<>();
 
         @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
         @JoinTable(

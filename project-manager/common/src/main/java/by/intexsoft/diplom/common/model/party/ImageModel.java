@@ -10,14 +10,12 @@ import lombok.Data;
 public class ImageModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "party_id", nullable = false)
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "party_id")
     private PartyEntity party;
-
-    private String status;
 }

@@ -22,9 +22,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "party")
@@ -46,10 +44,6 @@ public class PartyEntity {
         @JsonBackReference
         private PartyTypeModel type;
 
-        @OneToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "draft_id")
-        private PartyDraftModel draft;
-
         @NotNull
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "person_id")
@@ -69,7 +63,7 @@ public class PartyEntity {
         @Nullable
         @Length(min = 5, max = 20, message = "field must be longer than 4 and shorter than 21")
         @NotBlank(message = "field can't be empty")
-        private String address;
+        private String coordinates;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "status_id", nullable = false)
@@ -99,9 +93,8 @@ public class PartyEntity {
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
         private List<ParticipationRequestModel> participationRequests = new ArrayList<>();
 
-        @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)
-        @JsonIdentityReference(alwaysAsId = true)
-        private Set<ImageModel> images = new HashSet<>();
+        @Column(name = "image_url")
+        private String imagePath;
 
         @OneToMany(mappedBy = "party", fetch = FetchType.LAZY)
         private List<PartyPaymentModel> payments = new ArrayList<>();
@@ -109,14 +102,6 @@ public class PartyEntity {
 
         @ElementCollection
         private List<Integer> rates = new ArrayList<>();
-
-        public void addGuest(PersonModel guest){
-                this.guests.add(guest);
-        }
-
-        public void addRate(int rate) {
-                this.rates.add(rate);
-        }
 
         @Override
         public String toString() {
@@ -127,7 +112,7 @@ public class PartyEntity {
                     ", countOfPlaces=" + countOfPlaces +
                     ", description='" + description + '\'' +
                     ", city='" + city + '\'' +
-                    ", address='" + address + '\'' +
+                    ", address='" + coordinates + '\'' +
                     ", minimalRating=" + minimalRating +
                     ", ticketCost=" + ticketCost +
                     ", dateOfEvent=" + dateOfEvent +

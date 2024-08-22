@@ -6,7 +6,9 @@ import by.intexsoft.diplom.person.service.OrganizerService;
 import by.intexsoft.diplom.person.service.request.CrudPartyRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -19,10 +21,12 @@ public class OrganizerController {
         private final OrganizerService organizerService;
         private final CrudPartyRequestService crudPartyRequestService;
 
-        @PostMapping("/party")
-        public HttpStatus createParty(@RequestBody PartyDto partyDto,
-                                      Principal principal){
-            return crudPartyRequestService.createPartyRequest(principal, partyDto);
+        @PostMapping(value = "/party", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
+                                        MediaType.APPLICATION_OCTET_STREAM_VALUE})
+        public HttpStatus createParty(@RequestPart("dto") PartyDto partyDto,
+                                      Principal principal,
+                                      @RequestPart("file") MultipartFile file){
+            return crudPartyRequestService.createPartyRequest(principal, partyDto, file);
         }
 
         @DeleteMapping("/party/{id}")
@@ -31,7 +35,6 @@ public class OrganizerController {
             return crudPartyRequestService.createPartyDeleteRequest(partyId, principal);
         }
 
-//        @PreAuthorize("hasRole('ROLE_ORGANIZER')")
         @PatchMapping("/party/{id}")
         public HttpStatus updateParty(@PathVariable("id") int partyId,
                                       Principal principal,
@@ -53,8 +56,14 @@ public class OrganizerController {
               return crudPartyRequestService.createPartyDeleteRequest(partyId, principal);
         }
 
-        //todo my party
+        @GetMapping("/my-parties")
         public List<PartyDto> getAllMyParties(Principal principal) {
-                return organizerService.getMyParties();
+                return organizerService.getMyParties(principal);
+        }
+
+        @GetMapping("/my-party/{id}")
+        public PartyDto getMyParty(@PathVariable("id") Integer partyId,
+                                   Principal principal) {
+                return organizerService.getParty(partyId, principal);
         }
 }

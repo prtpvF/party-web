@@ -12,8 +12,8 @@ import java.security.Principal;
 import java.util.List;
 
 /**
- * <h3><b>if a method accepts Principal in parameters
- * than it means that method returns founded data in authorized person city</h3></b>
+ * if a method accepts Principal in parameters
+ * than it means that method returns founded data in authorized person city
  */
 @RestController
 @RequiredArgsConstructor

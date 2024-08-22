@@ -79,7 +79,7 @@ public class PersonService {
 
         public PartyTypeModel getPartyType(String typeName){
                 return partyTypeRepository.findByType(typeName)
-                        .orElseThrow(() -> new IllegalArgumentException("type mot found", null));
+                        .orElseThrow(() -> new PartyTypeNotFoundException("type not found"));
         }
 
         public PartyEntity findPartyById(int partyId){

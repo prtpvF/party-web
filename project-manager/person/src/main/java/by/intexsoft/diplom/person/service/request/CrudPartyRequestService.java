@@ -1,10 +1,9 @@
 package by.intexsoft.diplom.person.service.request;
 
-import by.intexsoft.diplom.common.model.party.ImageModel;
-import by.intexsoft.diplom.common.model.party.PartyEntity;
-import by.intexsoft.diplom.common.model.status.PartyStatusModel;
-import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.enums.PartyStatusEnum;
+import by.intexsoft.diplom.common.model.party.PartyEntity;
+import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.model.status.PartyStatusModel;
 import by.intexsoft.diplom.common.repository.party.PartyRepository;
 import by.intexsoft.diplom.common.repository.party.PartyStatusRepository;
 import by.intexsoft.diplom.person.dto.PartyDto;
@@ -13,7 +12,6 @@ import by.intexsoft.diplom.person.exception.PartyNotFoundException;
 import by.intexsoft.diplom.person.exception.RequestAlreadyExistException;
 import by.intexsoft.diplom.person.exception.StatusNotFoundException;
 import by.intexsoft.diplom.person.kafka.KafkaMessageModel;
-import by.intexsoft.diplom.person.service.DropBoxService;
 import by.intexsoft.diplom.person.service.PersonService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +20,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
 /**
  * Class where all organizer's request are storing (CRUD request)
@@ -40,7 +38,6 @@ public class CrudPartyRequestService {
         private final PersonService personService;
         private final PartyRepository partyRepository;
         private final PartyStatusRepository partyStatusRepository;
-        private final DropBoxService dropBoxService;
         private final KafkaTemplate<String, KafkaMessageModel> kafkaTemplate;
         private final ModelMapper modelMapper;
 
@@ -69,9 +66,11 @@ public class CrudPartyRequestService {
          */
         @Transactional
         public HttpStatus createPartyRequest(Principal principal,
-                                             PartyDto partyCreateDto) {
+                                             PartyDto partyCreateDto,
+                                             MultipartFile file) {
             PersonModel organizer = personService.getPersonByPrincipal(principal);
             PartyEntity party = processPartyCreating(partyCreateDto, organizer);
+            party.setImagePath(file.getOriginalFilename());
             checkPartyCreationEligibility(organizer, partyCreateDto);
             partyRepository.save(party);
             sendMessageToAdmins(principal, FLAG_CREATE);
@@ -140,15 +139,16 @@ public class CrudPartyRequestService {
             return LocalDateTime.now();
         }
 
-        private PartyEntity processPartyCreating(PartyDto partyDto, PersonModel organizer) {
+
+        private PartyEntity processPartyCreating(PartyDto partyDto,
+                                                 PersonModel organizer) {
             PartyEntity party = new PartyEntity();
             party.setOrganizer(organizer);
-            party.setImages(partyDto.getImages());
             party.setType(personService.getPartyType(partyDto.getType()));
             party.setDateOfEvent(formatDateOfEvent(partyDto.getDateOfEvent()));
             party.setStatus(getPartyStatus(PartyStatusEnum.WAIT_FOR_CREATING.name()));
             party.setCity(normalizeStringField(partyDto.getCity()));
-            party.setAddress(normalizeStringField(partyDto.getAddress()));
+            party.setCoordinates(partyDto.getCoordinates());
             modelMapper.map(partyDto, party);
             return party;
         }
@@ -208,10 +208,7 @@ public class CrudPartyRequestService {
         }
 
         private void deletePartyFilesFromCloud(PartyEntity party) {
-            Set<ImageModel> images = party.getImages();
-
-            for (ImageModel image : images) {
-                dropBoxService.deleteFile(image.getName());
-            }
+//            ImageModel image = party.getImage();
+//                dropBoxService.deleteFile(image.getName());
         }
 }
