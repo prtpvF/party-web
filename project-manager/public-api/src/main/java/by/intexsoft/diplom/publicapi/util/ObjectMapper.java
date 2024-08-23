@@ -7,8 +7,6 @@ import by.intexsoft.diplom.publicapi.dto.PartyDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +19,7 @@ public class ObjectMapper {
             PartyDto partyDto = new PartyDto();
            // partyDto.setId(party.getId());
             partyDto.setCity(party.getCity());
-            partyDto.setAddress(party.getAddress());
+            partyDto.setAddress(party.getCoordinates());
            // partyDto.setImageIdList(getImageIdList(party));
             partyDto.setName(party.getName());
             partyDto.setDescription(party.getDescription());
@@ -54,7 +52,7 @@ public class ObjectMapper {
 
         private Set<Integer> getImageIdList(PartyEntity party) {
             Set<Integer> imageIdList = new HashSet<>();
-            for (ImageModel image : party.getImages()) {
+            for (ImageModel image : party.getImagePath()) {
                 imageIdList.add(image.getId());
             }
             return imageIdList;

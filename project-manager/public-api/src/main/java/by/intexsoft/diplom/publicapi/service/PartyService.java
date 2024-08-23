@@ -5,6 +5,7 @@ import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.repository.party.PartyRepository;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.publicapi.dto.PartyDto;
+import by.intexsoft.diplom.publicapi.exception.NoPartiesFoundException;
 import by.intexsoft.diplom.publicapi.exception.PartyNotFoundException;
 import by.intexsoft.diplom.publicapi.exception.PersonNotFoundException;
 import by.intexsoft.diplom.publicapi.exception.UnavailablePageNumberException;
@@ -32,20 +33,42 @@ public class PartyService {
             return getPartiesByCity(city, pageable);
         }
 
-        public Page<PartyDto> getPartyInPersonCity(String city, Pageable pageable) {
+        public Page<PartyDto> getPartyByCity(String city, Pageable pageable) {
             return getPartiesByCity(city, pageable);
         }
 
-        public PartyDto getParty(int id) {
+        public PartyDto getPartyById(int id) {
             PartyEntity party = partyRepository.findById(id)
                     .orElseThrow(() -> new PartyNotFoundException("party with this id not found"));
             return objectMapper.convertPartyToDto(party);
         }
 
+        public Page<PartyDto> getPartiesByName(String name, Pageable pageable) {
+            Page<PartyEntity> page = partyRepository.findAllAvailableByName(name, pageable);
+            validatePageNumber(page, pageable.getPageNumber());
+            isPageEmpty(page);
+            return page.map(party -> objectMapper.convertPartyToDto(party));
+        }
+
+        public Page<PartyDto> getPartiesByType(String type, Pageable pageable) {
+            Page<PartyEntity> page = partyRepository.findAllAvailableByType(type, pageable);
+            validatePageNumber(page, pageable.getPageNumber());
+            isPageEmpty(page);
+            return page.map(party -> objectMapper.convertPartyToDto(party));
+        }
+
         private Page<PartyDto> getPartiesByCity(String city, Pageable pageable) {
             Page<PartyEntity> page = partyRepository.findAllAvailableByCity(city, pageable);
             validatePageNumber(page, pageable.getPageNumber());
+            isPageEmpty(page);
             return page.map(party -> objectMapper.convertPartyToDto(party));
+        }
+
+        private void isPageEmpty(Page page) {
+            if (page.isEmpty()) {
+                throw new NoPartiesFoundException("No parties found");
+
+            }
         }
 
         private String getCityFromPrincipal(Principal principal) {

@@ -3,7 +3,6 @@ package by.intexsoft.diplom.publicapi.exception.handler;
 import by.intexsoft.diplom.publicapi.exception.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +20,7 @@ public class PublicExceptionsHandler {
 
         @ExceptionHandler(value = {PartyNotFoundException.class,
                                     PersonNotFoundException.class,
-                                    NoPartiesInCityException.class})
+                                    NoPartiesFoundException.class})
         public ResponseEntity<Object> partyNotFoundExceptionHandler(RuntimeException e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), NOT_FOUND);

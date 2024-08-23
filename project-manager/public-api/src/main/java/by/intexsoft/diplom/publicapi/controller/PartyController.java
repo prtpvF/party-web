@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -37,14 +36,26 @@ public class PartyController {
             return partyService.getPartyInPersonCityByIp(ip, principal, pageable);
         }
 
+        @GetMapping("/all/by/name")
+        public Page<PartyDto> findPartiesByName(@RequestParam("name") String name,
+                                                Pageable pageable) {
+                return partyService.getPartiesByName(name, pageable);
+        }
+
+        @GetMapping("/all/by/type")
+        public Page<PartyDto> findPartiesByType(@RequestParam("type") String type,
+                                                Pageable pageable) {
+                return partyService.getPartiesByType(type, pageable);
+        }
+
         @GetMapping("/all/{city}")
         public Page<PartyDto> findAllByCity(@PathVariable("city") String city,
                                              Pageable pageable) {
-                return partyService.getPartyInPersonCity(city, pageable);
+                return partyService.getPartyByCity(city, pageable);
         }
 
         @GetMapping("/{id}")
         public PartyDto getParty(@PathVariable("id") int id) {
-            return partyService.getParty(id);
+            return partyService.getPartyById(id);
         }
 }
