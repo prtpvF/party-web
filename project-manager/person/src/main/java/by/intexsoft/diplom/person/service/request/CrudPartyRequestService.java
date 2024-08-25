@@ -12,6 +12,7 @@ import by.intexsoft.diplom.person.exception.PartyNotFoundException;
 import by.intexsoft.diplom.person.exception.RequestAlreadyExistException;
 import by.intexsoft.diplom.person.exception.StatusNotFoundException;
 import by.intexsoft.diplom.person.kafka.KafkaMessageModel;
+import by.intexsoft.diplom.person.service.PartyService;
 import by.intexsoft.diplom.person.service.PersonService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,7 @@ public class CrudPartyRequestService {
         private final PartyStatusRepository partyStatusRepository;
         private final KafkaTemplate<String, KafkaMessageModel> kafkaTemplate;
         private final ModelMapper modelMapper;
+        private final PartyService partyService;
 
         private static final String FLAG_CREATE = "create";
         private static final String FLAG_UPDATE = "update";
@@ -97,7 +99,6 @@ public class CrudPartyRequestService {
         private void processPartyDeleting(PartyEntity party) {
             if(party.getPayments().isEmpty()) {
                 partyRepository.delete(party);
-                deletePartyFilesFromCloud(party);
             }
             party.setStatus(new PartyStatusModel(PartyStatusEnum
                     .WAIT_FOR_DELETING
@@ -114,7 +115,7 @@ public class CrudPartyRequestService {
         public HttpStatus updateParty(int partyId,
                                       Principal principal,
                                       PartyDto partyDto) {
-            PartyEntity party = personService.findPartyById(partyId);
+            PartyEntity party = partyService.findPartyById(partyId);
             personService.checkPartyOwner(principal, partyId);
             modelMapper.map(partyDto, party);
             partyRepository.save(party);
@@ -144,7 +145,7 @@ public class CrudPartyRequestService {
                                                  PersonModel organizer) {
             PartyEntity party = new PartyEntity();
             party.setOrganizer(organizer);
-            party.setType(personService.getPartyType(partyDto.getType()));
+            party.setType(partyService.getPartyType(partyDto.getType()));
             party.setDateOfEvent(formatDateOfEvent(partyDto.getDateOfEvent()));
             party.setStatus(getPartyStatus(PartyStatusEnum.WAIT_FOR_CREATING.name()));
             party.setCity(normalizeStringField(partyDto.getCity()));
@@ -174,7 +175,7 @@ public class CrudPartyRequestService {
          * @param partyId - identification of the party that the organizer wants to remove
          */
         private void isDeletingRequestExist(int partyId) {
-          PartyEntity party = personService.findPartyById(partyId);
+          PartyEntity party = partyService.findPartyById(partyId);
           if(party.getStatus().getStatus()
                   .equals(PartyStatusEnum.WAIT_FOR_DELETING.name())) {
               throw new RequestAlreadyExistException("this party is already in deleting list");
@@ -205,10 +206,5 @@ public class CrudPartyRequestService {
                     organizer,
                     "http://localhost:8080"));
             kafkaTemplate.send(adminTopic, messageModel);
-        }
-
-        private void deletePartyFilesFromCloud(PartyEntity party) {
-//            ImageModel image = party.getImage();
-//                dropBoxService.deleteFile(image.getName());
         }
 }

@@ -2,10 +2,15 @@ package by.intexsoft.diplom.person.service;
 
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.model.role.PartyTypeModel;
 import by.intexsoft.diplom.common.repository.party.PartyRepository;
+import by.intexsoft.diplom.common.repository.party.PartyTypeRepository;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.exception.PartyNotFoundException;
+import by.intexsoft.diplom.person.exception.PartyTypeNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +20,7 @@ import java.util.List;
 public class PartyService {
 
         private final PartyRepository partyRepository;
+        private final PartyTypeRepository partyTypeRepository;
 
         public PartyEntity findPartyById(Integer partyId) {
             return partyRepository.findById(partyId)
@@ -26,6 +32,15 @@ public class PartyService {
             party.getGuests().add(person);
             person.getParties().add(party);
             partyRepository.save(party);
+        }
+
+        public Page<PartyEntity> findAllOrganizerParties(PersonModel organizer, Pageable pageable) {
+
+            Page<PartyEntity> foundedParties = partyRepository.findAllByOrganizer(organizer, pageable);
+            if(foundedParties.isEmpty()) {
+                throw new PartyNotFoundException("you don't have any created parties yet");
+            }
+            return  foundedParties;
         }
 
         /**
@@ -40,12 +55,8 @@ public class PartyService {
             );
         }
 
-        public List<PartyEntity> findAllOrganizerParties(PersonModel organizer) {
-
-            List<PartyEntity> foundedParties = partyRepository.findAllByOrganizer(organizer);
-               if(foundedParties.isEmpty()) {
-                   throw new PartyNotFoundException("you don't have any created parties yet");
-               }
-               return  foundedParties;
+        public PartyTypeModel getPartyType(String typeName){
+            return partyTypeRepository.findByType(typeName)
+                    .orElseThrow(() -> new PartyTypeNotFoundException("type not found"));
         }
 }

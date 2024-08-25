@@ -1,5 +1,7 @@
 package by.intexsoft.diplom.person.service;
 
+import by.intexsoft.diplom.common.model.enums.ParticipationRequestStatusEnum;
+import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
@@ -7,17 +9,18 @@ import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.dto.PartyDto;
-import by.intexsoft.diplom.person.exception.IllegalPartyOrganizerException;
 import by.intexsoft.diplom.person.exception.InvalidRequestOwner;
 import by.intexsoft.diplom.person.util.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.List;
 
 
 @Service
@@ -47,6 +50,7 @@ public class OrganizerService {
         public HttpStatus answerRequest(int requestId,
                                         Principal principal,
                                         OrgAnswerDto orgAnswerDto) {
+            checkPersonRole(principal);
             ParticipationRequestModel request = requestService.findRequestById(requestId);
             ParticipationRequestDto dto = modelMapper.map(request,
                                           ParticipationRequestDto.class);
@@ -58,34 +62,33 @@ public class OrganizerService {
                 PersonModel guest = retrievePersonFromRequest(dto);
                 partyService.addPersonToPartyGuest(guest, party);
                 notificationService.sendNotificationAboutParticipationRequest(request,true);
+                requestService.setStatusToRequestAndSave(request,
+                        ParticipationRequestStatusEnum.IN_PROCESS.name());
                 personRepository.save(guest);
                 return HttpStatus.CREATED;
             }
             notificationService.sendNotificationAboutParticipationRequest(request,false);
+            requestService.setStatusToRequestAndSave(request,
+                    ParticipationRequestStatusEnum.REJECTED.name());
             return HttpStatus.OK;
         }
 
         /**
-         * returns slim dto object with: id, name, ticket cost, organizer, type fields
+         * Returns a slim DTO object with: id, name, ticket cost, organizer, type fields
          * @param principal - authenticated organizer
-         * @return list of slim organizer's dto
+         * @param pageable - pagination information
+         * @return Page of slim organizer's DTO
          */
-        public List<PartyDto> getMyParties(Principal principal) {
+        public Page<PartyDto> getMyParties(Principal principal, Pageable pageable) {
+            checkPersonRole(principal);
             PersonModel organizer = personService.getPersonByPrincipal(principal);
-            return objectMapper.getSlimPartyDtoListForOrganizer(
-                    partyService
-                            .findAllOrganizerParties(organizer));
-        }
-
-        public PartyDto getParty(Integer partyId, Principal principal) {
-            PartyEntity party = partyService.findPartyById(partyId);
-            isPartyBelongsToOrganizer(principal, party);
-            return objectMapper.convertPartyToDtoForOrganizer(party);
+            Page<PartyEntity> partyEntities = partyService.findAllOrganizerParties(organizer, pageable);
+            return partyEntities.map(objectMapper::convertToSlimDto);
         }
 
         private void isRequestBelongToOrganizer(ParticipationRequestDto request,
                                                 PersonModel organizer) {
-            PartyEntity partyFromRequest = personService.findPartyById(request.getPartyId());
+            PartyEntity partyFromRequest = partyService.findPartyById(request.getPartyId());
             if(!partyFromRequest.getOrganizer().equals(organizer)){
                throw new InvalidRequestOwner("you cant answer this request " +
                        "'cause you are not the organizer of this party");
@@ -101,12 +104,13 @@ public class OrganizerService {
             return personService.findPersonById(request.getPersonId());
         }
 
-        private void isPartyBelongsToOrganizer(Principal principal,
-                                               PartyEntity party) {
+        private void checkPersonRole(Principal principal) {
             PersonModel organizer = personService.getPersonByPrincipal(principal);
-            if(!party.getOrganizer().equals(organizer)) {
-                throw new IllegalPartyOrganizerException(
-                        "you are not the organizer of this party!");
+
+            if(!organizer.getRole()
+                    .getRoleName()
+                    .equals(PersonRolesEnum.ORGANIZER.name())) {
+                throw new AccessDeniedException("You cannot enrich this functionality");
             }
         }
 }

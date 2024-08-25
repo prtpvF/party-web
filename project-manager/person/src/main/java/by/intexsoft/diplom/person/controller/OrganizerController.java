@@ -5,6 +5,8 @@ import by.intexsoft.diplom.person.dto.PartyDto;
 import by.intexsoft.diplom.person.service.OrganizerService;
 import by.intexsoft.diplom.person.service.request.CrudPartyRequestService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -57,13 +59,8 @@ public class OrganizerController {
         }
 
         @GetMapping("/my-parties")
-        public List<PartyDto> getAllMyParties(Principal principal) {
-                return organizerService.getMyParties(principal);
+        public Page<PartyDto> getAllMyParties(Principal principal, Pageable pageable) {
+                return organizerService.getMyParties(principal, pageable);
         }
 
-        @GetMapping("/my-party/{id}")
-        public PartyDto getMyParty(@PathVariable("id") Integer partyId,
-                                   Principal principal) {
-                return organizerService.getParty(partyId, principal);
-        }
 }

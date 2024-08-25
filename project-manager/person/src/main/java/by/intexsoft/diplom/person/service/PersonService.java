@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.person.service;
 
+import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
@@ -27,14 +28,13 @@ import java.util.List;
 public class PersonService {
 
         private final ParticipationRequestRepository requestRepository;
-        private final PartyTypeRepository partyTypeRepository;
-        private final PartyRepository partyRepository;
         private final PersonRepository personRepository;
         private final ModelMapper modelMapper;
+        private final PartyService partyService;
 
         public HttpStatus sendParticipationRequest(int partyId, Principal principal){
                 PersonModel person = getPersonByPrincipal(principal);
-                PartyEntity party = findPartyById(partyId);
+                PartyEntity party = partyService.findPartyById(partyId);
                 isRequestDataValid(person, party);
                 requestRepository.save(new ParticipationRequestModel(party, person));
                 return HttpStatus.CREATED;
@@ -59,9 +59,7 @@ public class PersonService {
         }
 
         public String getPersonUsername(Principal principal) {
-
                       return principal.getName();
-
         }
 
         /**
@@ -75,16 +73,6 @@ public class PersonService {
                         .orElseThrow(() -> new PersonNotFoundException("person with this username not found"));
                 isPersonBanned(organizer);
                 return organizer;
-        }
-
-        public PartyTypeModel getPartyType(String typeName){
-                return partyTypeRepository.findByType(typeName)
-                        .orElseThrow(() -> new PartyTypeNotFoundException("type not found"));
-        }
-
-        public PartyEntity findPartyById(int partyId){
-                return partyRepository.findById(partyId)
-                        .orElseThrow(() -> new PartyNotFoundException("party not found"));
         }
 
         public PersonModel findPersonById(int personId){
@@ -105,7 +93,7 @@ public class PersonService {
          * @param partyId - identification of a party
          */
         public void checkPartyOwner(Principal principal, int partyId) {
-                PartyEntity party = findPartyById(partyId);
+                PartyEntity party = partyService.findPartyById(partyId);
                 PersonModel organizer = getPersonByPrincipal(principal);
                 if(!party.getOrganizer().equals(organizer)){
                         throw new IllegalPartyOrganizerException("you are not an organizer of this party!");

@@ -14,24 +14,7 @@ import java.util.Set;
 @Component
 public class ObjectMapper {
 
-        public PartyDto convertPartyToDtoForOrganizer(PartyEntity partyEntity) {
-                PartyDto partyDto = new PartyDto();
-                partyDto.setId(partyEntity.getId());
-                partyDto.setName(partyEntity.getName());
-                partyDto.setCoordinates(partyEntity.getCoordinates());
-                partyDto.setAgeRestriction(partyEntity.getAgeRestriction());
-                partyDto.setCountOfPlaces(partyEntity.getCountOfPlaces());
-                partyDto.setOrganizerUsername(partyEntity.getOrganizer().getUsername());
-                partyDto.setDateOfEvent(partyEntity.getDateOfEvent());
-                partyDto.setDescription(partyEntity.getDescription());
-                partyDto.setMinimalRating(partyEntity.getMinimalRating());
-                partyDto.setTicketCost(partyEntity.getTicketCost());
-                partyDto.setType(partyEntity.getType().getType());
-                partyDto.setGuests(getConvertedToDtoGuestList(partyEntity));
-                return partyDto;
-        }
-
-        public PartyDto convertPartyToDtoSlimVersion(PartyEntity partyEntity) {
+        public PartyDto convertToSlimDto(PartyEntity partyEntity) {
                 PartyDto partyDtoSlim = new PartyDto();
                 partyDtoSlim.setId(partyEntity.getId());
                 partyDtoSlim.setName(partyEntity.getName());
@@ -39,22 +22,6 @@ public class ObjectMapper {
                 partyDtoSlim.setType(partyEntity.getType().getType());
                 partyDtoSlim.setTicketCost(partyEntity.getTicketCost());
                 return partyDtoSlim;
-        }
-
-        public List<PartyDto> getSlimPartyDtoListForOrganizer(List<PartyEntity> partyEntityList) {
-                List<PartyDto> slimPartyDtoList = new ArrayList<>();
-                for (PartyEntity partyEntity : partyEntityList) {
-                        slimPartyDtoList.add(convertPartyToDtoSlimVersion(partyEntity));
-                }
-                return slimPartyDtoList;
-        }
-
-        public List<PartyDto> getPartyDtoListForOrganizer(List<PartyEntity> partyEntityList) {
-                List<PartyDto> partyDtoList = new ArrayList<>();
-                for (PartyEntity partyEntity : partyEntityList) {
-                        partyDtoList.add(convertPartyToDtoForOrganizer(partyEntity));
-                }
-                return partyDtoList;
         }
 
         private Set<GuestDto> getConvertedToDtoGuestList(PartyEntity partyEntity) {
