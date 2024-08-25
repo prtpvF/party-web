@@ -1,8 +1,8 @@
 package by.intexsoft.diplom.publicapi.controller;
 
-import by.intexsoft.diplom.publicapi.dto.PasswordResetDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import by.intexsoft.diplom.publicapi.dto.PersonUpdateDto;
+import by.intexsoft.diplom.publicapi.dto.UpdateRequestDto;
 import by.intexsoft.diplom.publicapi.service.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +24,6 @@ public class PersonController {
             return personService.getPersonDto(username);
         }
 
-        @PutMapping("/password")
-        public HttpStatus resetPassword(Principal principal,
-                                        @RequestBody PasswordResetDto passwordResetDto) {
-            personService.resetPassword(passwordResetDto, principal);
-            return  HttpStatus.OK;
-        }
-
         @DeleteMapping("/account")
         public HttpStatus deleteAccount(Principal principal) {
             personService.deleteAccount(principal);
@@ -39,13 +32,9 @@ public class PersonController {
 
         @PutMapping("/update")
         public HttpStatus updateProfile(Principal principal,
-                                        @RequestBody PersonUpdateDto personUpdateDto) {
-            personService.updateProfile(principal, personUpdateDto);
+                                        @RequestBody UpdateRequestDto updateRequestDto) {
+            personService.updateProfile(principal, updateRequestDto);
             return HttpStatus.OK;
         }
 
-        @GetMapping("/closed")
-        public String closed(){
-            return "hi";
-        }
 }

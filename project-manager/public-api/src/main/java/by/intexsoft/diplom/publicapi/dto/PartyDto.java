@@ -4,6 +4,7 @@ import by.intexsoft.diplom.common.model.party.ImageModel;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.role.PartyTypeModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,18 +15,23 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartyDto {
 
         private int id;
         private String name;
-        private Integer typeId;
-        private Integer organizer;
-        private int ageRestriction;
-        private int countOfPlaces;
+        private String type;
+        private String organizerUsername;
+        private Integer ageRestriction;
+        private Set<GuestDto> guests = new HashSet<>();
+        private Integer countOfPlaces;
         private String description;
         private String city;
-        private String address;
-        private double ticketCost;
+        private String coordinates;
+        private Double minimalRating;
+        private Double ticketCost;
         private LocalDateTime dateOfEvent;
-        private Set<Integer> imageIdList = new HashSet<>();
+        private String imagePath;
+        private String statusOfParticipationRequest;
+
 }

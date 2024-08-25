@@ -55,8 +55,9 @@ public class PartyController {
                 return partyService.getPartyByCity(city, pageable);
         }
 
-        @GetMapping("/{id}")
-        public PartyDto getParty(@PathVariable("id") int id) {
-            return partyService.getPartyById(id);
+        @GetMapping("/my-party/{id}")
+        public PartyDto getParty(@PathVariable("id") Integer partyId,
+                                 Principal principal) {
+                return partyService.getPartyById(partyId, principal);
         }
 }

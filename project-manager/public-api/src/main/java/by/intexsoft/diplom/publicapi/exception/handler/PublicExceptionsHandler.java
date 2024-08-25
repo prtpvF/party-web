@@ -65,6 +65,20 @@ public class PublicExceptionsHandler {
         @ExceptionHandler(UnavailablePageNumberException.class)
         public ResponseEntity<Object> unavailablePageNumberExceptionHandler(UnavailablePageNumberException ex) {
             log.error(ex.getMessage());
-            return new ResponseEntity<>(ex.getMessage(), BAD_GATEWAY);
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
+        }
+
+        @ExceptionHandler(IllegalPartyOrganizerException.class)
+        public ResponseEntity<Object> illegalPartyOrganizerExceptionHandler(IllegalPartyOrganizerException ex) {
+            log.error(ex.getMessage());
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
+        }
+
+        @ExceptionHandler(ParticipationRequestNotFoundException.class)
+        public ResponseEntity<Object> participationRequestNotFoundExceptionHandler(
+                ParticipationRequestNotFoundException ex) {
+
+            log.error(ex.getMessage());
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
         }
 }

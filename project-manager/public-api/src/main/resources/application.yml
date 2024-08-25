@@ -49,3 +49,13 @@ springdoc:
     path: /swagger-ui.html
 server:
   port: 8092
+
+keycloak:
+  realm: ${REALM_NAME}
+  server-url: ${SERVER_URL}
+  client-id: ${CLIENT_ID}
+  grant-type: ${GRANT_TYPE}
+  username: ${USERNAME}
+  password: ${PASSWORD}
+  auth-login-url: ${TOKEN_URI}
+

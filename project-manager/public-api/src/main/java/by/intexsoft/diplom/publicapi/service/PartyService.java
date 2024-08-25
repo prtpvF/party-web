@@ -1,15 +1,15 @@
 package by.intexsoft.diplom.publicapi.service;
 
+import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.repository.party.PartyRepository;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.publicapi.dto.PartyDto;
-import by.intexsoft.diplom.publicapi.exception.NoPartiesFoundException;
-import by.intexsoft.diplom.publicapi.exception.PartyNotFoundException;
-import by.intexsoft.diplom.publicapi.exception.PersonNotFoundException;
-import by.intexsoft.diplom.publicapi.exception.UnavailablePageNumberException;
+import by.intexsoft.diplom.publicapi.exception.*;
 import by.intexsoft.diplom.publicapi.util.ObjectMapper;
+import by.intexsoft.diplom.publicapi.util.ParticipationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +24,8 @@ public class PartyService {
         private final PartyRepository partyRepository;
         private final LocationService locationService;
         private final PersonRepository personRepository;
+        private final PersonService personService;
+        private final ParticipationRequestService participationRequestService;
         private final ObjectMapper objectMapper;
 
         public Page<PartyDto> getPartyInPersonCityByIp(String ip,
@@ -37,10 +39,23 @@ public class PartyService {
             return getPartiesByCity(city, pageable);
         }
 
-        public PartyDto getPartyById(int id) {
+        public PartyDto getPartyById(int id, Principal principal) {
             PartyEntity party = partyRepository.findById(id)
                     .orElseThrow(() -> new PartyNotFoundException("party with this id not found"));
-            return objectMapper.convertPartyToDto(party);
+
+            PersonModel person = personService.getPersonByPrincipal(principal);
+
+            if (isRoleOrganizerOrAdmin(person)) {
+
+                isPartyBelongsToOrganizer(principal, party);
+                return objectMapper.convertPartyToDtoForOrganizer(party);
+
+            } else {
+                PartyDto partyDto = objectMapper.convertPartyToDto(party);
+                partyDto.setStatusOfParticipationRequest(
+                        setStatusForPersonParticipation(person, party));
+                return partyDto;
+            }
         }
 
         public Page<PartyDto> getPartiesByName(String name, Pageable pageable) {
@@ -81,5 +96,40 @@ public class PartyService {
             if (page.getTotalPages() <= pageNumber) {
                 throw new UnavailablePageNumberException("Page doesn't exist");
             }
+        }
+
+        private void isPartyBelongsToOrganizer(Principal principal,
+                                               PartyEntity party) {
+            PersonModel organizer = personService.getPersonByPrincipal(principal);
+            if(!party.getOrganizer().equals(organizer)) {
+                throw new IllegalPartyOrganizerException(
+                        "you are not the organizer of this party!");
+            }
+        }
+
+        private String setStatusForPersonParticipation(PersonModel person,
+                                                       PartyEntity party) {
+            ParticipationRequestModel request = participationRequestService.findByPersonAndParty(person, party);
+            String status = "";
+            switch (request.getStatus().getStatusName()) {
+                case ("ACCEPTED"):
+                    status = ParticipationStatus.ACCEPTED.name();
+                    break;
+                case ("IN_PROGRESS"):
+                    status = ParticipationStatus.IN_PROGRESS.name();
+                    break;
+                case("REJECTED"):
+                    status = ParticipationStatus.REJECTED.name();
+                    break;
+                default:
+                    break;
+            }
+            return status;
+        }
+
+        private boolean isRoleOrganizerOrAdmin(PersonModel person) {
+            String roleName = person.getRole().getRoleName();
+            return PersonRolesEnum.ORGANIZER.name().equals(roleName) ||
+                    PersonRolesEnum.ADMIN.name().equals(roleName);
         }
 }

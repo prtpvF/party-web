@@ -2,26 +2,39 @@ package by.intexsoft.diplom.publicapi.util;
 
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.publicapi.dto.GuestDto;
 import by.intexsoft.diplom.publicapi.dto.PartyDto;
 import by.intexsoft.diplom.publicapi.dto.PersonDto;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Component
 public class ObjectMapper {
 
-        public PartyDto convertPartyToDto(PartyEntity party){
+        public PartyDto convertPartyToDtoForOrganizer(PartyEntity partyEntity) {
+            PartyDto partyDto = convertPartyToDto(partyEntity);
+            partyDto.setGuests(getConvertedToDtoGuestList(partyEntity));
+            return partyDto;
+        }
+
+        public PartyDto convertPartyToDto(PartyEntity partyEntity) {
             PartyDto partyDto = new PartyDto();
-            partyDto.setCity(party.getCity());
-            partyDto.setAddress(party.getCoordinates());
-            partyDto.setName(party.getName());
-            partyDto.setDescription(party.getDescription());
-            partyDto.setTypeId(party.getType().getId());
-            partyDto.setAgeRestriction(party.getAgeRestriction());
-            partyDto.setTicketCost(party.getTicketCost());
-            partyDto.setDateOfEvent(party.getDateOfEvent());
-            partyDto.setOrganizer(party.getOrganizer().getId());
-            partyDto.setCountOfPlaces(party.getCountOfPlaces());
-          return partyDto;
+            partyDto.setId(partyEntity.getId());
+            partyDto.setName(partyEntity.getName());
+            partyDto.setCoordinates(partyEntity.getCoordinates());
+            partyDto.setAgeRestriction(partyEntity.getAgeRestriction());
+            partyDto.setCountOfPlaces(partyEntity.getCountOfPlaces());
+            partyDto.setOrganizerUsername(partyEntity.getOrganizer().getUsername());
+            partyDto.setDateOfEvent(partyEntity.getDateOfEvent());
+            partyDto.setDescription(partyEntity.getDescription());
+            partyDto.setMinimalRating(partyEntity.getMinimalRating());
+            partyDto.setTicketCost(partyEntity.getTicketCost());
+            partyDto.setType(partyEntity.getType().getType());
+            return partyDto;
         }
 
         public PersonDto convertPersonToDto(PersonModel person){
@@ -33,5 +46,23 @@ public class ObjectMapper {
             personDto.setCity(person.getCity());
             personDto.setId(person.getId());
             return personDto;
+        }
+
+        private Set<GuestDto> getConvertedToDtoGuestList(PartyEntity partyEntity) {
+            Set<GuestDto> guestDtoList = new HashSet<>();
+
+            for(PersonModel personModel : partyEntity.getGuests()) {
+                guestDtoList.add(convertGuestToDto(personModel));
+            }
+            return guestDtoList;
+        }
+
+        private GuestDto convertGuestToDto(PersonModel personModel) {
+            GuestDto guestDto = new GuestDto();
+            guestDto.setId(personModel.getId());
+            guestDto.setAge(personModel.getAge());
+            guestDto.setUsername(personModel.getUsername());
+            guestDto.setRating(personModel.getRating());
+            return guestDto;
         }
 }
