@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -41,8 +42,10 @@ public class AdminController {
 
         @PostMapping("/request/{id}")
         public HttpStatus answerRequest(@PathVariable("id") Integer statusId,
-                                        @RequestParam("flag") Boolean flag) {
-                adminService.answerPartyRequest(statusId, flag);
+                                        @RequestParam("flag") Boolean flag,
+                                        Principal principal) {
+                adminService.answerPartyRequest(statusId, flag, principal);
                 return HttpStatus.OK;
         }
+
 }

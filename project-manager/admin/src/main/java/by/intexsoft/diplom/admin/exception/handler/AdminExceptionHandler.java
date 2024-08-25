@@ -40,4 +40,9 @@ public class AdminExceptionHandler {
         public ResponseEntity<String> illegalPartyDataExceptionHandler(IllegalPartyDataException e) {
             return new ResponseEntity<> (e.getMessage(), BAD_REQUEST);
         }
+
+        @ExceptionHandler(IllegalPartyOwnerException.class)
+        public ResponseEntity<String> IllegalPartyOwnerExceptionHandler(IllegalPartyOwnerException e) {
+            return new ResponseEntity<> (e.getMessage(), BAD_REQUEST);
+        }
 }
