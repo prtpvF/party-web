@@ -21,20 +21,16 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RegistrationDto  {
 
-//        @Min(value = 14, message = "you must be older than 14")
-//        @Max(value = 100, message = "entered age isn't correct")
         private int age;
 
-//        @NotBlank
-//        @Length(min = 3, max = 15)
         private String city;
 
         private boolean organizer;
 
-       // @NotBlank
+        private String password;
+
         private String username;
 
-       // @NotBlank
         private String email;
 
         private boolean enabled;

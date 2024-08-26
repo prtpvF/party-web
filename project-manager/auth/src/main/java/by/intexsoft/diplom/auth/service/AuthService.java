@@ -3,7 +3,6 @@ package by.intexsoft.diplom.auth.service;
 import by.intexsoft.diplom.auth.dto.AuthResponseBuilder;
 import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
-import by.intexsoft.diplom.auth.dto.RegistrationRequest;
 import by.intexsoft.diplom.auth.exception.InvalidDataException;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.person.PersonModel;
@@ -13,6 +12,7 @@ import by.intexsoft.diplom.common.repository.person.RoleRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +23,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,9 +44,11 @@ public class AuthService {
         @Value("${keycloak.client-id}")
         private String clientId;
 
-        public HttpStatus register(RegistrationRequest request) {
-            saveUserIntoApplicationDb(request.getDto());
-            return keycloakService.saveUserIntoKeycloakDb(request.getRepresentation());
+        public HttpStatus register(RegistrationDto registrationDto) {
+            saveUserIntoApplicationDb(registrationDto);
+            return keycloakService.saveUserIntoKeycloakDb(
+                    convertRegistrationDtoToRepresentation(
+                            registrationDto));
         }
 
         public ResponseEntity<AuthResponseBuilder> login(LoginDto loginDto,
@@ -69,7 +73,6 @@ public class AuthService {
                 AuthResponseBuilder authResponse = tokenResponse.getBody();
                 if (authResponse != null) {
 
-
                     cookieService.addRefreshTokenInCookie("refresh-token",
                             authResponse.getRefreshToken(),
                             response);
@@ -84,6 +87,8 @@ public class AuthService {
                         e.getResponseBodyAsString(), e);
                 throw new InvalidDataException("Authorization request failed");
             }
+
+
         }
 
         public void saveUserIntoApplicationDb(RegistrationDto registrationDto) {
@@ -104,5 +109,26 @@ public class AuthService {
             String roleName = organizer ? PersonRolesEnum.ORGANIZER.name() : PersonRolesEnum.USER.name();
             return roleRepository.findByRoleName(roleName)
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleName));
+        }
+
+        private UserRepresentation convertRegistrationDtoToRepresentation(RegistrationDto registrationDto) {
+            UserRepresentation representation = new UserRepresentation();
+            String username = registrationDto.getUsername();
+            String password = registrationDto.getPassword();
+            String email = registrationDto.getEmail();
+
+            representation.setUsername(username);
+            representation.setEmail(email);
+            representation.setEnabled(true);
+            representation.setCredentials(createCredentialsRepresentation(password));
+        return representation;
+        }
+
+        private List<CredentialRepresentation> createCredentialsRepresentation(String password) {
+            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+            credentialRepresentation.setValue(password);
+            credentialRepresentation.setTemporary(false);
+            credentialRepresentation.setType(password);
+            return List.of(credentialRepresentation);
         }
 }

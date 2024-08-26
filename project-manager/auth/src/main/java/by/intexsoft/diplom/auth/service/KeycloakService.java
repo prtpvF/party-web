@@ -4,7 +4,6 @@ import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.repository.person.RoleRepository;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
@@ -87,19 +86,6 @@ public class KeycloakService {
             return !users.isEmpty();
         }
 
-        private void mapAdditionalFieldToDto(RegistrationDto registrationDto) {
-            registrationDto.setEnabled(true);
-            registrationDto.setGroups(Collections.singletonList(setPersonGroup(registrationDto.isOrganizer())));
-            registrationDto.setEmailVerified(false);
-        }
-
-        private String setPersonGroup(Boolean isOrganizer) {
-            if(isOrganizer) {
-                return PersonRolesEnum.ORGANIZER.toString();
-            }
-            return PersonRolesEnum.USER.toString();
-        }
-
         private RealmResource getCurrentRealm() {
             return keycloak.realm(realm);
         }
@@ -109,23 +95,6 @@ public class KeycloakService {
             UserResource userResource = usersResource.get(userId);
             userResource.sendVerifyEmail();
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        private UserRepresentation convertToUserRepresentation(RegistrationDto registrationDto) {
-            UserRepresentation userRepresentation = new UserRepresentation();
-            userRepresentation.setUsername(registrationDto.getUsername());
-            userRepresentation.setEmail(registrationDto.getEmail());
-            userRepresentation.setEnabled(registrationDto.isEnabled());
-            if(registrationDto.isOrganizer()) {
-                userRepresentation.setRealmRoles(Collections
-                        .singletonList(String.valueOf(repository
-                                .findByRoleName(PersonRolesEnum
-                                        .ORGANIZER.name()))));
-            }
-            userRepresentation.setGroups(registrationDto.getGroups());
-            userRepresentation.setEmailVerified(false);
-            userRepresentation.setCredentials(registrationDto.getCredentials());
-            return userRepresentation;
         }
 
         private UsersResource getUsersResource() {
