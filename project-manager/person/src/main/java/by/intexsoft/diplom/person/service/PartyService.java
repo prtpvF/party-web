@@ -49,7 +49,7 @@ public class PartyService {
          * @return founded party
          */
         public PartyEntity retrievePartyFromRequest(ParticipationRequestDto request){
-            return partyRepository.findById(request.getPartyId()).orElseThrow(
+            return partyRepository.findById(request.getPartyDto().getId()).orElseThrow(
                     () -> new PartyNotFoundException(
                             "cannot find party with this id")
             );
@@ -58,5 +58,9 @@ public class PartyService {
         public PartyTypeModel getPartyType(String typeName){
             return partyTypeRepository.findByType(typeName)
                     .orElseThrow(() -> new PartyTypeNotFoundException("type not found"));
+        }
+
+        public int updatePartyRate(Integer partyId, Integer rate) {
+            return partyRepository.updatePartyRating(partyId, rate);
         }
 }

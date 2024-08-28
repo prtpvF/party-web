@@ -15,6 +15,7 @@ public class PartyDto {
 
         private int id;
         private String name;
+        private String statusName;
         private String type;
         private String organizerUsername;
         private Integer ageRestriction;
@@ -27,4 +28,6 @@ public class PartyDto {
         private Double ticketCost;
         private LocalDateTime dateOfEvent;
         private String imagePath;
+        private String statusOfParticipationRequest;
+        private Integer countOfFreePlaces;
 }

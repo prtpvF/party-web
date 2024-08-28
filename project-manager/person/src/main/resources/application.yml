@@ -1,23 +1,14 @@
 spring:
   application:
     name: person
-  datasource:
-      url: ${DB_DATASOURCE_URL}
-      password: ${DB_DATASOURCE_PASSWORD}
-      username: ${DB_DATASOURCE_USERNAME}
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    servlet:
-      multipart:
-        enabled: true
-        max-file-size: 10MB
-        max-request-size: 10MB
+  flyway:
+    enabled: false
+    create-schemas: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   main:
     allow-bean-definition-overriding: true
 
@@ -42,7 +33,7 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     topic-auth:

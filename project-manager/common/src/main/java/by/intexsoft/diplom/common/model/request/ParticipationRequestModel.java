@@ -2,6 +2,7 @@ package by.intexsoft.diplom.common.model.request;
 
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
+import by.intexsoft.diplom.common.model.status.ParticipationRequestStatusModel;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,10 @@ public class ParticipationRequestModel {
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "party_id", nullable = false)
         private PartyEntity party;
+
+        @ManyToOne
+        @JoinColumn(name = "status_id", nullable = false)
+        private ParticipationRequestStatusModel status;
 
         public ParticipationRequestModel(PartyEntity party, PersonModel person) {
             this.party = party;

@@ -5,6 +5,7 @@ import by.intexsoft.diplom.common.model.payment.PartyPaymentModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.role.PartyTypeModel;
 import by.intexsoft.diplom.common.model.status.PartyStatusModel;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.annotation.Nullable;
@@ -64,6 +65,8 @@ public class PartyEntity {
         @Length(min = 5, max = 20, message = "field must be longer than 4 and shorter than 21")
         @NotBlank(message = "field can't be empty")
         private String coordinates;
+
+        private Integer countOfRates;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "status_id", nullable = false)

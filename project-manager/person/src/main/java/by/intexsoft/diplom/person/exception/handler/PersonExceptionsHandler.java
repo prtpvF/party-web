@@ -113,4 +113,21 @@ public class PersonExceptionsHandler {
             log.info("cannot find party type");
             return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
         }
+
+        @ExceptionHandler(value = EmptyPageException.class)
+        public ResponseEntity<String> emptyPageExceptionHandler(EmptyPageException ex) {
+            log.info("method returns empty page");
+            return new ResponseEntity<>(ex.getMessage(), NOT_FOUND);
+        }
+
+        @ExceptionHandler(value = UnavailablePageNumberException.class)
+        public ResponseEntity<String> unavailablePageNumberExceptionHandler(UnavailablePageNumberException ex) {
+            log.info("cannot find page");
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
+        }
+
+        @ExceptionHandler(value = IllegalRateException.class)
+        public ResponseEntity<String> illegalRateExceptionHandler(IllegalRateException ex) {
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
+        }
 }

@@ -4,22 +4,22 @@ import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
-import by.intexsoft.diplom.common.model.role.PartyTypeModel;
-import by.intexsoft.diplom.common.repository.party.PartyRepository;
-import by.intexsoft.diplom.common.repository.party.PartyTypeRepository;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.common.repository.request.ParticipationRequestRepository;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.exception.*;
+import by.intexsoft.diplom.person.util.ObjectMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 
 @Service
@@ -29,11 +29,12 @@ public class PersonService {
 
         private final ParticipationRequestRepository requestRepository;
         private final PersonRepository personRepository;
-        private final ModelMapper modelMapper;
+        private final ObjectMapper objectMapper;
         private final PartyService partyService;
 
         public HttpStatus sendParticipationRequest(int partyId, Principal principal){
                 PersonModel person = getPersonByPrincipal(principal);
+                isUser(person);
                 PartyEntity party = partyService.findPartyById(partyId);
                 isRequestDataValid(person, party);
                 requestRepository.save(new ParticipationRequestModel(party, person));
@@ -42,20 +43,23 @@ public class PersonService {
 
         public List<ParticipationRequestDto> getAllPersonParticipationRequests(Principal principal) {
                 PersonModel person = getPersonByPrincipal(principal);
+                isUser(person);
                 return convertListOfRequestToDto(person.getParticipationRequests());
         }
 
         public ParticipationRequestDto getValidatedPersonParticipationRequest(int participationRequestId) {
-               return convertRequestToDto(findParticipationRequestById(participationRequestId));
+               return objectMapper.convertRequestToDto(
+                       findParticipationRequestById(participationRequestId));
         }
 
         public HttpStatus deleteParticipationRequest(int participationRequestId,
                                                      Principal principal) {
                 ParticipationRequestModel participationRequest = findParticipationRequestById(participationRequestId);
                 PersonModel person = getPersonByPrincipal(principal);
+                isUser(person);
                 isParticipateRequestBelongToPerson(participationRequest, person);
                 requestRepository.delete(participationRequest);
-                return HttpStatus.OK;
+                return OK;
         }
 
         public String getPersonUsername(Principal principal) {
@@ -100,6 +104,20 @@ public class PersonService {
                 }
         }
 
+        @Transactional
+        public HttpStatus rateParty(Integer rate,
+                                    Integer partyId,
+                                    Principal principal) {
+                PersonModel person = getPersonByPrincipal(principal);
+                isUser(person);
+                int rowsUpdated = partyService.updatePartyRate(partyId, rate);
+
+                if (rowsUpdated == 0) {
+                        return HttpStatus.NOT_FOUND;
+                }
+                return HttpStatus.OK;
+        }
+
         private void isParticipateRequestBelongToPerson(ParticipationRequestModel participationRequest,
                                                         PersonModel person){
                 if(!participationRequest.getPerson().getUsername().equals(person.getUsername())) {
@@ -110,13 +128,9 @@ public class PersonService {
         private List<ParticipationRequestDto> convertListOfRequestToDto(List<ParticipationRequestModel> requests) {
                 List<ParticipationRequestDto> dtos = new ArrayList<>();
                for (ParticipationRequestModel request : requests) {
-                       dtos.add(convertRequestToDto(request));
+                       dtos.add(objectMapper.convertRequestToDto(request));
                }
                return dtos;
-        }
-
-        private ParticipationRequestDto convertRequestToDto(ParticipationRequestModel request) {
-                return modelMapper.map(request, ParticipationRequestDto.class);
         }
 
         /**
@@ -144,7 +158,7 @@ public class PersonService {
          */
         private void isPersonRateValid(PersonModel person, PartyEntity party){
                 if(person.getRating() < party.getMinimalRating()){
-                        throw new IllegalArgumentException("your rating is less than the party's minimal rating");
+                        throw new IllegalRateException("your rating is less than the party's minimal rating");
                 }
         }
 
@@ -162,5 +176,14 @@ public class PersonService {
                                                                             "because you have already"+
                                                                             "sent this request");
                         });
+        }
+
+        private void isUser(PersonModel person) {
+                if(!person.getRole()
+                        .getRoleName()
+                        .equals(PersonRolesEnum
+                                .USER.name())) {
+                        throw new AccessDeniedException("you can uxe this functionality!");
+                }
         }
 }

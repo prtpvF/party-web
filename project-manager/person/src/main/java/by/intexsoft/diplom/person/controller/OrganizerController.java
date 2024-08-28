@@ -1,6 +1,7 @@
 package by.intexsoft.diplom.person.controller;
 
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
+import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.dto.PartyDto;
 import by.intexsoft.diplom.person.service.OrganizerService;
 import by.intexsoft.diplom.person.service.request.CrudPartyRequestService;
@@ -43,6 +44,13 @@ public class OrganizerController {
                                       @RequestBody PartyDto partyDto) {
 
             return crudPartyRequestService.updateParty(partyId, principal, partyDto);
+        }
+
+        @GetMapping("/party/{partyId}/requests")
+        public Page<ParticipationRequestDto> getAllPartyParticipationRequest(@PathVariable("partyId") Integer partyId,
+                                                                        Principal principal,
+                                                                        Pageable pageable) {
+                return organizerService.getAllRequestByParty(partyId, principal, pageable);
         }
 
         @PostMapping("/request/{id}")
