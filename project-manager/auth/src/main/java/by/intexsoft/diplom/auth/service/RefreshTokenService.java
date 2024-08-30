@@ -21,9 +21,9 @@ import java.util.Objects;
 public class RefreshTokenService {
 
         private final ObjectMapper objectMapper;
-        private String KEYCLOAK_AUTH_LOGIN = "http://localhost:8080/realms/free-party/protocol/openid-connect/token";
+        @Value("${keycloak.auth-login-url}")
+        private String KEYCLOAK_AUTH_LOGIN;
         private final RestTemplate restTemplate;
-
 
         @Value("${keycloak.client-id}")
         private String clientId;

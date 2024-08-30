@@ -7,11 +7,14 @@ import by.intexsoft.diplom.auth.service.KeycloakService;
 import by.intexsoft.diplom.auth.service.RefreshTokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,5 +48,17 @@ public class AuthController {
         @PutMapping("/verification/{userId}")
         public void verifyEmail(@PathVariable String userId) {
             keycloakService.sendEmailVerification(userId);
+        }
+
+        @PostMapping("/logout")
+        public HttpStatus logout(Principal principal,
+                                 HttpServletRequest request) {
+            System.out.println(principal.getName());
+            return authService.logout(principal, request);
+        }
+
+        @GetMapping("/test")
+        public String trsd() {
+            return "test";
         }
 }

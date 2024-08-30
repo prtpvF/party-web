@@ -1,9 +1,9 @@
 package by.intexsoft.diplom.auth.service;
 
-import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
-import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.repository.person.RoleRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
@@ -11,15 +11,16 @@ import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.keycloak.representations.idm.UserSessionRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.core.Response;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,6 @@ import java.util.Objects;
 public class KeycloakService {
 
         private final Keycloak keycloak;
-        private final RoleRepository repository;
 
         @Value("${keycloak.realm}")
         private String realm;
@@ -64,6 +64,24 @@ public class KeycloakService {
             }
         }
 
+        public HttpStatus logoutFromKeycloak(String username,
+                                             HttpServletRequest request) {
+            String token = request.getHeader("Authorization").substring(7);
+            System.out.println(token);
+            revokeToken(token);
+            RealmResource realmResource = getCurrentRealm();
+            List<UserRepresentation> users = realmResource.users().list();
+
+            for (UserRepresentation user : users) {
+                if (user.getUsername().equals(username)) {
+                    realmResource.users().get(user.getId()).logout();
+                    return OK;
+                }
+            }
+            throw new RuntimeException("User not found: " + username);
+        }
+
+
         public void sendEmailVerification(String userId) {
             UsersResource userResource = getUserResource();
             userResource.get(userId).sendVerifyEmail();
@@ -94,7 +112,7 @@ public class KeycloakService {
             UsersResource usersResource = getUsersResource();
             UserResource userResource = usersResource.get(userId);
             userResource.sendVerifyEmail();
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(OK);
         }
 
         private UsersResource getUsersResource() {
@@ -104,5 +122,9 @@ public class KeycloakService {
 
         private UsersResource getUserResource() {
             return keycloak.realm(realm).users();
+        }
+
+        private void revokeToken(String token) {
+            keycloak.tokenManager().invalidate(token);
         }
 }

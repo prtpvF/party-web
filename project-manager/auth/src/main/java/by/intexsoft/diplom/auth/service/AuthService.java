@@ -1,14 +1,17 @@
 package by.intexsoft.diplom.auth.service;
 
+import by.intexsoft.diplom.auth.authentication.PersonDetails;
 import by.intexsoft.diplom.auth.dto.AuthResponseBuilder;
 import by.intexsoft.diplom.auth.dto.LoginDto;
 import by.intexsoft.diplom.auth.dto.RegistrationDto;
 import by.intexsoft.diplom.auth.exception.InvalidDataException;
+import by.intexsoft.diplom.auth.exception.PersonAlreadyExists;
 import by.intexsoft.diplom.common.model.enums.PersonRolesEnum;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.role.PersonRoleModel;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.common.repository.person.RoleRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,10 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -24,6 +30,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -37,6 +44,7 @@ public class AuthService {
         private final RestTemplate restTemplate;
         private final CookieService cookieService;
         private final KeycloakService keycloakService;
+        private final AuthRedisService authRedisService;
 
         @Value("${keycloak.auth-login-url}")
         private String keycloakAuthLoginUri;
@@ -44,16 +52,20 @@ public class AuthService {
         @Value("${keycloak.client-id}")
         private String clientId;
 
+        @Value("${keycloak.grant-type}")
+        private String grantType;
+
         public HttpStatus register(RegistrationDto registrationDto) {
             saveUserIntoApplicationDb(registrationDto);
-            return keycloakService.saveUserIntoKeycloakDb(
+             keycloakService.saveUserIntoKeycloakDb(
                     convertRegistrationDtoToRepresentation(
                             registrationDto));
+             return HttpStatus.CREATED;
         }
 
         public ResponseEntity<AuthResponseBuilder> login(LoginDto loginDto,
                                                          HttpServletResponse response) {
-
+            authRedisService.removeAllTokensFromRedis(loginDto.getUsername());
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -76,7 +88,10 @@ public class AuthService {
                     cookieService.addRefreshTokenInCookie("refresh-token",
                             authResponse.getRefreshToken(),
                             response);
-
+                    authRedisService.addRefreshTokenIntoRedis(authResponse.getRefreshToken(),
+                            loginDto.getUsername());
+                    authRedisService.addAccessTokenIntoRedis(authResponse.getAccessToken(),
+                            loginDto.getUsername());
                     return new ResponseEntity<>(authResponse, HttpStatus.OK);
                 } else {
                     throw new InvalidDataException("Authorization response body is null");
@@ -87,20 +102,33 @@ public class AuthService {
                         e.getResponseBodyAsString(), e);
                 throw new InvalidDataException("Authorization request failed");
             }
-
-
         }
 
-        public void saveUserIntoApplicationDb(RegistrationDto registrationDto) {
+        public HttpStatus logout(Principal principal,
+                                 HttpServletRequest request) {
+            if(principal != null) {
+                authRedisService.isAccessTokenValid(principal.getName());
+                String username = principal.getName();
+                keycloakService.logoutFromKeycloak(username, request);
+                authRedisService.removeAllTokensFromRedis(username);
+                return HttpStatus.OK;
+            }
+            else throw new InvalidDataException("Principal is null");
+        }
+
+        private void saveUserIntoApplicationDb(RegistrationDto registrationDto) {
+            isRegistrationDataValid(registrationDto);
             PersonModel person = new PersonModel();
             modelMapper.map(registrationDto, person);
             person.setRole(getPersonRole(registrationDto.isOrganizer()));
             personRepository.save(person);
         }
 
-        private void mapAdditionalFields(LoginDto loginDto, MultiValueMap<String, String> multiValueMap) {
+        private void mapAdditionalFields(LoginDto loginDto,
+                                         MultiValueMap<String,
+                                                 String> multiValueMap) {
             multiValueMap.add("client_id", clientId);
-            multiValueMap.add("grant_type", "password");
+            multiValueMap.add("grant_type", grantType);
             multiValueMap.add("username", loginDto.getUsername());
             multiValueMap.add("password", loginDto.getPassword());
         }
@@ -130,5 +158,15 @@ public class AuthService {
             credentialRepresentation.setTemporary(false);
             credentialRepresentation.setType(password);
             return List.of(credentialRepresentation);
+        }
+
+        private void isRegistrationDataValid(RegistrationDto registrationDto) {
+
+            if( personRepository.findByUsernameOrEmail(
+                    registrationDto.getUsername(),
+                    registrationDto.getEmail()).isPresent()) {
+                throw new PersonAlreadyExists(
+                        "person with this credentials already exist");
+            }
         }
 }

@@ -16,8 +16,9 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<keycloak-admin.version>25.0.2</keycloak-admin.version>
-		<keycloak-starter.version>24.0.5</keycloak-starter.version>
+		<keycloak-admin.version>24.0.3</keycloak-admin.version>
+		<keycloak-starter.version>24.0.3</keycloak-starter.version>
+		<security.starter.version>3.3.2</security.starter.version>
 	</properties>
 	<dependencies>
 
@@ -29,6 +30,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+			<version>${security.starter.version}</version>
 		</dependency>
 
 		<dependency>
@@ -39,12 +41,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<version>3.3.2</version>
 		</dependency>
 
 		<dependency>
@@ -61,6 +58,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+			<version>3.3.2</version>
 		</dependency>
 
 		<dependency>
@@ -73,12 +71,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<version>${security.starter.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+			<version>6.3.2</version>
 		</dependency>
 
 		<dependency>
@@ -96,6 +96,18 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
+			<version>6.3.2</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+		<dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
         </dependency>
 		<dependency>
 			<groupId>by.intexsoft.diplom</groupId>
@@ -103,12 +115,5 @@
 			<version>0.0.1-SHAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-oauth2-resource-server</artifactId>
-		</dependency>
-
 	</dependencies>
-
-
 </project>

@@ -16,13 +16,14 @@ spring:
     path: ${API_DOCS_PATH}
   kafka:
     producer:
-      bootstrap-servers: ${BOOTSTRAP_SERVER_URI}
+      bootstrap-servers: 10.104.10.23:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     topic-auth:
       name: ${KAFKA_AUTH_TOPIC_NAME}
     topic-verify:
       name: ${KAFKA_VERIFY_TOPIC_NAME}
+    bootstrap-servers: 10.104.10.23:9092
   security:
     oauth2:
       client:
@@ -30,6 +31,7 @@ spring:
           keycloak:
             client-id: ${CLIENT_ID}
             authorization-grant-type: ${AUTHORIZATION_GRANT_TYPE}
+
             scope:
               - openid
               - profile
@@ -41,15 +43,18 @@ spring:
             jwk-set-uri: ${JWK_SET_URI}
             authorization-uri: ${AUTHORIZATION_URI}
             token-uri: ${TOKEN_URI}
+
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect:org.hibernate.dialect.PostgreSQLDialect
-jwt:
-  secret: ${JWT_SECRET}
-  lifetime: ${JWT_LIFETIME}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
 refresh-authorization:
   lifetime: 28800000
 server:
@@ -64,10 +69,7 @@ keycloak:
   username: ${USERNAME}
   password: ${PASSWORD}
   auth-login-url: ${TOKEN_URI}
+  logout-url: ${LOGOUT_URI}
 
-host:
-  name: ${HOST_NAME}
-redis:
-  port: ${REDIS_PORT}
 
 

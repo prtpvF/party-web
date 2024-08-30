@@ -9,6 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
@@ -28,6 +32,12 @@ public class SpringConfiguration {
 
         @Value("${keycloak.password}")
         private String password;
+
+        @Value("${spring.data.redis.host}")
+        private String hostname;
+
+        @Value("${spring.data.redis.port}")
+        private int port;
 
         @Bean
         public ModelMapper modelMapper() {
@@ -56,5 +66,24 @@ public class SpringConfiguration {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
                 return objectMapper;
+        }
+
+        @Bean
+        public JedisConnectionFactory connectionFactory() {
+                RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+                configuration.setHostName(hostname);
+                configuration.setPort(port);
+                return new JedisConnectionFactory(configuration);
+        }
+
+        @Bean
+        public RedisTemplate<String, String> template() {
+                RedisTemplate<String, String> template = new RedisTemplate<>();
+                template.setConnectionFactory(connectionFactory());
+                template.setKeySerializer(new StringRedisSerializer());
+                template.setValueSerializer(new StringRedisSerializer());
+                template.setEnableTransactionSupport(true);
+                template.afterPropertiesSet();
+                return template;
         }
 }

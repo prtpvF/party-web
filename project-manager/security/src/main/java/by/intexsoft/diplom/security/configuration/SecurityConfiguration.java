@@ -1,7 +1,8 @@
 package by.intexsoft.diplom.security.configuration;
 
 
-import by.intexsoft.diplom.security.keycloak.KeycloakLogoutHandler;
+import by.intexsoft.diplom.security.filter.JwtTokenFilter;
+import by.intexsoft.diplom.security.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +16,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,16 +36,14 @@ import java.util.stream.Stream;
         securedEnabled = true)
 public class SecurityConfiguration {
 
-        private final KeycloakLogoutHandler keycloakLogoutHandler;
+
         private static final String GROUPS = "groups";
         private static final String REALM_ACCESS_CLAIM = "realm_access";
         private static final String ROLES_CLAIM = "roles";
-
+        private final RedisService redisService;
         private static final String[] AUTH_ENDPOINTS = {
                 "/auth/registration",
                 "/auth/login",
-                "/auth/logout",
-                "auth/user/registration"
         };
 
         private static final String[] SWAGGER_ENDPOINTS = {
@@ -55,12 +53,11 @@ public class SecurityConfiguration {
 
         private static final String[] PUBLIC_ENDPOINTS = {
                 "/public/person/find",
-                "/public/party/**"
+//                "/public/party/**"
         };
 
         @Value("${spring.security.oauth2.client.provider.keycloak.jwk-set-uri}")
         private String SET_URI;
-
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -73,6 +70,7 @@ public class SecurityConfiguration {
                                     .flatMap(Arrays::stream)
                                     .toArray(String[]::new))
                             .permitAll().anyRequest().authenticated());
+            http.addFilterBefore(new JwtTokenFilter(redisService), UsernamePasswordAuthenticationFilter.class);
             http.oauth2ResourceServer((oauth2) -> oauth2
                     .jwt(
                             jwt -> {
@@ -82,16 +80,9 @@ public class SecurityConfiguration {
                             }
                     ));
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-            http.oauth2Login(Customizer.withDefaults()
-        )
-                    .logout(logout -> logout.addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/"));
+            http.oauth2Login(Customizer.withDefaults());
             http.csrf(CsrfConfigurer::disable);
             return http.build();
-        }
-
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
         }
 
         @Bean
@@ -100,7 +91,7 @@ public class SecurityConfiguration {
                 Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
                 var authority = authorities.iterator().next();
                 boolean isOidc = authority instanceof OidcUserAuthority;
-                
+
                 if (isOidc) {
                     var oidcUserAuthority = (OidcUserAuthority) authority;
                     var userInfo = oidcUserAuthority.getUserInfo();

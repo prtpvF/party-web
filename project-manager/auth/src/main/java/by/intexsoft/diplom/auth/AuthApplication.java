@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @version 2.0
  */
 @SpringBootApplication(exclude = UserDetailsServiceAutoConfiguration.class)
-@ComponentScan(basePackages = {"by.intexsoft.diplom", "by.intexsoft.diplom.security"})
+@ComponentScan(basePackages = {"by.intexsoft.diplom"})
 @EnableAsync
 public class AuthApplication {
 
