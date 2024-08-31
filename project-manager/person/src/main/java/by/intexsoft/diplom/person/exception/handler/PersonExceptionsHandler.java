@@ -130,4 +130,9 @@ public class PersonExceptionsHandler {
         public ResponseEntity<String> illegalRateExceptionHandler(IllegalRateException ex) {
             return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
         }
+
+        @ExceptionHandler(value = UnauthorizedException.class)
+        public ResponseEntity<String> unauthorizedExceptionHandler(UnauthorizedException ex) {
+            return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
+        }
 }

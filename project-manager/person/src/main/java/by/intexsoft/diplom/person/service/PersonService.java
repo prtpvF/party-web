@@ -6,12 +6,15 @@ import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
 import by.intexsoft.diplom.common.repository.request.ParticipationRequestRepository;
+import by.intexsoft.diplom.person.dto.GuestDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.exception.*;
 import by.intexsoft.diplom.person.util.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -118,6 +121,14 @@ public class PersonService {
                 return HttpStatus.OK;
         }
 
+        public Page<GuestDto> getAllPartyGuest(Integer partyId,
+                                               Pageable pageable) {
+                Page<PersonModel> page = personRepository.findAllByPartyId(partyId, pageable);
+                validatePageNumber(page, page.getNumber());
+                isPageEmpty(page);
+                return page.map(objectMapper::convertPersonToDto);
+        }
+
         private void isParticipateRequestBelongToPerson(ParticipationRequestModel participationRequest,
                                                         PersonModel person){
                 if(!participationRequest.getPerson().getUsername().equals(person.getUsername())) {
@@ -184,6 +195,19 @@ public class PersonService {
                         .equals(PersonRolesEnum
                                 .USER.name())) {
                         throw new AccessDeniedException("you can uxe this functionality!");
+                }
+        }
+
+        private void validatePageNumber(Page<?> page, int pageNumber) {
+                if (page.getTotalPages() <= pageNumber) {
+                        throw new UnavailablePageNumberException("Page doesn't exist");
+                }
+        }
+
+        private void isPageEmpty(Page page) {
+                if (page.isEmpty()) {
+                        throw new PartyNotFoundException("No parties found");
+
                 }
         }
 }

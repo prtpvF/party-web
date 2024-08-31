@@ -20,6 +20,7 @@ public class PartyDto {
         private String organizerUsername;
         private Integer ageRestriction;
         private Set<GuestDto> guests = new HashSet<>();
+        private Integer countOfGuests;
         private Integer countOfPlaces;
         private String description;
         private String city;

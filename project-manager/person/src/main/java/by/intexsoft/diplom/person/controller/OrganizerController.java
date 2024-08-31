@@ -1,5 +1,6 @@
 package by.intexsoft.diplom.person.controller;
 
+import by.intexsoft.diplom.person.dto.GuestDto;
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.dto.PartyDto;
@@ -69,6 +70,13 @@ public class OrganizerController {
         @GetMapping("/my-parties")
         public Page<PartyDto> getAllMyParties(Principal principal, Pageable pageable) {
                 return organizerService.getMyParties(principal, pageable);
+        }
+
+        @GetMapping("/party/{id}/guests")
+        public Page<GuestDto> getAllPartyGuests(@PathVariable("id") Integer partyId,
+                                                Pageable pageable,
+                                                Principal principal) {
+                return organizerService.getPartyGuest(partyId, pageable, principal);
         }
 
 }

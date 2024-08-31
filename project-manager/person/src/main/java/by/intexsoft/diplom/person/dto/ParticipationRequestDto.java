@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ParticipationRequestDto {
 
         private int id;
-        private  GuestDto guestDto; /*object of person who sends participation request*/
+        private  Integer guestId; /*id of person who sends participation request*/
         private String organizerUsername;
         private String statusName;
         private PartyDto partyDto;

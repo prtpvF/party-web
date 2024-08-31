@@ -5,6 +5,7 @@ import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.role.PartyTypeModel;
 import by.intexsoft.diplom.common.repository.party.PartyRepository;
 import by.intexsoft.diplom.common.repository.party.PartyTypeRepository;
+import by.intexsoft.diplom.person.dto.GuestDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.exception.PartyNotFoundException;
 import by.intexsoft.diplom.person.exception.PartyTypeNotFoundException;

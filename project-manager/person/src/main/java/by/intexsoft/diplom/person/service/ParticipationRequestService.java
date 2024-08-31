@@ -1,7 +1,5 @@
 package by.intexsoft.diplom.person.service;
 
-import by.intexsoft.diplom.common.model.enums.ParticipationRequestStatusEnum;
-import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.model.status.ParticipationRequestStatusModel;
 import by.intexsoft.diplom.common.repository.request.ParticipationRequestRepository;
@@ -16,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,17 +48,9 @@ public class ParticipationRequestService {
                     .orElseThrow(() -> new StatusNotFoundException("cannot find this status"));
         }
 
-        public Page<ParticipationRequestDto> findByParty(Integer partyId,
-                                                         Pageable pageable) {
-            Page<ParticipationRequestModel> page =  requestRepository.findAllByParty(partyId, pageable);
-            validatePageNumber(page, pageable.getPageNumber());
-            isPageEmpty(page);
-            return page.map(request -> objectMapper.convertRequestToDto(request));
-        }
-
-        public Page<ParticipationRequestDto> findByPerson(Integer personId,
-                                                          Pageable pageable) {
-            Page<ParticipationRequestModel> page =  requestRepository.findAllByPerson(personId, pageable);
+        public Page<ParticipationRequestDto> findByPartyAndStatus(Integer partyId,
+                                                                  Pageable pageable) {
+            Page<ParticipationRequestModel> page =  requestRepository.findAllInProcessByPartyAnd(partyId, pageable);
             validatePageNumber(page, pageable.getPageNumber());
             isPageEmpty(page);
             return page.map(request -> objectMapper.convertRequestToDto(request));

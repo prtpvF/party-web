@@ -6,11 +6,11 @@ import by.intexsoft.diplom.common.model.party.PartyEntity;
 import by.intexsoft.diplom.common.model.person.PersonModel;
 import by.intexsoft.diplom.common.model.request.ParticipationRequestModel;
 import by.intexsoft.diplom.common.repository.person.PersonRepository;
+import by.intexsoft.diplom.person.dto.GuestDto;
 import by.intexsoft.diplom.person.dto.OrgAnswerDto;
 import by.intexsoft.diplom.person.dto.ParticipationRequestDto;
 import by.intexsoft.diplom.person.dto.PartyDto;
-import by.intexsoft.diplom.person.exception.IllegalPartyOrganizerException;
-import by.intexsoft.diplom.person.exception.InvalidRequestOwner;
+import by.intexsoft.diplom.person.exception.*;
 import by.intexsoft.diplom.person.util.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,19 +87,27 @@ public class OrganizerService {
             return partyEntities.map(objectMapper::convertPartyToSlimDto);
         }
 
+        public Page<GuestDto> getPartyGuest(Integer partyId,
+                                            Pageable pageable,
+                                            Principal principal) {
+            if(principal != null) {
+                PersonModel organizer = personService.getPersonByPrincipal(principal);
+                PartyEntity party = partyService.findPartyById(partyId);
+                isPartyBelongToOrganizer(organizer, party);
+                return personService.getAllPartyGuest(partyId, pageable);
+            }
+            else {
+                throw new UnauthorizedException("You are not logged in");
+            }
+        }
+
         public Page<ParticipationRequestDto> getAllRequestByParty(Integer partyId,
                                                                   Principal principal,
                                                                   Pageable pageable) {
             PersonModel organizer = personService.getPersonByPrincipal(principal);
             PartyEntity party = partyService.findPartyById(partyId);
             isPartyBelongToOrganizer(organizer, party);
-            return requestService.findByParty(party.getId(), pageable);
-        }
-
-        public Page<ParticipationRequestDto> getAllRequest(Principal principal,
-                                                           Pageable pageable) {
-            PersonModel organizer = personService.getPersonByPrincipal(principal);
-            return requestService.findByPerson(organizer.getId(), pageable);
+            return requestService.findByPartyAndStatus(party.getId(), pageable);
         }
 
         private void isRequestBelongToOrganizer(ParticipationRequestDto request,
@@ -117,7 +125,7 @@ public class OrganizerService {
          * @return founded person
          */
         private PersonModel retrievePersonFromRequest(ParticipationRequestDto request) {
-            return personService.findPersonById(request.getGuestDto());
+            return personService.findPersonById(request.getGuestId());
         }
 
         private void checkPersonRole(Principal principal) {
